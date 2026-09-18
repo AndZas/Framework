@@ -10,9 +10,11 @@ There are no runtime dependencies or import-time resource allocations.
 
 - `src/framework/`: installable package; no public UI contracts yet.
 - `tests/`: automated package smoke test.
-- `examples/`: standalone import example; no graphical demo yet.
+- `examples/`: import smoke and isolated SDL3 research demo (not framework API).
 - `.github/workflows/ci.yml`: Windows quality and packaging checks.
 - `docs/adr/`: accepted decisions with rationale and consequences.
+- `docs/spikes/`: experimental evidence, including
+  [SDL3 windowing feasibility](../spikes/sdl3-windowing.md); no backend accepted.
 
 ## Next design stage
 

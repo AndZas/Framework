@@ -1,0 +1,2 @@
+# Optional research dependency, not a framework runtime requirement.
+PySDL3==0.9.12b1
