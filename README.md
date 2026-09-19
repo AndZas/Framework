@@ -6,6 +6,10 @@ Experimental Python framework for modern desktop interfaces.
 and imported, but does not provide GUI functionality yet. Renderer, windowing,
 and input technologies have not been selected.
 
+An isolated [SDL3 windowing spike](docs/spikes/sdl3-windowing.md) provides an
+optional one/two-window demo and Windows smoke instructions. It is research,
+not a framework API or an accepted backend choice.
+
 ## Development setup (Windows / PowerShell)
 
 Install Python 3.13 or newer. From the repository root:
