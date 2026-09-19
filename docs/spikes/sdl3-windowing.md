@@ -158,7 +158,7 @@ PySDL3 0.9.12b1, official SDL 3.4.16, `windows` video driver.
 | Resize and runtime border/resize toggles | One-off local native probe passed; sizes 720x480 then 800x500, flags updated |
 | HWND native validity | One-off local probe used Win32 IsWindow: both valid initially; first invalid after its destruction while second stayed valid |
 | SDL event queue | One-off local probe pushed synthetic keyboard, motion, button, wheel, focus and close events; dispatch succeeded; survivor could still resize |
-| Physical input, actual focus changes | Not manually verified; synthetic events do not establish OS input routing |
+| Windows input and actual focus changes | Interactive automation verified key down/up, Ctrl modifier, mouse buttons/motion/wheel and focus routing; hardware-held-key repeat still untested |
 | Mixed-DPI / monitor transitions | Not verified; only initial density/scale and actual resize/pixel-size events observed |
 | Per-pixel transparency | Flag/API available; not visually verified |
 
@@ -166,6 +166,39 @@ The one-off native probe is local research evidence, not part of pytest or CI.
 CI retains the bootstrap Windows 3.13/3.14 matrix, including wheel validation;
 it exercises the deterministic tests without installing SDL. Desktop checks are
 manual to avoid depending on hosted runner compositor/focus/monitor state.
+
+### Interactive desktop follow-up
+
+The agent subsequently exercised visible windows through Windows computer-use
+input and inspected screenshots/accessibility state alongside the SDL log. This
+is stronger evidence than `SDL_PushEvent`: input passed through Windows. It is
+still automated input, not a test of the user's physical keyboard hardware.
+
+- Python 3.13.9: key down/up, Ctrl+A modifier, mouse button down/up, motion and
+  wheel reached the appropriate window ID. Activating the other window produced
+  actual `FOCUS_LOST`/`FOCUS_GAINED` events.
+- Native maximize/restore changed 640x420 to 2560x1009 and back with resize and
+  pixel-size events. R disabled/re-enabled the native Maximize control; B visibly
+  removed/restored the caption and border. Startup borderless/fixed-size worked.
+- Closing window 1 via X left window 2 responsive to keyboard and maximize;
+  Escape closed the survivor with process exit 0. In a fresh run, Alt-F4 closed
+  window 2 first; window 1 still responded to B and then closed via X, exit 0.
+- O toggled reported opacity 1 -> 0.65 -> 1 and the captured window appearance
+  changed/recovered. Window-only capture did not reliably show composition over
+  the desktop, so background blending is not counted as visually confirmed.
+- Python 3.14.0, separate environment, same binding/DLL: two visible windows with
+  `--transparent` opened; mouse click/wheel and Escape worked. Closing window 2
+  preserved window 1, which maximized to 2560x1009 and exited via Alt-F4, code 0.
+  No test windows remained after either interpreter's completed runs.
+- SDL enumerated two displays, both content scale 1.0. No mixed-scale transition
+  was tested and no system scaling settings were changed.
+
+Remaining manual checks: edge-drag resize (the automation attempt hit the client
+area, so it was inconclusive), held-key autorepeat, whole-window opacity against
+a contrasting desktop background, and transitions between different monitor
+scales. The unrendered client area sometimes appeared white, black or showed
+background content; none of these appearances proves alpha-buffer correctness.
+Per-pixel transparency still requires the separate renderer experiment.
 
 ## Manual smoke acceptance (Windows 11)
 
