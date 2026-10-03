@@ -1,9 +1,9 @@
 # TASK-0006: Compare default flow layout with explicit containers
 
-**Status:** Ready  
-**Type:** Experiment  
-**Depends on:** TASK-0004, ADR-0001  
-**Likely files:** `prototypes/layout_api_comparison/`, this task's findings section  
+**Status:** Ready
+**Type:** Experiment
+**Depends on:** TASK-0004, ADR-0001
+**Likely files:** `prototypes/layout_api_comparison/`, this task's findings section
 **Branch:** `task/TASK-0006-layout-api-comparison`
 
 ## Goal
