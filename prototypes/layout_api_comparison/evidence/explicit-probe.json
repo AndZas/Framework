@@ -1,0 +1,232 @@
+{
+  "style": "explicit",
+  "environment": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.9",
+    "PySide6": "6.11.2",
+    "Qt": "6.11.2"
+  },
+  "layouts": {
+    "initial": [
+      {
+        "text": "Layout API comparison",
+        "rect": [
+          20.0,
+          20.0,
+          600.0,
+          32.0
+        ]
+      },
+      {
+        "text": "The same screen, authored in two ways. Resize the window, use the grouped actions, then add a control.",
+        "rect": [
+          20.0,
+          64.0,
+          600.0,
+          40.0
+        ]
+      },
+      {
+        "text": "Save draft",
+        "rect": [
+          20.0,
+          116.0,
+          294.0,
+          48.0
+        ]
+      },
+      {
+        "text": "Reset draft",
+        "rect": [
+          326.0,
+          116.0,
+          294.0,
+          48.0
+        ]
+      },
+      {
+        "text": "A longer label stays readable as the window narrows: text wraps, the two grouped actions share the available width, and taller content can be scrolled vertically.",
+        "rect": [
+          20.0,
+          176.0,
+          600.0,
+          40.0
+        ]
+      },
+      {
+        "text": "Add runtime control",
+        "rect": [
+          20.0,
+          228.0,
+          600.0,
+          48.0
+        ]
+      },
+      {
+        "text": "Ready. Each action has its own Python callback.",
+        "rect": [
+          20.0,
+          288.0,
+          600.0,
+          20.0
+        ]
+      }
+    ],
+    "normal": [
+      {
+        "text": "Layout API comparison",
+        "rect": [
+          20.0,
+          20.0,
+          600.0,
+          32.0
+        ]
+      },
+      {
+        "text": "The same screen, authored in two ways. Resize the window, use the grouped actions, then add a control.",
+        "rect": [
+          20.0,
+          64.0,
+          600.0,
+          40.0
+        ]
+      },
+      {
+        "text": "Save draft",
+        "rect": [
+          20.0,
+          116.0,
+          294.0,
+          48.0
+        ]
+      },
+      {
+        "text": "Reset draft",
+        "rect": [
+          326.0,
+          116.0,
+          294.0,
+          48.0
+        ]
+      },
+      {
+        "text": "A longer label stays readable as the window narrows: text wraps, the two grouped actions share the available width, and taller content can be scrolled vertically.",
+        "rect": [
+          20.0,
+          176.0,
+          600.0,
+          40.0
+        ]
+      },
+      {
+        "text": "Add runtime control",
+        "rect": [
+          20.0,
+          228.0,
+          600.0,
+          48.0
+        ]
+      },
+      {
+        "text": "save: 2 / reset: 1 / add: 2 / dynamic: 1",
+        "rect": [
+          20.0,
+          288.0,
+          600.0,
+          20.0
+        ]
+      },
+      {
+        "text": "Runtime action",
+        "rect": [
+          20.0,
+          320.0,
+          600.0,
+          48.0
+        ]
+      }
+    ],
+    "narrow": [
+      {
+        "text": "Layout API comparison",
+        "rect": [
+          20.0,
+          20.0,
+          260.0,
+          64.0
+        ]
+      },
+      {
+        "text": "The same screen, authored in two ways. Resize the window, use the grouped actions, then add a control.",
+        "rect": [
+          20.0,
+          96.0,
+          260.0,
+          60.0
+        ]
+      },
+      {
+        "text": "Save draft",
+        "rect": [
+          20.0,
+          168.0,
+          124.0,
+          48.0
+        ]
+      },
+      {
+        "text": "Reset draft",
+        "rect": [
+          156.0,
+          168.0,
+          124.0,
+          48.0
+        ]
+      },
+      {
+        "text": "A longer label stays readable as the window narrows: text wraps, the two grouped actions share the available width, and taller content can be scrolled vertically.",
+        "rect": [
+          20.0,
+          228.0,
+          260.0,
+          100.0
+        ]
+      },
+      {
+        "text": "Add runtime control",
+        "rect": [
+          20.0,
+          340.0,
+          260.0,
+          48.0
+        ]
+      },
+      {
+        "text": "save: 2 / reset: 1 / add: 2 / dynamic: 1",
+        "rect": [
+          20.0,
+          400.0,
+          260.0,
+          20.0
+        ]
+      },
+      {
+        "text": "Runtime action",
+        "rect": [
+          20.0,
+          432.0,
+          260.0,
+          48.0
+        ]
+      }
+    ]
+  },
+  "counts": {
+    "save": 3,
+    "reset": 2,
+    "add": 2,
+    "dynamic": 3
+  },
+  "errors": [],
+  "failures": []
+}
