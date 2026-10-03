@@ -1,0 +1,323 @@
+{
+  "python": "3.13.9 (tags/v3.13.9:8183fa5, Oct 14 2025, 14:09:13) [MSC v.1944 64 bit (AMD64)]",
+  "windows": "Windows-11-10.0.26200-SP0",
+  "pyside": "6.11.2",
+  "qt": "6.11.2",
+  "system_scheme": "Dark",
+  "messages": [],
+  "steps": [
+    {
+      "action": "selectDark",
+      "mode": "Dark",
+      "palette": {
+        "background": "#131a2a",
+        "foreground": "#e5eafa",
+        "panel": "#202c42",
+        "accent": "#819bff",
+        "accent_text": "#131a2a",
+        "radius": 14.0,
+        "opacity": 1.0,
+        "gradient": [
+          "#395bb4",
+          "#237d80"
+        ]
+      },
+      "local": {
+        "background": "#131a2a",
+        "foreground": "#e5eafa",
+        "panel": "#202c42",
+        "accent": "#b45309",
+        "accent_text": "#ffffff",
+        "radius": 6.0,
+        "opacity": 1.0,
+        "gradient": [
+          "#395bb4",
+          "#237d80"
+        ]
+      },
+      "status": "Dark \u00b7 Applied atomically; missing tokens use built-in defaults."
+    },
+    {
+      "action": "selectLight",
+      "mode": "Light",
+      "palette": {
+        "background": "#f3f5fa",
+        "foreground": "#202b43",
+        "panel": "#ffffff",
+        "accent": "#405cc7",
+        "accent_text": "#ffffff",
+        "radius": 14.0,
+        "opacity": 1.0,
+        "gradient": [
+          "#405cc7",
+          "#27a998"
+        ]
+      },
+      "local": {
+        "background": "#f3f5fa",
+        "foreground": "#202b43",
+        "panel": "#ffffff",
+        "accent": "#b45309",
+        "accent_text": "#ffffff",
+        "radius": 6.0,
+        "opacity": 1.0,
+        "gradient": [
+          "#405cc7",
+          "#27a998"
+        ]
+      },
+      "status": "Light \u00b7 Applied atomically; missing tokens use built-in defaults."
+    },
+    {
+      "action": "selectCSS",
+      "mode": "CSS",
+      "palette": {
+        "background": "#eaf5f2",
+        "foreground": "#173b3a",
+        "panel": "#ffffff",
+        "accent": "#126e67",
+        "accent_text": "#ffffff",
+        "radius": 20.0,
+        "opacity": 0.94,
+        "gradient": [
+          "#126e67",
+          "#65b8a3"
+        ]
+      },
+      "local": {
+        "background": "#eaf5f2",
+        "foreground": "#173b3a",
+        "panel": "#ffffff",
+        "accent": "#b45309",
+        "accent_text": "#ffffff",
+        "radius": 6.0,
+        "opacity": 1.0,
+        "gradient": [
+          "#126e67",
+          "#65b8a3"
+        ]
+      },
+      "status": "CSS \u00b7 Applied atomically; missing tokens use built-in defaults."
+    },
+    {
+      "action": "selectPython",
+      "mode": "Python",
+      "palette": {
+        "background": "#eaf5f2",
+        "foreground": "#173b3a",
+        "panel": "#ffffff",
+        "accent": "#126e67",
+        "accent_text": "#ffffff",
+        "radius": 20.0,
+        "opacity": 0.94,
+        "gradient": [
+          "#126e67",
+          "#65b8a3"
+        ]
+      },
+      "local": {
+        "background": "#eaf5f2",
+        "foreground": "#173b3a",
+        "panel": "#ffffff",
+        "accent": "#b45309",
+        "accent_text": "#ffffff",
+        "radius": 6.0,
+        "opacity": 1.0,
+        "gradient": [
+          "#126e67",
+          "#65b8a3"
+        ]
+      },
+      "status": "Python \u00b7 Applied atomically; missing tokens use built-in defaults."
+    },
+    {
+      "action": "updateLocal",
+      "mode": "Python",
+      "palette": {
+        "background": "#eaf5f2",
+        "foreground": "#173b3a",
+        "panel": "#ffffff",
+        "accent": "#126e67",
+        "accent_text": "#ffffff",
+        "radius": 20.0,
+        "opacity": 0.94,
+        "gradient": [
+          "#126e67",
+          "#65b8a3"
+        ]
+      },
+      "local": {
+        "background": "#eaf5f2",
+        "foreground": "#173b3a",
+        "panel": "#ffffff",
+        "accent": "#8e3e91",
+        "accent_text": "#ffffff",
+        "radius": 24.0,
+        "opacity": 0.8,
+        "gradient": [
+          "#126e67",
+          "#65b8a3"
+        ]
+      },
+      "status": "Python \u00b7 Python callback replaced constructor widget style; method twin stays amber."
+    },
+    {
+      "action": "selectDark",
+      "mode": "Dark",
+      "palette": {
+        "background": "#131a2a",
+        "foreground": "#e5eafa",
+        "panel": "#202c42",
+        "accent": "#819bff",
+        "accent_text": "#131a2a",
+        "radius": 14.0,
+        "opacity": 1.0,
+        "gradient": [
+          "#395bb4",
+          "#237d80"
+        ]
+      },
+      "local": {
+        "background": "#131a2a",
+        "foreground": "#e5eafa",
+        "panel": "#202c42",
+        "accent": "#8e3e91",
+        "accent_text": "#ffffff",
+        "radius": 24.0,
+        "opacity": 0.8,
+        "gradient": [
+          "#395bb4",
+          "#237d80"
+        ]
+      },
+      "status": "Dark \u00b7 Applied atomically; missing tokens use built-in defaults."
+    },
+    {
+      "action": "clearLocal",
+      "mode": "Dark",
+      "palette": {
+        "background": "#131a2a",
+        "foreground": "#e5eafa",
+        "panel": "#202c42",
+        "accent": "#819bff",
+        "accent_text": "#131a2a",
+        "radius": 14.0,
+        "opacity": 1.0,
+        "gradient": [
+          "#395bb4",
+          "#237d80"
+        ]
+      },
+      "local": {
+        "background": "#131a2a",
+        "foreground": "#e5eafa",
+        "panel": "#202c42",
+        "accent": "#819bff",
+        "accent_text": "#131a2a",
+        "radius": 14.0,
+        "opacity": 1.0,
+        "gradient": [
+          "#395bb4",
+          "#237d80"
+        ]
+      },
+      "status": "Dark \u00b7 Local style cleared: constructor widget now follows global theme."
+    },
+    {
+      "action": "loadFile",
+      "mode": "CSS file",
+      "palette": {
+        "background": "#eaf5f2",
+        "foreground": "#173b3a",
+        "panel": "#ffffff",
+        "accent": "#126e67",
+        "accent_text": "#ffffff",
+        "radius": 20.0,
+        "opacity": 0.94,
+        "gradient": [
+          "#126e67",
+          "#65b8a3"
+        ]
+      },
+      "local": {
+        "background": "#eaf5f2",
+        "foreground": "#173b3a",
+        "panel": "#ffffff",
+        "accent": "#126e67",
+        "accent_text": "#ffffff",
+        "radius": 20.0,
+        "opacity": 0.94,
+        "gradient": [
+          "#126e67",
+          "#65b8a3"
+        ]
+      },
+      "status": "CSS file \u00b7 Applied atomically; missing tokens use built-in defaults."
+    },
+    {
+      "action": "selectSystem",
+      "mode": "System",
+      "palette": {
+        "background": "#131a2a",
+        "foreground": "#e5eafa",
+        "panel": "#202c42",
+        "accent": "#819bff",
+        "accent_text": "#131a2a",
+        "radius": 14.0,
+        "opacity": 1.0,
+        "gradient": [
+          "#395bb4",
+          "#237d80"
+        ]
+      },
+      "local": {
+        "background": "#131a2a",
+        "foreground": "#e5eafa",
+        "panel": "#202c42",
+        "accent": "#819bff",
+        "accent_text": "#131a2a",
+        "radius": 14.0,
+        "opacity": 1.0,
+        "gradient": [
+          "#395bb4",
+          "#237d80"
+        ]
+      },
+      "status": "System \u00b7 Applied atomically; missing tokens use built-in defaults."
+    },
+    {
+      "action": "selectCSS",
+      "mode": "CSS",
+      "palette": {
+        "background": "#eaf5f2",
+        "foreground": "#173b3a",
+        "panel": "#ffffff",
+        "accent": "#126e67",
+        "accent_text": "#ffffff",
+        "radius": 20.0,
+        "opacity": 0.94,
+        "gradient": [
+          "#126e67",
+          "#65b8a3"
+        ]
+      },
+      "local": {
+        "background": "#eaf5f2",
+        "foreground": "#173b3a",
+        "panel": "#ffffff",
+        "accent": "#126e67",
+        "accent_text": "#ffffff",
+        "radius": 20.0,
+        "opacity": 0.94,
+        "gradient": [
+          "#126e67",
+          "#65b8a3"
+        ]
+      },
+      "status": "CSS \u00b7 Applied atomically; missing tokens use built-in defaults."
+    }
+  ],
+  "visible": true,
+  "render_equality": true,
+  "physical_input": false
+}
