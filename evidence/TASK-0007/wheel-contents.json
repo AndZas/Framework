@@ -1,0 +1,21 @@
+{
+  "wheel": "pyui_framework-0.1.0-py3-none-any.whl",
+  "sha256": "8653c45234aa247a16448a5616d21c9ec2f491b22dff2efc3b187ecbdbf86ea7",
+  "contents": [
+    "pyui_framework/__init__.py",
+    "pyui_framework/_app.py",
+    "pyui_framework/_model.py",
+    "pyui_framework/_runtime.py",
+    "pyui_framework/qml/ButtonControl.qml",
+    "pyui_framework/qml/ColumnControl.qml",
+    "pyui_framework/qml/LabelControl.qml",
+    "pyui_framework/qml/Main.qml",
+    "pyui_framework/qml/NodeView.qml",
+    "pyui_framework/qml/RowControl.qml",
+    "pyui_framework/qml/Style.qml",
+    "pyui_framework-0.1.0.dist-info/METADATA",
+    "pyui_framework-0.1.0.dist-info/WHEEL",
+    "pyui_framework-0.1.0.dist-info/top_level.txt",
+    "pyui_framework-0.1.0.dist-info/RECORD"
+  ]
+}

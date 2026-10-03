@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools==82.0.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyui-framework"
+version = "0.1.0"
+description = "Experimental Windows Python UI slice; temporary internal package name"
+requires-python = ">=3.13"
+dependencies = ["PySide6==6.11.2"]
+
+[project.optional-dependencies]
+dev = ["pytest==9.0.2", "build==1.4.0", "setuptools==82.0.1"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+pyui_framework = ["qml/*.qml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
