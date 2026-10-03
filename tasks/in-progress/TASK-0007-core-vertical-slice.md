@@ -218,5 +218,7 @@ No public theming, stable package naming, executable packaging or publishing.
 Continued the existing `task/TASK-0007-core-vertical-slice` branch; the requested
 `certical` spelling did not exist and was treated as a typo. The task was moved
 from ready to in-progress at startup and remains here for owner review. No merge,
-release, repository-setting change or push to main. Implementation commit ID is
-recorded in the follow-up report commit; this branch is pushed to origin.
+release, repository-setting change or push to main. Implementation commit:
+`0bac796f37e6a2b6ccb95aab15047f819b266aba`. This report follow-up is a separate
+commit; both are pushed to origin on the task branch. No uncommitted task work
+remains. Owner review and architecture-chat merge are pending.
