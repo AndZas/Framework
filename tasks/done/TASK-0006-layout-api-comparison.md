@@ -1,6 +1,6 @@
 # TASK-0006: Compare default flow layout with explicit containers
 
-**Status:** Implementation complete; owner review pending
+**Status:** Done — implementation reviewed and approved by owner
 **Type:** Experiment
 **Depends on:** TASK-0004, ADR-0001
 **Likely files:** `prototypes/layout_api_comparison/`, this task's findings section
@@ -159,6 +159,19 @@ but were not separately launched. Minimum size is 280×260; arbitrary large rows
 remove/reorder/reparent and a production layout engine are outside this spike.
 
 **Git:** continued the existing `task/TASK-0006-layout-api-comparison` branch.
-Implementation commit: `9f893f5ddb509902cf82491037a2fcae78c1f27a`.
-Only TASK-0006 files are included. Leave this task in `tasks/in-progress/` for
-owner review; do not merge or move it to `done/`.
+Implementation commit: `9f893f5ddb509902cf82491037a2fcae78c1f27a`; implementation-report commit: `5e9d779`.
+The branch also updates `AGENTS.md`, `docs/git-workflow.md`, and `tasks/README.md`
+to preserve the designated task branch when continuing implementation. No other
+project behavior was changed.
+
+**Owner review (2026-10-04):** The owner ran both variants, found their
+appearance and behavior equivalent and satisfactory, and confirmed resizing
+and runtime content updates behaved correctly. The owner prefers the hybrid
+authoring model because it is more convenient, provided it does not create
+implementation problems. The prototype report and code show no blocker for
+that bounded model. Accept the hybrid default-flow policy: direct children of
+a window/container flow top-to-bottom in insertion order; authors use explicit
+`Row` and `Column` groups where needed. This selects the layout policy for the
+MVP while leaving exact API naming and advanced layout features open. See
+ADR-0002. The owner authorizes the architecture chat to create and merge the PR
+after review; the task is complete after the reviewed branch is integrated.

@@ -16,7 +16,8 @@
 - The implementation agent may commit its task branch and push it to `origin`. Never push task work directly to `main`.
 - Push the task branch after committing and report the branch name, commit IDs, checks, and any uncommitted work in the task report.
 - Do not rewrite commits already pushed to a shared branch or use force-push. Add a follow-up commit unless the owner coordinates otherwise.
-- Keep the task in `tasks/in-progress/` for owner review. Do not merge the branch or move the task to `done/`; the owner reviews the diff and report, then merges via GitHub and moves the task to `done/`.
+- Keep the task in `tasks/in-progress/` for owner review. The implementation agent does not merge the branch or move the task to `done/`.
+- After the owner explicitly approves the reviewed result in the architecture chat, the architecture agent creates the PR, checks the diff and required checks, merges it through GitHub, then moves the task to `tasks/done/` and updates the task index. The owner does not need to repeat the merge themselves after approving.
 - Do not create a release, publish a package, or change repository settings unless the owner explicitly requests that operation.
 
 ## What belongs in Git
@@ -27,4 +28,4 @@ The Qt Quick showcase's prebuilt `QtQuickShowcase.dist/` folder is deliberately 
 
 ## Owner review
 
-The owner reviews the pushed branch and task report in the architecture chat. Merge only after review, preferably through a GitHub pull request so the diff and checks remain visible. `main` should contain reviewed, integrated work. Tags/releases are for deliberate versions, not ordinary task completion.
+The owner reviews the pushed branch and task report in the architecture chat. The architecture agent creates and merges the GitHub PR only after explicit owner approval; the implementation agent never merges its own work. `main` should contain reviewed, integrated work. Tags/releases are for deliberate versions, not ordinary task completion.

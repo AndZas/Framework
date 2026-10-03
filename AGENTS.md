@@ -19,7 +19,7 @@ This repository is a personal Python UI framework, initially targeting Windows. 
 
 ## Task completion
 
-When starting a task, move its file from `tasks/ready/` to `tasks/in-progress/` and update its status. At implementation completion, record the evidence, limitations, and unresolved items, mark it `Implementation complete; owner review pending`, and leave it in `tasks/in-progress/`. Do not move a task to `tasks/done/`; the owner or architecture chat moves it there after reviewing the result. If the work is blocked or incomplete, report that state accurately and leave the task in progress.
+When starting a task, move its file from `tasks/ready/` to `tasks/in-progress/` and update its status. At implementation completion, record the evidence, limitations, and unresolved items, mark it `Implementation complete; owner review pending`, and leave it in `tasks/in-progress/`. The implementation agent must not move a task to `tasks/done/`; after the owner explicitly approves the result, the architecture chat merges the PR and completes the task record. If the work is blocked or incomplete, report that state accurately and leave the task in progress.
 
 At completion, summarize changed files, verification actually performed, and unresolved limitations. Mark implementation complete only when acceptance criteria have evidence; otherwise record the blocker or unverified item.
-Include the task branch name and commit ID(s) in the completion report. Leave the task in `tasks/in-progress/` for owner review; the owner merges reviewed work and moves the task to `tasks/done/`.
+Include the task branch name and commit ID(s) in the completion report. Leave the task in `tasks/in-progress/` for owner review; the architecture chat handles the approved PR merge and moves the task to `tasks/done/`.

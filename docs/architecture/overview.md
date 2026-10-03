@@ -14,7 +14,7 @@ The first supported target is Windows. Linux and macOS are reasonable future des
 
 ## Intended layers
 
-1. **Public Python API:** windows, widgets, themes, layout, events, media hooks, and animation descriptions. Prefer concise defaults with explicit escape hatches. The stable shape of this API is still to be designed.
+1. **Public Python API:** windows, widgets, themes, layout, events, media hooks, and animation descriptions. Prefer concise defaults with explicit escape hatches. The MVP layout policy is deterministic vertical flow for direct children, with explicit `Row`/`Column` composition ([ADR-0002](decisions/ADR-0002-layout-defaults.md)); exact class names and advanced layout APIs remain to be designed.
 2. **Python framework/runtime:** owns the app model, IDs, callbacks, theme resolution, lifecycle, validation, and conversion of public declarations into renderable state.
 3. **Qt Quick presentation:** QML components and Qt Quick Controls/Shapes render the scene and provide Qt's layout, text, animation, and standard UI behavior. Application authors should not need QML for ordinary use.
 4. **Qt/platform integrations:** PySide6/Qt supplies windows, graphics integration, input events, multimedia, and platform services when the relevant module supports the target. Narrow native or third-party adapters may supplement a capability when needed; they should not replace Qt Quick as the UI foundation.
@@ -48,4 +48,4 @@ The decision is supported by the completed experiments: [TASK-0001](../../tasks/
 
 The showcase included two recorded demo issues: Follow System status-strip contrast, and performance dots that loop between modulo-wrapped coordinates. They are implementation details of the showcase, not evidence of a Qt Quick limitation. Physical device coverage, accessibility, long-run/perceived performance, alternate Windows hardware, and non-Windows targets remain to be validated as relevant tasks are implemented.
 
-The next work is to define and implement the smallest useful production Python API and runtime vertical slice on this foundation. API syntax, layout policy, packaging/distribution policy, license review, and per-platform support commitments remain open decisions; they do not reopen the selected rendering foundation by themselves.
+The next work is to define and implement the smallest useful production Python API and runtime vertical slice on this foundation. Exact API syntax, advanced layout behavior, packaging/distribution policy, license review, and per-platform support commitments remain open decisions; they do not reopen the selected rendering foundation or the accepted default-flow layout policy by themselves.

@@ -10,7 +10,7 @@ Each task is a self-contained instruction for one implementation chat. Start wit
 
 Use IDs such as `TASK-0001`. Keep the task file with the code history. The task author should specify a goal, context, scope, acceptance criteria, verification, and report format. A task's completion does not automatically approve an architectural decision. Once reviewed and moved to `done/`, keep it as a record; create a new linked task for follow-up work instead of reopening it.
 
-Implementation branches, commits, pushes, and owner review follow [`docs/git-workflow.md`](../docs/git-workflow.md). Implementation agents push task branches for review; the owner merges and marks tasks done.
+Implementation branches, commits, pushes, and owner review follow [`docs/git-workflow.md`](../docs/git-workflow.md). Implementation agents push task branches but do not merge them. After the owner explicitly approves a reviewed result, the architecture chat creates and merges the PR, then marks the task done.
 
 Completed and reviewed:
 
@@ -19,5 +19,6 @@ Completed and reviewed:
 - [TASK-0003: Python API backend comparison](done/TASK-0003-python-api-backend-comparison.md)
 - [TASK-0004: QML controls and dynamic Python tree](done/TASK-0004-qml-controls-dynamic-tree.md)
 - [TASK-0005: Interactive Qt Quick user showcase](done/TASK-0005-interactive-qt-quick-showcase.md)
+- [TASK-0006: Compare default flow layout with explicit containers](done/TASK-0006-layout-api-comparison.md)
 
-Next ready task: [TASK-0006: Compare default flow layout with explicit containers](ready/TASK-0006-layout-api-comparison.md). It compares a predictable vertical default flow with explicit `Row`/`Column` composition in a runnable prototype; the owner makes the API decision after reviewing the result. The project foundation is recorded in [ADR-0001](../docs/architecture/decisions/ADR-0001-pyside6-qt-quick.md). TASK-0005 delivered and owner-validated a runnable evaluation app. Create a linked follow-up task if its recorded theme contrast or particle-motion behavior should be changed.
+There are currently no tasks in `ready/`. The project foundation and selected layout policy are recorded in [ADR-0001](../docs/architecture/decisions/ADR-0001-pyside6-qt-quick.md) and [ADR-0002](../docs/architecture/decisions/ADR-0002-layout-defaults.md). TASK-0005 delivered an owner-validated evaluation app. Create a linked follow-up task if its recorded theme contrast or particle-motion behavior should be changed.
