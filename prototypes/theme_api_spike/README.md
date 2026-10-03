@@ -43,6 +43,21 @@ file_theme = Theme.load("lagoon.theme")
 ```
 
 The full equivalent pair lives in `lagoon.theme` and `theme.py:CUSTOM`.
+Four additional complete CSS-like themes can be loaded with the existing path
+field and Load / reload button:
+
+| File (under `prototypes/theme_api_spike/`) | Appearance |
+| --- | --- |
+| `sunset.theme` | Warm cream, rose accent, rose-to-copper gradient |
+| `lavender.theme` | Pale lavender, violet accent, violet-to-berry gradient |
+| `ocean.theme` | Cool blue, ocean accent, blue-to-teal gradient |
+| `midnight.theme` | Dark indigo, lilac accent, purple-to-deep-blue gradient |
+
+For example, from the normal repository-root launch, paste
+`prototypes/theme_api_spike/sunset.theme` into the path field. Absolute paths
+also work. Click Clear local override to let the constructor sample inherit the
+new accent; the method sample keeps its intentional amber override.
+
 Illustrative local authoring using this prototype's model:
 
 ```python

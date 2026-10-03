@@ -274,3 +274,27 @@ commit is an ancestor of the implementation commit (checked with
 `git merge-base --is-ancestor e2e2b62 HEAD`). Only prototype source/evidence and
 this task record are committed; no merge, force-push, main push, release or
 repository-setting change. Working tree is clean at handoff.
+
+### Owner follow-up: additional reusable palettes (2026-10-04)
+
+The owner physically explored the application, reported no noticed bugs and
+liked the theme switching/appearance. This is owner feedback, not verification
+of every previously unverified case. At the owner's request, added four complete
+eight-token CSS-like files alongside Lagoon: `sunset.theme` (cream/rose/copper),
+`lavender.theme` (violet/berry), `ocean.theme` (blue/teal) and `midnight.theme`
+(dark indigo/lilac with purple/blue gradient). README lists loading paths. No
+runtime, production API, parser, QML or dependency changes were needed.
+
+Using the same `.venv-theme-spike` Windows/Python/Qt environment, a one-off
+`python.exe -c` check called `Theme.load` and `lab.load` for each file in the
+visible app, waited for rendering and captured `window.grabWindow()`. All four
+files parsed with eight tokens, selected `CSS file` mode and showed their
+expected accents (#a83c46, #7350a2, #2464a0, #bba6f5); command exit was 0 with
+no Qt diagnostics. All four captures were visually inspected: distinct palettes
+and gradients, readable global text and preserved amber local overrides.
+Temporary previews stay ignored in `.venv-theme-spike/theme-previews/`.
+`git diff --check` passed. No new physical input, OS scheme or platform claim.
+
+Follow-up is committed as `TASK-0008: add four reusable theme palettes` and
+pushed to the same `task/TASK-0008-theme-api-spike` branch. Existing commits are
+preserved; task remains in progress for owner review, with no merge performed.
