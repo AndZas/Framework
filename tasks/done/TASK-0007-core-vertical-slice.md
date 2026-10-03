@@ -1,6 +1,6 @@
 # TASK-0007: Build the first production Python UI vertical slice
 
-**Status:** Implementation complete; owner review pending
+**Status:** Done; owner-approved
 **Type:** Implementation
 **Depends on:** ADR-0001, ADR-0002, TASK-0004, TASK-0006
 **Likely files:** `pyproject.toml`, `src/pyui_framework/`, `examples/`, `tests/`, `README.md`
@@ -72,11 +72,12 @@ Use `pyui_framework` as a **temporary internal import name** for this task. Do n
 - Local installation, test, wheel-build, and installed-example launch commands.
 - Verification results and evidence, including environment and QML resource resolution.
 - Any API friction, architecture deviations, limitations, or unverified behavior.
-- Task branch and commit ID(s). Leave the task in progress for owner review.
+- Task branch and commit ID(s). Keep the task in progress until owner approval;
+  after approval and PR merge, move this record to `done/`.
 
 ## Owner review feedback: rapid clicks after scrolling
 
-**Status:** Synthetic reproduction and fix complete; owner physical retest pending.
+**Status:** Resolved; owner-approved on 2026-10-04.
 
 On 2026-10-04, the owner manually launched the example and found an interaction
 issue after scrolling a short window to reveal a button. With the pointer kept
@@ -93,27 +94,21 @@ actions, then sends isolated synthetic clicks. It does not cover a real scroll
 gesture followed immediately by a burst of clicks, so its passing short-scroll
 check does not resolve this report.
 
-### Required follow-up before approval
+### Investigation checklist (completed)
 
-- Reproduce the report on Windows and record the scroll method, pointer position,
-  button press/release pattern, `clicked` callback count, and whether the view
-  is still moving/flicking. Check each supported scroll route (wheel, scrollbar,
-  and content dragging) where practical.
-- Inspect the Qt Quick event path around `Flickable` and `Button`. Instrument
-  relevant button press/release/cancel/click/double-click signals and view
-  movement state as needed. Identify the cause before changing behavior; do not
-  assume that double-click recognition is responsible.
-- Add a deterministic regression test that scrolls a control into view and
-  immediately sends repeated press/release clicks without an idle pause. Verify
-  every intended click reaches that button's Python callback and no neighboring
-  callback fires. Keep the test representative of the input route that reproduces
-  the issue; report any owner-only physical check separately.
-- Fix the event handling at its source. Do not hide missed clicks with callback
-  throttling, arbitrary delays, or double-click-specific workarounds.
-- Rerun the focused suite and installed-wheel smoke check if package/QML behavior
-  changes. Update this report with the root cause, fix, exact checks, results,
-  and any route that remains unverified. Keep TASK-0007 in progress until the
-  owner confirms the fix.
+- Added a Windows probe recording scroll route, pointer position, button signals,
+  callback counts, and view movement. Tested wheel, scrollbar, and content drag.
+- Inspected the Qt Quick event path and confirmed the moving `Flickable` could
+  filter mouse clicks; double-click recognition was not the cause.
+- Added deterministic repeated-click regression coverage after real scroll
+  input, checking all callbacks and ensuring no neighboring action fires.
+- Fixed event handling at the source by disabling mouse-button content dragging;
+  wheel and scrollbar behavior remain available.
+- The focused suite and installed-wheel smoke check were rerun; results and
+  remaining unverified input routes are recorded in the follow-up report below.
+- The owner made many further attempts to reproduce the original symptom after
+  the fix and could not reproduce it. The owner accepts the fix and approves
+  TASK-0007; see the remaining verification limits recorded below.
 
 ## Findings
 
@@ -386,12 +381,12 @@ investigation helpers and downloaded Qt source stayed outside tracked files.
 
 ### Owner retest and remaining unknowns
 
-Run `.\run.cmd`, make the window short, reveal a button using wheel and then
-scrollbar, and immediately click rapidly without moving the pointer. Confirm
-each press/release activates its own action, including the live-added button.
-Record which scroll route produced the original report and whether the view
-was still moving. Mouse content dragging is now intentionally unavailable;
-use wheel or the scrollbar. The task remains pending your confirmation.
+The owner reran the app and made many further attempts to reproduce the reported
+symptom after the fix, but could not reproduce it. The owner accepts the fix and
+approves TASK-0007. The original physical sequence was not recreated with the
+same missing-click behavior, so the report does not claim a physical reproduction
+of the original failure. The owner can use wheel or scrollbar; mouse content
+dragging is intentionally unavailable.
 
 Codex confirmed a missing first click after wheel/content motion and its repair
 in synthetic checks. It did not reproduce the owner's entire prolonged burst
@@ -403,6 +398,6 @@ activate a control after continued scrolling has moved it away. Existing Enter,
 accessibility and other-platform limitations remain unchanged.
 
 This follow-up is committed separately on the same task branch with the subject
-`TASK-0007: preserve action clicks during scroll movement`; its commit ID is
-provided in the completion response. Owner review and the architecture-chat
-merge remain pending.
+`TASK-0007: preserve action clicks during scroll movement`. The owner approved
+the task after retesting; the architecture chat records final integration in
+the GitHub pull request.
