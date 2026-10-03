@@ -1,0 +1,6 @@
+# CSS-inspired design tokens used by this bounded demo, not a CSS parser.
+surface: #f5f6fb
+ink: #19213a
+accent: #6c5ce7
+star: #ffcc66
+radius: 16px

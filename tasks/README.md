@@ -1,0 +1,23 @@
+# Tasks
+
+Each task is a self-contained instruction for one implementation chat. Start with the named task and its referenced context; do not ask the executor to reconstruct requirements from chat history.
+
+## Lifecycle
+
+- `ready/` — agreed and ready to execute.
+- `in-progress/` — currently being implemented.
+- `done/` — implementation reviewed by the owner and task record completed.
+
+Use IDs such as `TASK-0001`. Keep the task file with the code history. The task author should specify a goal, context, scope, acceptance criteria, verification, and report format. A task's completion does not automatically approve an architectural decision. Once reviewed and moved to `done/`, keep it as a record; create a new linked task for follow-up work instead of reopening it.
+
+Implementation branches, commits, pushes, and owner review follow [`docs/git-workflow.md`](../docs/git-workflow.md). Implementation agents push task branches for review; the owner merges and marks tasks done.
+
+Completed and reviewed:
+
+- [TASK-0001: Qt Quick feasibility spike](done/TASK-0001-qt-quick-feasibility.md)
+- [TASK-0002: Python-first API feasibility spike](done/TASK-0002-python-api-spike.md)
+- [TASK-0003: Python API backend comparison](done/TASK-0003-python-api-backend-comparison.md)
+- [TASK-0004: QML controls and dynamic Python tree](done/TASK-0004-qml-controls-dynamic-tree.md)
+- [TASK-0005: Interactive Qt Quick user showcase](done/TASK-0005-interactive-qt-quick-showcase.md)
+
+There are currently no tasks in `ready/`. The project foundation is recorded in [ADR-0001](../docs/architecture/decisions/ADR-0001-pyside6-qt-quick.md). TASK-0005 delivered and owner-validated a runnable evaluation app. Create a linked follow-up task if its recorded theme contrast or particle-motion behavior should be changed.

@@ -1,0 +1,8 @@
+[project]
+name = "qt-quick-showcase-evaluation"
+version = "0.1.0"
+requires-python = ">=3.12,<3.14"
+dependencies = ["PySide6==6.11.2"]
+
+[tool.pyside6-project]
+files = ["example_app.py", "showcase_api.py", "showcase_runtime.py", "smoke.py", "Main.qml", "ButtonControl.qml", "StarControl.qml"]

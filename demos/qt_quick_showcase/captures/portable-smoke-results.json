@@ -1,0 +1,158 @@
+{
+  "window-visible": {
+    "actual": true,
+    "expected": true,
+    "pass": true
+  },
+  "controls-present": {
+    "actual": true,
+    "expected": true,
+    "pass": true
+  },
+  "capture-01-controls.png": {
+    "actual": true,
+    "expected": true,
+    "pass": true
+  },
+  "independent-actions": {
+    "actual": [
+      1,
+      1,
+      1
+    ],
+    "expected": [
+      1,
+      1,
+      1
+    ],
+    "pass": true
+  },
+  "keyboard-space": {
+    "actual": 2,
+    "expected": 2,
+    "pass": true
+  },
+  "keyboard-enter-star": {
+    "actual": 2,
+    "expected": 2,
+    "pass": true
+  },
+  "dark-theme": {
+    "actual": "Dark",
+    "expected": "Dark",
+    "pass": true
+  },
+  "capture-02-dark.png": {
+    "actual": true,
+    "expected": true,
+    "pass": true
+  },
+  "animation-scale-a": 1.0631094589320433,
+  "animation-scale-b": 1.0003517245946731,
+  "animation-changing": {
+    "actual": true,
+    "expected": true,
+    "pass": true
+  },
+  "animation-stop": {
+    "actual": false,
+    "expected": false,
+    "pass": true
+  },
+  "dynamic-added": {
+    "actual": 4,
+    "expected": 4,
+    "pass": true
+  },
+  "qml-dynamic-count": {
+    "actual": 4,
+    "expected": 4,
+    "pass": true
+  },
+  "dynamic-removed": {
+    "actual": 3,
+    "expected": 3,
+    "pass": true
+  },
+  "second-window": {
+    "actual": true,
+    "expected": true,
+    "pass": true
+  },
+  "capture-03-dynamic.png": {
+    "actual": true,
+    "expected": true,
+    "pass": true
+  },
+  "media-states": [
+    1,
+    5,
+    1,
+    5
+  ],
+  "media-playing": {
+    "actual": true,
+    "expected": true,
+    "pass": true
+  },
+  "video-source": {
+    "actual": true,
+    "expected": true,
+    "pass": true
+  },
+  "audio-source": {
+    "actual": true,
+    "expected": true,
+    "pass": true
+  },
+  "capture-04-media.png": {
+    "actual": true,
+    "expected": true,
+    "pass": true
+  },
+  "load-50": {
+    "samples": 112,
+    "median_ms": 13.33,
+    "p95_ms": 13.6,
+    "max_ms": 18.38
+  },
+  "status-50": "Approx. frameSwapped interval: median 13.3 ms \u00b7 p95 13.6 ms \u00b7 samples 103\nProcess CPU: 6.2% of one logical core, over last ~1 s",
+  "load-50-count": {
+    "actual": 50,
+    "expected": 50,
+    "pass": true
+  },
+  "load-400": {
+    "samples": 136,
+    "median_ms": 13.33,
+    "p95_ms": 13.69,
+    "max_ms": 15.18
+  },
+  "status-400": "Approx. frameSwapped interval: median 13.3 ms \u00b7 p95 13.6 ms \u00b7 samples 65\nProcess CPU: 11.0% of one logical core, over last ~1 s",
+  "load-400-count": {
+    "actual": 400,
+    "expected": 400,
+    "pass": true
+  },
+  "capture-05-performance.png": {
+    "actual": true,
+    "expected": true,
+    "pass": true
+  },
+  "capture-06-diagnostics.png": {
+    "actual": true,
+    "expected": true,
+    "pass": true
+  },
+  "devices": "Audio outputs: \u041d\u0430\u0443\u0448\u043d\u0438\u043a\u0438 (G435 Wireless Gaming Headset), Discord (VB-Audio Virtual Cable), Music (VB-Audio Voicemeeter VAIO), System sounds (VB-Audio Voicemeeter VAIO)\nAudio inputs: \u041c\u0438\u043a\u0440\u043e\u0444\u043e\u043d (USB LCS Audio), Discord (VB-Audio Virtual Cable), Microphone (VB-Audio Voicemeeter VAIO), Shadow play (VB-Audio Voicemeeter VAIO)\nCameras: DroidCam Video",
+  "errors": [],
+  "backend_log": [
+    "Graphics backend: Direct3D11"
+  ],
+  "qml-errors": {
+    "actual": 0,
+    "expected": 0,
+    "pass": true
+  },
+  "failures": []
+}
