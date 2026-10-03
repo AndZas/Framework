@@ -1,0 +1,13 @@
+{
+  "working_directory": "C:\\Users\\zasim\\AppData\\Local\\Temp\\framework-TASK-0007-wheel",
+  "exit_code": 0,
+  "visible_window": {
+    "Id": 18276,
+    "MainWindowTitle": "Python UI — first core slice",
+    "MainWindowHandle": {
+      "value": 313331534
+    }
+  },
+  "executable": "F:\\Files\\PythonProjects\\Framework\\.venv-framework-wheel\\Scripts\\python.exe",
+  "stderr": null
+}

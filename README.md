@@ -74,6 +74,9 @@ stderr. Callback errors retain the Python traceback and private instance ID;
 the UI remains open and returns status 1 when closed. Internal bridges and QML
 are not public exports. Qt Quick Controls provides button focus and keyboard
 activation, with a visible focus border. Content scrolls vertically when needed.
+Use the mouse wheel or scrollbar to scroll. Dragging the content with a mouse
+button is disabled so that Flickable does not consume action clicks during
+scroll movement. Dragging the scrollbar thumb still works.
 Synthetic checks confirmed Tab/Shift+Tab and Space. Enter did not activate the
 selected Qt Quick Controls button; use Space for keyboard activation in this slice.
 
@@ -82,6 +85,7 @@ selected Qt Quick Controls button; use Space for keyboard activation in this sli
 ```powershell
 .\.venv-framework\Scripts\python.exe -m pytest -q
 .\.venv-framework\Scripts\python.exe tests\qt_probe.py evidence\TASK-0007\editable
+.\.venv-framework\Scripts\python.exe tests\scroll_click_probe.py --route wheel --output evidence\TASK-0007\rapid-clicks\wheel.json
 .\.venv-framework\Scripts\python.exe -m build --wheel
 py -3.13 -m venv .venv-framework-wheel
 .\.venv-framework-wheel\Scripts\python.exe -m pip install dist\pyui_framework-0.1.0-py3-none-any.whl
@@ -89,7 +93,11 @@ py -3.13 -m venv .venv-framework-wheel
 
 The suite launches real visible Qt windows and uses synthetic QtTest input.
 The standalone probe saves normal/narrow captures, geometry and environment
-evidence. For the wheel check, copy `examples/hello.py` and `tests/qt_probe.py`
+evidence. The rapid-click probe sends actual wheel/scrollbar input and immediately
+checks a stationary-pointer burst of ten paired presses/releases; `--route`
+also accepts `scrollbar` and `drag` (the latter verifies mouse content dragging
+is disabled). It records input, button signals and viewport movement in JSON.
+For the wheel check, copy `examples/hello.py` and `tests/qt_probe.py`
 to a directory outside this checkout, change to that directory and run them
 with the absolute path to `.venv-framework-wheel\Scripts\python.exe`. The
 installed package must resolve QML from that environment's `site-packages`.

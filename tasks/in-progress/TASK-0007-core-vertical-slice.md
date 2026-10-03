@@ -76,7 +76,7 @@ Use `pyui_framework` as a **temporary internal import name** for this task. Do n
 
 ## Owner review feedback: rapid clicks after scrolling
 
-**Status:** Reproduction and fix required before owner approval.
+**Status:** Synthetic reproduction and fix complete; owner physical retest pending.
 
 On 2026-10-04, the owner manually launched the example and found an interaction
 issue after scrolling a short window to reveal a button. With the pointer kept
@@ -263,3 +263,146 @@ release, repository-setting change or push to main. Implementation commit:
 `0bac796f37e6a2b6ccb95aab15047f819b266aba`. This report follow-up is a separate
 commit; both are pushed to origin on the task branch. No uncommitted task work
 remains. Owner review and architecture-chat merge are pending.
+
+## Follow-up: rapid clicks after scrolling (2026-10-04)
+
+### Synchronization and investigation
+
+Continued `task/TASK-0007-core-vertical-slice` at owner-feedback commit
+`0b11495`. `git status --short` was empty; `git fetch origin` and
+`git merge --ff-only origin/task/TASK-0007-core-vertical-slice` reported already
+up to date. No local changes needed stashing or restoring, and none were lost.
+The task remains in progress with implementation complete and owner retest
+pending. No new branch/task, main merge or release was made.
+
+Windows environment is unchanged: Windows 11 build 26200, Python 3.13.9,
+PySide6/Qt 6.11.2. Investigation and tests used the dedicated `.venv-framework`;
+installed-wheel checks used `.venv-framework-wheel`. No global packages changed.
+
+Added `tests/scroll_click_probe.py`: a visible 300×260 window, six wrapped labels,
+an initially off-screen target and a neighboring button. It uses real QtTest
+wheel events, scrollbar-thumb mouse dragging and content mouse dragging, rather
+than setting `contentY`. The probe logs input types/positions/timestamps, target
+pressed/released/canceled/clicked signals, Python callback counts, contentY,
+moving/flicking/dragging and velocity. Double-click input is recorded with a
+passive window event filter. It deliberately does not connect `doubleClicked`:
+[Qt's AbstractButton source](https://github.com/qt/qtdeclarative/blob/v6.11.2/src/quicktemplates/qquickabstractbutton.cpp)
+uses the presence of a signal receiver to change its click behavior, so such
+instrumentation would alter the case under investigation.
+
+### Confirmed cause and fix
+
+The internal Flickable inherited `acceptedButtons: Qt.LeftButton`. In
+[Qt 6.11.2's Flickable event path](https://github.com/qt/qtdeclarative/blob/v6.11.2/src/quick/items/qquickflickable.cpp),
+`filterPointerEvent()` filters child events while `isMoving()` is true.
+The traced missing press arrived during movement and never reached the button's
+pressed signal, so Python callback routing had nothing to dispatch. This is
+the framework's desktop input policy conflicting with Flickable's gesture
+handling, not a demonstrated Qt defect or double-click recognition failure.
+
+`src/pyui_framework/qml/Main.qml` now explicitly sets
+`acceptedButtons: Qt.NoButton`, excluding mouse action events from Flickable's
+drag/flick handling at the source. This is the desktop policy described by
+[Qt's acceptedButtons documentation](https://doc.qt.io/qt-6.11/qml-qtquick-flickable.html#acceptedButtons-prop).
+Wheel and the scrollbar remain usable. Mouse-button dragging of the content is
+intentionally disabled and documented in README; scrollbar-thumb dragging is
+preserved. No callback throttling, delay, event replay or double-click workaround
+was added. Touch handling was not changed by this property, but remains untested.
+
+### Reproduction and regression results
+
+Each burst is ten left-button press/release pairs, with QtTest `delay=1` for
+input delivery and no idle pause after scrolling or between clicks. The pointer
+is fixed throughout the burst. Every press position is checked against the target
+to exclude content drifting away from the pointer as a false explanation.
+The wheel route pumps events only until the entire target becomes visible and
+asserts `moving=true` immediately before the burst. The scrollbar route drags
+the actual thumb. A separate 500 ms pause and recovery click is recorded after
+the burst; it is diagnostic and does not precede the regression assertion.
+
+| Route | Before fix | After fix (editable and installed wheel) |
+| --- | --- | --- |
+| Wheel, QtTest angle delta (0,-120), wheel pointer (140,200) | Target burst pointer (150,190); contentY 165.98, moving true, flicking false, velocity 2110.94 px/s; 9/10 callbacks, neighbor 0; recovery click raised target count to 10 | 10/10 callbacks; neighbor 0; recovery count 11; no QML errors |
+| Left drag of content at x=100, from y=210 upwards | Target burst pointer (150,196); contentY 160, moving/flicking true, velocity 2500 px/s; 9/10 callbacks, neighbor 0; recovery count 10 | Gesture is disabled; contentY stays 0, no movement or callbacks |
+| Left drag of scrollbar thumb to bottom | Target pointer (150,156); contentY 200, moving/flicking false; 10/10 callbacks, neighbor 0; recovery count 11 | Same successful 10/10, neighbor 0, recovery count 11; no QML errors |
+
+Before-fix wheel and drag runs exited 1 because the callback total remained one
+behind the intended total after the first missed press; subsequent clicks did
+work. Those ten cumulative assertion failures each represent the same one
+missing callback, not ten lost clicks. The baseline scrollbar run exited 0.
+Double-click input also appeared in the traces, including successful bursts;
+it was not the cause of the reproduced loss.
+
+`tests/test_qt.py` adds three subprocess regression cases for wheel, scrollbar
+and the explicit disabled-content-drag policy. After-fix probes exited 0 with
+empty failure lists. The focused suite reported **9 passed in 7.90 s**;
+the existing model, callback/error paths, real hello example, runtime insertion,
+layout/wrapping, keyboard and scrolling checks all still pass.
+
+### Commands actually run
+
+Before changing QML, each route was run with this command (replace `wheel` with
+`scrollbar` or `drag` and use the corresponding output name):
+
+```powershell
+.\.venv-framework\Scripts\python.exe tests\scroll_click_probe.py --route wheel --output evidence\TASK-0007\rapid-clicks\before-wheel.json
+```
+
+After the fix:
+
+```powershell
+.\.venv-framework\Scripts\python.exe tests\scroll_click_probe.py --route wheel --output evidence\TASK-0007\rapid-clicks\after-wheel.json
+.\.venv-framework\Scripts\python.exe tests\scroll_click_probe.py --route scrollbar --output evidence\TASK-0007\rapid-clicks\after-scrollbar.json
+.\.venv-framework\Scripts\python.exe tests\scroll_click_probe.py --route drag --output evidence\TASK-0007\rapid-clicks\after-drag.json
+.\.venv-framework\Scripts\python.exe -m pytest -q
+.\.venv-framework\Scripts\python.exe -m build --wheel
+.\.venv-framework-wheel\Scripts\python.exe -m pip install --force-reinstall --no-deps dist\pyui_framework-0.1.0-py3-none-any.whl
+$external = Join-Path $env:TEMP 'framework-TASK-0007-wheel'
+Copy-Item tests\scroll_click_probe.py,tests\qt_probe.py,examples\hello.py $external
+Set-Location $external
+$wheelPython = 'F:\Files\PythonProjects\Framework\.venv-framework-wheel\Scripts\python.exe'
+& $wheelPython scroll_click_probe.py --route wheel --output 'F:\Files\PythonProjects\Framework\evidence\TASK-0007\rapid-clicks\wheel-wheel.json'
+& $wheelPython scroll_click_probe.py --route scrollbar --output 'F:\Files\PythonProjects\Framework\evidence\TASK-0007\rapid-clicks\wheel-scrollbar.json'
+& $wheelPython scroll_click_probe.py --route drag --output 'F:\Files\PythonProjects\Framework\evidence\TASK-0007\rapid-clicks\wheel-drag.json'
+& $wheelPython qt_probe.py 'F:\Files\PythonProjects\Framework\evidence\TASK-0007\rapid-clicks\wheel-smoke'
+```
+
+Build/install and all external probes exited 0. Their package path points into
+`.venv-framework-wheel/Lib/site-packages`, not `src`. Wheel archive inspection
+again confirmed all seven QML files; its current contents/hash are recorded in
+`evidence/TASK-0007/rapid-clicks/wheel-contents.json` (the earlier wheel hash in
+the original report describes the earlier build). The normal installed
+`hello.py` was also launched with Start-Process from the external directory,
+hidden console and redirected logs. Its visible title/native window handle
+were confirmed, CloseMainWindow closed it, exit was 0 and stderr was empty.
+`wheel-launch.json` records that launch. The installed Qt smoke probe completed
+all earlier checks with `RESULT []`; its narrow capture was visually inspected
+and showed legible wrapped text and no clipping. `git diff --check` passed.
+
+Evidence is under `evidence/TASK-0007/rapid-clicks/`: before/after traces for all
+three routes, installed-wheel traces, wheel contents, ordinary launch record
+and wheel smoke geometry/captures. Earlier evidence was preserved. Temporary
+investigation helpers and downloaded Qt source stayed outside tracked files.
+
+### Owner retest and remaining unknowns
+
+Run `.\run.cmd`, make the window short, reveal a button using wheel and then
+scrollbar, and immediately click rapidly without moving the pointer. Confirm
+each press/release activates its own action, including the live-added button.
+Record which scroll route produced the original report and whether the view
+was still moving. Mouse content dragging is now intentionally unavailable;
+use wheel or the scrollbar. The task remains pending your confirmation.
+
+Codex confirmed a missing first click after wheel/content motion and its repair
+in synthetic checks. It did not reproduce the owner's entire prolonged burst
+being ignored until a pause, so that precise physical-input symptom is still
+unverified. Physical wheel/mouse devices, touchpad phased/pixel scrolling, touch,
+tablet/stylus, different DPI/hardware and prolonged operation remain untested.
+The fixture keeps the target under the pointer; it makes no promise that clicks
+activate a control after continued scrolling has moved it away. Existing Enter,
+accessibility and other-platform limitations remain unchanged.
+
+This follow-up is committed separately on the same task branch with the subject
+`TASK-0007: preserve action clicks during scroll movement`; its commit ID is
+provided in the completion response. Owner review and the architecture-chat
+merge remain pending.

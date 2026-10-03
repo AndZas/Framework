@@ -21,6 +21,10 @@ ApplicationWindow {
         contentWidth: width
         contentHeight: body.height
         boundsBehavior: Flickable.StopAtBounds
+        // Desktop actions use left clicks, even while wheel scrolling moves
+        // the view. Do not let Flickable filter them as drag/flick gestures.
+        // Wheel and the scrollbar still scroll; touch policy is unchanged.
+        acceptedButtons: Qt.NoButton
         ScrollBar.vertical: ScrollBar {}
         NodeView {
             id: body

@@ -1,11 +1,20 @@
 import subprocess
 import sys
 from pathlib import Path
+import pytest
 
 
 def test_visible_interaction(tmp_path):
     result = subprocess.run([sys.executable, str(Path(__file__).with_name("qt_probe.py")), str(tmp_path)],
                             capture_output=True, text=True, timeout=40)
+    assert result.returncode == 0, result.stdout + result.stderr
+
+
+@pytest.mark.parametrize("route", ["wheel", "scrollbar", "drag"])
+def test_rapid_clicks_after_scroll(route, tmp_path):
+    result = subprocess.run([sys.executable, str(Path(__file__).with_name("scroll_click_probe.py")),
+                             "--route", route, "--output", str(tmp_path / (route + ".json"))],
+                            capture_output=True, text=True, timeout=30)
     assert result.returncode == 0, result.stdout + result.stderr
 
 

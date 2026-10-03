@@ -1,0 +1,57 @@
+{
+  "route": "drag",
+  "environment": {
+    "Windows": "Windows-11-10.0.26200-SP0",
+    "Python": "3.13.9 (tags/v3.13.9:8183fa5, Oct 14 2025, 14:09:13) [MSC v.1944 64 bit (AMD64)]",
+    "PySide6": "6.11.2",
+    "Qt": "6.11.2"
+  },
+  "package": "F:\\Files\\PythonProjects\\Framework\\.venv-framework-wheel\\Lib\\site-packages\\pyui_framework\\__init__.py",
+  "trace": [
+    {
+      "event": "MouseButtonPress",
+      "position": [
+        100.0,
+        210.0
+      ],
+      "timestamp": 1,
+      "state": {
+        "contentY": -0.0,
+        "moving": false,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 0.0
+      }
+    },
+    {
+      "event": "MouseButtonRelease",
+      "position": [
+        100.0,
+        20.0
+      ],
+      "timestamp": 21,
+      "state": {
+        "contentY": -0.0,
+        "moving": false,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 0.0
+      }
+    }
+  ],
+  "failures": [],
+  "initial": {
+    "contentY": -0.0,
+    "moving": false,
+    "flicking": false,
+    "dragging": false,
+    "verticalVelocity": 0.0
+  },
+  "accepted_buttons": 0,
+  "burst": "Not applicable: mouse content dragging is disabled",
+  "counts": [
+    0,
+    0
+  ],
+  "qml_errors": []
+}

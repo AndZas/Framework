@@ -1,0 +1,1052 @@
+{
+  "route": "wheel",
+  "environment": {
+    "Windows": "Windows-11-10.0.26200-SP0",
+    "Python": "3.13.9 (tags/v3.13.9:8183fa5, Oct 14 2025, 14:09:13) [MSC v.1944 64 bit (AMD64)]",
+    "PySide6": "6.11.2",
+    "Qt": "6.11.2"
+  },
+  "package": "F:\\Files\\PythonProjects\\Framework\\.venv-framework-wheel\\Lib\\site-packages\\pyui_framework\\__init__.py",
+  "trace": [
+    {
+      "event": "Wheel",
+      "position": [
+        140.0,
+        200.0
+      ],
+      "timestamp": 887,
+      "state": {
+        "contentY": -0.0,
+        "moving": false,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 0.0
+      }
+    },
+    {
+      "event": "Wheel",
+      "position": [
+        140.0,
+        200.0
+      ],
+      "timestamp": 1000,
+      "state": {
+        "contentY": 7.863147586189466,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 1572.6295172378932
+      }
+    },
+    {
+      "event": "Wheel",
+      "position": [
+        140.0,
+        200.0
+      ],
+      "timestamp": 1077,
+      "state": {
+        "contentY": 15.726295172378933,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 1572.6295172378932
+      }
+    },
+    {
+      "event": "Wheel",
+      "position": [
+        140.0,
+        200.0
+      ],
+      "timestamp": 1091,
+      "state": {
+        "contentY": 23.5894427585684,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 1572.6295172378932
+      }
+    },
+    {
+      "event": "Wheel",
+      "position": [
+        140.0,
+        200.0
+      ],
+      "timestamp": 1107,
+      "state": {
+        "contentY": 44.69884282489154,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2110.940006632314
+      }
+    },
+    {
+      "event": "Wheel",
+      "position": [
+        140.0,
+        200.0
+      ],
+      "timestamp": 1122,
+      "state": {
+        "contentY": 65.80824289121469,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2110.940006632314
+      }
+    },
+    {
+      "event": "Wheel",
+      "position": [
+        140.0,
+        200.0
+      ],
+      "timestamp": 1138,
+      "state": {
+        "contentY": 88.08163034869591,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2110.940006632314
+      }
+    },
+    {
+      "event": "Wheel",
+      "position": [
+        140.0,
+        200.0
+      ],
+      "timestamp": 1153,
+      "state": {
+        "contentY": 109.19103041501904,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2110.940006632314
+      }
+    },
+    {
+      "event": "Wheel",
+      "position": [
+        140.0,
+        200.0
+      ],
+      "timestamp": 1168,
+      "state": {
+        "contentY": 130.30043048134218,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2110.940006632314
+      }
+    },
+    {
+      "event": "Wheel",
+      "position": [
+        140.0,
+        200.0
+      ],
+      "timestamp": 1184,
+      "state": {
+        "contentY": 151.8621737800743,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2110.940006632314
+      }
+    },
+    {
+      "event": "Wheel",
+      "position": [
+        140.0,
+        200.0
+      ],
+      "timestamp": 1200,
+      "state": {
+        "contentY": 166.75373565170352,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 919.3995287859309
+      }
+    },
+    {
+      "intended_click": 1,
+      "state": {
+        "contentY": 166.75373565170352,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 919.3995287859309
+      }
+    },
+    {
+      "event": "MouseButtonPress",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 1,
+      "state": {
+        "contentY": 166.75373565170352,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 919.3995287859309
+      }
+    },
+    {
+      "signal": "pressed",
+      "state": {
+        "contentY": 166.75373565170352,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 919.3995287859309
+      }
+    },
+    {
+      "event": "MouseButtonRelease",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 2,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "released",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "clicked",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "intended_click": 2,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonPress",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 3,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "pressed",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonDblClick",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 3,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonRelease",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 4,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "released",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "clicked",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "intended_click": 3,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonPress",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 5,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "pressed",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonRelease",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 6,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "released",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "clicked",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "intended_click": 4,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonPress",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 7,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "pressed",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonDblClick",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 7,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonRelease",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 8,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "released",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "clicked",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "intended_click": 5,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonPress",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 9,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "pressed",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonRelease",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 10,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "released",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "clicked",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "intended_click": 6,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonPress",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 11,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "pressed",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonDblClick",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 11,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonRelease",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 12,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "released",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "clicked",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "intended_click": 7,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonPress",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 13,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "pressed",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonRelease",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 14,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "released",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "clicked",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "intended_click": 8,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonPress",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 15,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "pressed",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonDblClick",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 15,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonRelease",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 16,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "released",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "clicked",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "intended_click": 9,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonPress",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 17,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "pressed",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonRelease",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 18,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "released",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "clicked",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "intended_click": 10,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonPress",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 19,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "pressed",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonDblClick",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 19,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonRelease",
+      "position": [
+        150.0,
+        189.0
+      ],
+      "timestamp": 20,
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "released",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "signal": "clicked",
+      "state": {
+        "contentY": 179.54730447954307,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 2558.71376556791
+      }
+    },
+    {
+      "event": "MouseButtonPress",
+      "position": [
+        150.0,
+        156.0
+      ],
+      "timestamp": 21,
+      "state": {
+        "contentY": 200.0,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 0.4179624555596157
+      }
+    },
+    {
+      "signal": "pressed",
+      "state": {
+        "contentY": 200.0,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 0.4179624555596157
+      }
+    },
+    {
+      "event": "MouseButtonRelease",
+      "position": [
+        150.0,
+        156.0
+      ],
+      "timestamp": 22,
+      "state": {
+        "contentY": 200.0,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 0.4179624555596157
+      }
+    },
+    {
+      "signal": "released",
+      "state": {
+        "contentY": 200.0,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 0.4179624555596157
+      }
+    },
+    {
+      "signal": "clicked",
+      "state": {
+        "contentY": 200.0,
+        "moving": true,
+        "flicking": false,
+        "dragging": false,
+        "verticalVelocity": 0.4179624555596157
+      }
+    }
+  ],
+  "failures": [],
+  "initial": {
+    "contentY": -0.0,
+    "moving": false,
+    "flicking": false,
+    "dragging": false,
+    "verticalVelocity": 0.0
+  },
+  "accepted_buttons": 0,
+  "before_burst": {
+    "contentY": 166.75373565170352,
+    "moving": true,
+    "flicking": false,
+    "dragging": false,
+    "verticalVelocity": 919.3995287859309
+  },
+  "pointer": [
+    150,
+    189
+  ],
+  "after_burst": {
+    "contentY": 179.54730447954307,
+    "moving": true,
+    "flicking": false,
+    "dragging": false,
+    "verticalVelocity": 2558.71376556791
+  },
+  "burst_counts": [
+    10,
+    0
+  ],
+  "after_pause_counts": [
+    11,
+    0
+  ],
+  "counts": [
+    11,
+    0
+  ],
+  "qml_errors": []
+}
