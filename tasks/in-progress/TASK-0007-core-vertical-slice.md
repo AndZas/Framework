@@ -74,6 +74,47 @@ Use `pyui_framework` as a **temporary internal import name** for this task. Do n
 - Any API friction, architecture deviations, limitations, or unverified behavior.
 - Task branch and commit ID(s). Leave the task in progress for owner review.
 
+## Owner review feedback: rapid clicks after scrolling
+
+**Status:** Reproduction and fix required before owner approval.
+
+On 2026-10-04, the owner manually launched the example and found an interaction
+issue after scrolling a short window to reveal a button. With the pointer kept
+over the newly visible button, a rapid series of left-button clicks did not
+activate it while the series continued. After pausing/releasing the mouse button
+and starting to click again, the button began working. Other reported visual,
+resize, scroll, and button behavior looked correct. The exact scroll input
+(wheel, scrollbar, or dragging the content) has not yet been recorded. This is
+an owner-observed issue, not a confirmed Qt defect; the double-click hypothesis
+is also unconfirmed.
+
+The current automated probe changes `Flickable.contentY` directly, waits between
+actions, then sends isolated synthetic clicks. It does not cover a real scroll
+gesture followed immediately by a burst of clicks, so its passing short-scroll
+check does not resolve this report.
+
+### Required follow-up before approval
+
+- Reproduce the report on Windows and record the scroll method, pointer position,
+  button press/release pattern, `clicked` callback count, and whether the view
+  is still moving/flicking. Check each supported scroll route (wheel, scrollbar,
+  and content dragging) where practical.
+- Inspect the Qt Quick event path around `Flickable` and `Button`. Instrument
+  relevant button press/release/cancel/click/double-click signals and view
+  movement state as needed. Identify the cause before changing behavior; do not
+  assume that double-click recognition is responsible.
+- Add a deterministic regression test that scrolls a control into view and
+  immediately sends repeated press/release clicks without an idle pause. Verify
+  every intended click reaches that button's Python callback and no neighboring
+  callback fires. Keep the test representative of the input route that reproduces
+  the issue; report any owner-only physical check separately.
+- Fix the event handling at its source. Do not hide missed clicks with callback
+  throttling, arbitrary delays, or double-click-specific workarounds.
+- Rerun the focused suite and installed-wheel smoke check if package/QML behavior
+  changes. Update this report with the root cause, fix, exact checks, results,
+  and any route that remains unverified. Keep TASK-0007 in progress until the
+  owner confirms the fix.
+
 ## Findings
 
 Implemented the initial 0.1.0 production slice with the temporary internal
