@@ -1,0 +1,131 @@
+{
+  "environment": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.9 (tags/v3.13.9:8183fa5, Oct 14 2025, 14:09:13) [MSC v.1944 64 bit (AMD64)]",
+    "PySide6": "6.11.2",
+    "Qt": "6.11.2"
+  },
+  "package": "F:\\Files\\PythonProjects\\Framework\\src\\pyui_framework\\__init__.py",
+  "layouts": {
+    "normal": [
+      {
+        "text": "Python UI",
+        "rect": [
+          20.0,
+          20.0,
+          600.0,
+          32.0
+        ]
+      },
+      {
+        "text": "A longer explanation demonstrates responsive word wrapping as the available window width changes. Controls should remain readable and usable in narrow windows.",
+        "rect": [
+          20.0,
+          64.0,
+          600.0,
+          40.0
+        ]
+      },
+      {
+        "text": "Save",
+        "rect": [
+          20.0,
+          116.0,
+          294.0,
+          48.0
+        ]
+      },
+      {
+        "text": "Reset",
+        "rect": [
+          326.0,
+          116.0,
+          294.0,
+          48.0
+        ]
+      },
+      {
+        "text": "Live controls",
+        "rect": [
+          20.0,
+          176.0,
+          600.0,
+          20.0
+        ]
+      },
+      {
+        "text": "Added after startup",
+        "rect": [
+          20.0,
+          208.0,
+          600.0,
+          48.0
+        ]
+      }
+    ],
+    "narrow": [
+      {
+        "text": "Python UI",
+        "rect": [
+          20.0,
+          20.0,
+          260.0,
+          32.0
+        ]
+      },
+      {
+        "text": "A longer explanation demonstrates responsive word wrapping as the available window width changes. Controls should remain readable and usable in narrow windows.",
+        "rect": [
+          20.0,
+          64.0,
+          260.0,
+          100.0
+        ]
+      },
+      {
+        "text": "Save",
+        "rect": [
+          20.0,
+          176.0,
+          124.0,
+          48.0
+        ]
+      },
+      {
+        "text": "Reset",
+        "rect": [
+          156.0,
+          176.0,
+          124.0,
+          48.0
+        ]
+      },
+      {
+        "text": "Live controls",
+        "rect": [
+          20.0,
+          236.0,
+          260.0,
+          20.0
+        ]
+      },
+      {
+        "text": "Added after startup",
+        "rect": [
+          20.0,
+          268.0,
+          260.0,
+          48.0
+        ]
+      }
+    ]
+  },
+  "failures": [],
+  "enter_activates": false,
+  "counts": [
+    2,
+    2,
+    2
+  ],
+  "errors": []
+}
