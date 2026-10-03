@@ -266,6 +266,11 @@ packaging/distribution and live OS scheme transitions remain unverified.
 Continued `task/TASK-0008-theme-api-spike`, preserving specification commit
 `e2e2b62`. Fetch and fast-forward check reported already up to date. The task was
 moved from ready to in-progress at startup and stays here with implementation
-complete and owner review pending. Implementation commit is recorded below in
-the report follow-up. Only prototype source/evidence and this task record are
-committed; no merge, force-push, main push, release or repository-setting change.
+complete and owner review pending. Implementation commit:
+`bb8a88558bd308c2db2852bac6abe26f06170714`. This report follow-up is committed
+separately as `TASK-0008: record implementation commit for owner review`; both
+commits are pushed to origin on the task branch. The preserved specification
+commit is an ancestor of the implementation commit (checked with
+`git merge-base --is-ancestor e2e2b62 HEAD`). Only prototype source/evidence and
+this task record are committed; no merge, force-push, main push, release or
+repository-setting change. Working tree is clean at handoff.
