@@ -10,8 +10,8 @@ from PySide6.QtTest import QTest
 from app import build, HERE, delete
 from theme import DEFAULTS, CUSTOM, resolve
 
-out = HERE / 'evidence'
-out.mkdir(exist_ok=True)
+out = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else HERE / 'evidence'
+out.mkdir(parents=True, exist_ok=True)
 messages = []
 qInstallMessageHandler(lambda kind, context, message: messages.append(message))
 app, engine, lab = build()

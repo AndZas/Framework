@@ -25,7 +25,14 @@ ApplicationWindow {
         // the view. Do not let Flickable filter them as drag/flick gestures.
         // Wheel and the scrollbar still scroll; touch policy is unchanged.
         acceptedButtons: Qt.NoButton
-        ScrollBar.vertical: ScrollBar {}
+        ScrollBar.vertical: ScrollBar {
+            objectName: "verticalScrollBar"
+            // Keep the attached scroll behavior, but escape the clipped inset.
+            parent: window.contentItem
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+        }
         NodeView {
             id: body
             width: viewport.width

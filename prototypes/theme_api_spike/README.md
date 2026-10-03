@@ -17,6 +17,8 @@ The scripts locate the checkout independently of the caller's directory.
 Click Light/Dark/System/CSS/Python. CSS reads `lagoon.theme`; Python applies the
 equivalent `CUSTOM` object. Edit the file and click Load / reload, or paste a
 different file path. Use wheel/scrollbar to reach the status at short heights.
+The scrollbar sits at the right client-area edge, outside the 28 px content
+inset. Mouse dragging of the content remains disabled to protect button clicks.
 The amber constructor and method examples start equal. Update local style (or
 click either local sample) changes only the constructor example through Python.
 Clear local override restores its global appearance. Global style selects Python.
@@ -147,6 +149,7 @@ large widget-tree performance or production lifecycle design is claimed.
 ```powershell
 .\.venv-theme-spike\Scripts\python.exe -m unittest discover -s prototypes/theme_api_spike -p test_theme.py -v
 .\.venv-theme-spike\Scripts\python.exe prototypes/theme_api_spike/probe.py
+.\.venv-theme-spike\Scripts\python.exe tests/scrollbar_edge_probe.py --app theme --output evidence/TASK-0009/theme
 ```
 
 Five focused unittest cases cover equivalent sources, partial fallback and all
@@ -157,6 +160,9 @@ file reload, detected system mode, and horizontal bounds at 620×520. CSS/Python
 sample pixels are compared at x=0..1039, y=260..649 in a 1040×820 window (excluding
 source-button focus and source-dependent status). Captures and `probe.json` are
 in `evidence/`. Normal launcher title/handle/exit are in `launch.json`.
+Pass an output directory to `probe.py` to retain a new run separately. The
+TASK-0009 scrollbar probe checks client-edge geometry, clipping, wheel/track/thumb
+input and Python actions at 1040×820 and 620×420, plus overflow resize transitions.
 
 See the task report for observed environment/results and Git commits. Owner should
 physically exercise input, editing/reloading invalid files, live Windows scheme
