@@ -159,6 +159,6 @@ but were not separately launched. Minimum size is 280×260; arbitrary large rows
 remove/reorder/reparent and a production layout engine are outside this spike.
 
 **Git:** continued the existing `task/TASK-0006-layout-api-comparison` branch.
-Implementation commit ID is recorded in the following report-only commit.
+Implementation commit: `9f893f5ddb509902cf82491037a2fcae78c1f27a`.
 Only TASK-0006 files are included. Leave this task in `tasks/in-progress/` for
 owner review; do not merge or move it to `done/`.
