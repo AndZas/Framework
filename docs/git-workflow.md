@@ -3,6 +3,7 @@
 ## Branch model
 
 - `main` is the shared, reviewable baseline. Do not implement tasks directly on `main` and do not force-push it.
+- In GitHub repository settings, protect `main`: require pull requests for changes, block force pushes and deletion, and require applicable checks once CI checks exist. Repository branch protection cannot be enforced by local Git files.
 - Use one branch per implementation task: `task/TASK-0006-short-slug` (replace the ID and slug). Fix or follow-up work gets its own new task and branch.
 - Start from the latest `origin/main`. If the checkout is dirty or another task is running there, use a separate Git worktree; do not switch branches underneath other work.
 - Run independent tasks in separate worktrees. Declare dependencies in task files and merge dependent work in order.

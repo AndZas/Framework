@@ -1,0 +1,16 @@
+# Normalize text files in Git; keep Windows launch scripts in native line endings.
+* text=auto eol=lf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Assets are binary and must not be newline-converted.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mp4 binary
+*.wav binary
+*.zip binary
+*.exe binary
+*.dll binary
