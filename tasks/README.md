@@ -20,4 +20,4 @@ Completed and reviewed:
 - [TASK-0004: QML controls and dynamic Python tree](done/TASK-0004-qml-controls-dynamic-tree.md)
 - [TASK-0005: Interactive Qt Quick user showcase](done/TASK-0005-interactive-qt-quick-showcase.md)
 
-There are currently no tasks in `ready/`. The project foundation is recorded in [ADR-0001](../docs/architecture/decisions/ADR-0001-pyside6-qt-quick.md). TASK-0005 delivered and owner-validated a runnable evaluation app. Create a linked follow-up task if its recorded theme contrast or particle-motion behavior should be changed.
+Next ready task: [TASK-0006: Compare default flow layout with explicit containers](ready/TASK-0006-layout-api-comparison.md). It compares a predictable vertical default flow with explicit `Row`/`Column` composition in a runnable prototype; the owner makes the API decision after reviewing the result. The project foundation is recorded in [ADR-0001](../docs/architecture/decisions/ADR-0001-pyside6-qt-quick.md). TASK-0005 delivered and owner-validated a runnable evaluation app. Create a linked follow-up task if its recorded theme contrast or particle-motion behavior should be changed.
