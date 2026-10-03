@@ -1,0 +1,9 @@
+{
+  "physical_input": false,
+  "title": "Theme studio · TASK-0008",
+  "exit_code": 0,
+  "stderr": null,
+  "visible": true,
+  "handle": 313593678,
+  "command": "prototypes\\theme_api_spike\\run.cmd"
+}
