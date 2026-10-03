@@ -1,6 +1,6 @@
 # TASK-0008: Prototype hybrid theme authoring and widget overrides
 
-**Status:** Implementation complete; owner review pending
+**Status:** Done; owner-approved
 **Type:** Experiment
 **Depends on:** TASK-0007, ADR-0001, ADR-0002
 **Likely files:** `prototypes/theme_api_spike/`, `tasks/in-progress/TASK-0008-theme-api-spike.md`
@@ -298,3 +298,21 @@ Temporary previews stay ignored in `.venv-theme-spike/theme-previews/`.
 Follow-up is committed as `TASK-0008: add four reusable theme palettes` and
 pushed to the same `task/TASK-0008-theme-api-spike` branch. Existing commits are
 preserved; task remains in progress for owner review, with no merge performed.
+
+### Owner review and separate layout observation (2026-10-04)
+
+The owner launched the completed prototype, switched and loaded the available
+themes, including the four additional CSS-like palettes, and found the theme
+behavior and appearance satisfactory with no theme-related bugs. TASK-0008 is
+approved as a completed experiment. Its API recommendations remain prototypes;
+the final production signatures and token schema still need an explicit design
+decision before implementation.
+
+The owner also noticed that the vertical scroll bar sits inside the content
+inset and can overlap content. This is a separate application-shell/layout
+polish issue, not a theme issue or a blocker for accepting the theme experiment.
+In both this prototype and the production slice, `Flickable` has outer margins
+and its attached `ScrollBar` uses the Flickable's default parent/geometry. Track
+the production fix separately: place the bar at the window edge, outside the
+content inset, and verify it no longer covers content while remaining usable.
+The theme prototype remains unchanged as the reviewed experiment.
