@@ -1,0 +1,64 @@
+{
+  "app": "theme",
+  "environment": {
+    "windows": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.9 (tags/v3.13.9:8183fa5, Oct 14 2025, 14:09:13) [MSC v.1944 64 bit (AMD64)]",
+    "pyside": "6.11.2",
+    "qt": "6.11.2"
+  },
+  "physical_input": false,
+  "sizes": [
+    {
+      "window": [
+        1040,
+        820
+      ],
+      "viewport": [
+        28.0,
+        28.0,
+        984.0,
+        764.0
+      ],
+      "scrollbar": [
+        1030.0,
+        0.0,
+        10.0,
+        820.0
+      ],
+      "gap": 18.0,
+      "content_height": 878.0,
+      "overflow_content_height": 878.0,
+      "wheel_content_y": 14.868415691273958,
+      "track_content_y": 113.99999999999999,
+      "thumb_bottom_content_y": 113.99999999999999,
+      "action_clicks": 6
+    },
+    {
+      "window": [
+        620,
+        420
+      ],
+      "viewport": [
+        28.0,
+        28.0,
+        564.0,
+        364.0
+      ],
+      "scrollbar": [
+        610.0,
+        0.0,
+        10.0,
+        420.0
+      ],
+      "gap": 18.0,
+      "content_height": 918.0,
+      "overflow_content_height": 918.0,
+      "wheel_content_y": 36.035999999999994,
+      "track_content_y": 554.0,
+      "thumb_bottom_content_y": 554.0,
+      "action_clicks": 6
+    }
+  ],
+  "overflow_resize_transition": true,
+  "messages": []
+}

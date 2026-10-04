@@ -28,6 +28,7 @@ ApplicationWindow {
     }
     Flickable {
         id: viewport
+        objectName: "viewport"
         anchors.fill: parent
         anchors.margins: 28
         contentWidth: width
@@ -35,7 +36,14 @@ ApplicationWindow {
         clip: true
         acceptedButtons: Qt.NoButton
         boundsBehavior: Flickable.StopAtBounds
-        ScrollBar.vertical: ScrollBar {}
+        ScrollBar.vertical: ScrollBar {
+            objectName: "verticalScrollBar"
+            // Keep the attached scroll behavior, but escape the clipped inset.
+            parent: window.contentItem
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+        }
         ColumnLayout {
             id: body
             width: viewport.width

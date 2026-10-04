@@ -1,0 +1,64 @@
+{
+  "app": "production",
+  "environment": {
+    "windows": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.9 (tags/v3.13.9:8183fa5, Oct 14 2025, 14:09:13) [MSC v.1944 64 bit (AMD64)]",
+    "pyside": "6.11.2",
+    "qt": "6.11.2"
+  },
+  "physical_input": false,
+  "sizes": [
+    {
+      "window": [
+        640,
+        520
+      ],
+      "viewport": [
+        20.0,
+        20.0,
+        600.0,
+        480.0
+      ],
+      "scrollbar": [
+        630.0,
+        0.0,
+        10.0,
+        520.0
+      ],
+      "gap": 10.0,
+      "content_height": 236.0,
+      "overflow_content_height": 684.0,
+      "wheel_content_y": 14.868415691273958,
+      "track_content_y": 204.00000000000003,
+      "thumb_bottom_content_y": 204.00000000000003,
+      "action_clicks": 6
+    },
+    {
+      "window": [
+        280,
+        260
+      ],
+      "viewport": [
+        20.0,
+        20.0,
+        240.0,
+        220.0
+      ],
+      "scrollbar": [
+        270.0,
+        0.0,
+        10.0,
+        260.0
+      ],
+      "gap": 10.0,
+      "content_height": 804.0,
+      "overflow_content_height": 804.0,
+      "wheel_content_y": 36.035999999999994,
+      "track_content_y": 584.0,
+      "thumb_bottom_content_y": 584.0,
+      "action_clicks": 6
+    }
+  ],
+  "overflow_resize_transition": true,
+  "messages": []
+}

@@ -4,6 +4,14 @@ from pathlib import Path
 import pytest
 
 
+@pytest.mark.parametrize("shell", ["production", "theme"])
+def test_scrollbar_edge_layout(shell, tmp_path):
+    result = subprocess.run([sys.executable, str(Path(__file__).with_name("scrollbar_edge_probe.py")),
+                             "--app", shell, "--output", str(tmp_path / shell)],
+                            capture_output=True, text=True, timeout=40)
+    assert result.returncode == 0, result.stdout + result.stderr
+
+
 def test_visible_interaction(tmp_path):
     result = subprocess.run([sys.executable, str(Path(__file__).with_name("qt_probe.py")), str(tmp_path)],
                             capture_output=True, text=True, timeout=40)
