@@ -449,7 +449,11 @@ was empty. `git diff --check` passed. Directly inspected fresh base, active samp
 Dark/local-active and narrow-active captures: all six sample/Replay pairs are
 visible at 800x820, control/status text remains readable, animated properties
 continue over the updated base, and the narrow view wraps and scrolls.
-Follow-up implementation commit ID is recorded below after its push.
+Follow-up implementation commit: `d537a6053ce7fea16d12a61ab798e08ea42ef5e0`
+(`TASK-0011: preserve animation tracks during style updates and add six presets`),
+successfully pushed to origin on the named branch. This report-only handoff
+records the ID without rewriting shared history; final handoff verifies its push
+and a clean working tree.
 New scene/launch evidence is under `evidence/TASK-0011/owner-follow-up/`; earlier
 task evidence was preserved. `run.cmd` remains unchanged. Both ordinary and new
 studio launchers were separately opened from Temp with visible native windows,
