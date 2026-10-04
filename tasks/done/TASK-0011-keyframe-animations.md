@@ -1,6 +1,6 @@
 # TASK-0011: Implement a first Python keyframe animation API
 
-**Status:** Implementation complete; owner review pending
+**Status:** Done — owner reviewed and merged
 **Type:** Implementation
 **Depends on:** TASK-0007, TASK-0010; ADR-0001, ADR-0003
 **Likely files:** `src/pyui_framework/`, `src/pyui_framework/qml/`, `tests/`, `examples/`, `README.md`, `docs/`
@@ -474,4 +474,13 @@ Changed scoped files: `src/pyui_framework/_model.py`, `_runtime.py`,
 `examples/animations.py`, `tests/animation_probe.py`, `tests/test_animation.py`,
 `docs/animations.md`, `docs/themes.md`, `README.md`, `tasks/README.md`, this report
 and new follow-up evidence. Branch remains `task/TASK-0011-keyframe-animations`.
-No main change, merge, move to Done, PR creation or release.
+### Owner review and completion (2026-10-04)
+
+The owner tried the expanded animation example, approved the six presets and
+continuation across theme/local-style updates, and reported no remaining bugs.
+The owner accepts the current behavior and notes that some animations may be
+used only occasionally; preserving continuity is still preferred. TASK-0011 was
+merged to `main` in commit `8f6ca97`. The display and platform limits above
+remain recorded; no blocker remains for this task's tested Windows scope.
+Future animation work should use a new linked task instead of reopening this
+one. The task record was moved to Done after the owner-confirmed merge.
