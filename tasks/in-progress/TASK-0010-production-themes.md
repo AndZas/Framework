@@ -425,6 +425,26 @@ pushed to origin on `task/TASK-0010-production-themes`. This report-only follow-
 records the implementation ID; final handoff verifies its push and a clean
 working tree. The task remains in progress for owner review.
 
+### Owner review follow-up: Midnight surface (2026-10-04)
+
+The owner confirms Dark's built-in Label surface is now fixed and accepts the
+opacity behavior and its explicit controls. The Python Midnight choice still
+shows a Label card. Inspection confirms this comes from the theme values:
+Midnight explicitly sets `panel: #24263a` against `background: #171827`.
+Update the shipped/demo Midnight palette and matching production example theme
+asset to set `panel` equal to `background`, so its Labels blend into the window
+like Light, Dark, and Lagoon. Preserve the framework behavior that lets authors
+intentionally choose a contrasting `panel` in their own themes. Add a test for
+the demo palette and manually verify both Midnight authoring forms show no
+Label card while a separately tested custom contrasting panel remains.
+
+The owner reports gradient banding on one VA monitor but not an IPS monitor.
+The Windows investigation found continuous Qt-rendered pixel profiles and no
+application-side gradient discontinuity. Treat this as a display-specific
+perceptual observation unless new evidence reproduces a renderer defect; do not
+add gradient noise/dithering or change the renderer as a monitor-specific
+workaround. Preserve the measured evidence and state the limitation accurately.
+
 ### Git and review
 
 Task branch: `task/TASK-0010-production-themes`. Implementation commit:
