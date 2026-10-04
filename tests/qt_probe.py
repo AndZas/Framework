@@ -82,7 +82,7 @@ def main(output):
             check(name+"-capture", runtime.quick.grabWindow().save(str(output / (name+".png"))))
         try:
             check("visible", runtime.window.isVisible())
-            check("exports", pyui_framework.__all__ == ["App", "Window", "Label", "Button", "Row", "Column"])
+            check("exports", pyui_framework.__all__ == ["App", "Window", "Label", "Button", "Row", "Column", "Theme", "ThemeError"])
             click(first)
             click(second)
             check("independent", counts == [1, 1, 0])

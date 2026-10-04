@@ -1,0 +1,10 @@
+:theme {
+    background: #eaf5f2;
+    foreground: #173b3a;
+    panel: #eaf5f2;
+    accent: #126e67;
+    accent-text: #ffffff;
+    radius: 20;
+    opacity: 0.94;
+    gradient: linear-gradient(#126e67, #65b8a3);
+}

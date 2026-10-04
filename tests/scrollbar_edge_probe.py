@@ -40,10 +40,10 @@ def run(kind, output):
                   pyside=PySide6.__version__, qt=qVersion()), physical_input=False, sizes=[])
     callbacks = [0]
     if kind == "production":
-        from pyui_framework import Label
+        from pyui_framework import App, Label
         from pyui_framework._runtime import Runtime
         model = runpy.run_path(str(ROOT / "examples/hello.py"))["build"]()
-        runtime = Runtime(model)
+        runtime = Runtime(model, App(model))
         window = runtime.quick
         engine = runtime.engine
         action = next(n.value for n in runtime.nodes if getattr(n.value, "text", "") == "Add a live action")
