@@ -13,6 +13,7 @@ from PySide6.QtGui import QGuiApplication
 
 from ._model import Button, Column, Label, Row, Window
 from .theme import _resolve, ThemeError
+from .animation import AnimationError, Playback
 
 
 class Children(QAbstractListModel):
@@ -43,10 +44,17 @@ class Children(QAbstractListModel):
 class Node(QObject):
     textChanged = Signal()
     styleChanged = Signal()
+    animationRequested = Signal('QVariantMap')
+    animationCancelled = Signal()
 
     def __init__(self, value, app):
         super().__init__(app.bridge)
         self.value, self.app = value, app
+        self._animation_host = None
+        self._active = self._pending = None
+        self._serial = 0
+        self._active_serial = 0
+        self._animation_error = None
         kinds = {Window: "column", Column: "column", Row: "row", Label: "label", Button: "button"}
         if type(value) not in kinds:
             raise TypeError(f"Unsupported experimental node: {type(value).__name__}")
@@ -65,6 +73,65 @@ class Node(QObject):
 
     def append(self, child):
         self.model.append(Node(child, self.app))
+
+    @Slot(QObject)
+    def attachAnimations(self, host):
+        self._animation_host = host
+        host.destroyed.connect(self._host_destroyed)
+
+    def _host_destroyed(self):
+        self._animation_host = None
+        if self._active:
+            self._active._state = "closed"
+            self._active = None
+
+    def play(self, timeline):
+        self.check_thread()
+        if (self.app._animations_closed or self._animation_host is None
+                or not shiboken6.isValid(self._animation_host)):
+            raise AnimationError("animation target is closed or not yet presented; play from a later UI callback")
+        plan = timeline._plan(type(self.value).__name__, self.appearance)
+        self._serial += 1
+        plan['serial'] = self._serial
+        handle = Playback(self.value, timeline)
+        self._pending = handle
+        self._animation_error = "Qt Quick did not acknowledge playback"
+        try:
+            self.animationRequested.emit(plan)
+            if self._animation_error:
+                raise AnimationError(self._animation_error)
+            return handle
+        finally:
+            self._pending = None
+
+    @Slot(int, str)
+    def animationReady(self, serial, error):
+        if self._pending is None or serial != self._serial:
+            return
+        self._animation_error = error
+        if not error:
+            if self._active:
+                self._active._state = "replaced"
+            self._active = self._pending
+            self._active_serial = serial
+            self._active._state = "running"
+
+    @Slot(int)
+    def animationFinished(self, serial):
+        if serial == self._active_serial and self._active:
+            self._active._state = "completed"
+            self._active = None
+
+    def stop_animation(self, handle):
+        self.check_thread()
+        if self._active is handle:
+            self.cancel_animation("stopped")
+
+    def cancel_animation(self, state):
+        if self._active:
+            self.animationCancelled.emit()
+            self._active._state = state
+            self._active = None
 
     @Property(str, constant=True)
     def kind(self):
@@ -102,6 +169,12 @@ class Bridge(QObject):
         super().__init__()
         self.app = app
 
+    @Slot()
+    def closeAnimations(self):
+        self.app._animations_closed = True
+        for node in self.app.nodes:
+            node.cancel_animation("closed")
+
     @Slot(str)
     def activate(self, node_id):
         try:
@@ -119,6 +192,7 @@ class Runtime:
         self.qt_app = QGuiApplication.instance() or QGuiApplication([])
         self.public = public or window._app
         self.errors, self.nodes = [], []
+        self._animations_closed = False
         self.bridge = Bridge(self)
         self.hints = self.qt_app.styleHints()
         values = _resolve(self.public.theme, self.system_scheme())
@@ -181,6 +255,7 @@ class Runtime:
         return 1 if self.errors else result
 
     def close(self):
+        self.bridge.closeAnimations()
         self.window.close()
         self.hints.colorSchemeChanged.disconnect(self.system_changed)
         self.engine.deleteLater()

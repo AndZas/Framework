@@ -25,4 +25,8 @@ Completed and reviewed:
 - [TASK-0009: Place the vertical scrollbar at the window edge](done/TASK-0009-scrollbar-edge-layout.md)
 - [TASK-0010: Implement production theme support](done/TASK-0010-production-themes.md)
 
-There are currently no in-progress tasks. The owner approved TASK-0009 after checking both application variants and merged TASK-0010 after reviewing production themes and the theme studio. TASK-0008's hybrid theme prototype informed the accepted initial contract in [ADR-0003](../docs/architecture/decisions/ADR-0003-theme-model.md); production themes are now implemented and recorded in [TASK-0010](done/TASK-0010-production-themes.md). Exact public names remain experimental while the package is version 0.x. TASK-0007 adds the first installable Python UI slice on the selected Qt Quick foundation; its temporary `pyui_framework` import name must be revisited before public release. The project foundation and selected layout policy are recorded in [ADR-0001](../docs/architecture/decisions/ADR-0001-pyside6-qt-quick.md) and [ADR-0002](../docs/architecture/decisions/ADR-0002-layout-defaults.md). TASK-0005 delivered an owner-validated evaluation app.
+In progress:
+
+- [TASK-0011: Implement a first Python keyframe animation API](in-progress/TASK-0011-keyframe-animations.md)
+
+TASK-0011's owner review follow-up adds continuing animations through theme/local updates and six replayable presets. It stays in progress for owner review, including physical replay and perceived motion checks. TASK-0010's production themes are owner-reviewed and merged. Exact public names remain experimental in version 0.x. The selected foundation, layout and theme contracts remain ADR-0001, ADR-0002 and ADR-0003.

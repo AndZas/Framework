@@ -10,8 +10,10 @@ ApplicationWindow {
     minimumHeight: 260
     title: windowTitle
     visible: true
-    color: rootNode.appearance.background
-    opacity: rootNode.appearance.opacity
+    AnimatedAppearance { id: motion; node: rootNode }
+    color: motion.value("background", rootNode.appearance.background)
+    opacity: motion.value("opacity", rootNode.appearance.opacity)
+    onClosing: bridge.closeAnimations()
 
     Flickable {
         id: viewport

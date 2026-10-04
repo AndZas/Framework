@@ -1,5 +1,6 @@
 """Python declarations with single ownership and atomic validation."""
 from .theme import _style
+from .animation import Timeline, AnimationError
 
 
 def _text(value):
@@ -15,6 +16,14 @@ class _Element:
 
 
 class _Styled:
+    def play(self, timeline):
+        """Play a temporary appearance overlay on a live, presented widget."""
+        if type(timeline) is not Timeline:
+            raise AnimationError("play expects a Timeline")
+        if self._runtime is None:
+            raise AnimationError("play requires a live target inside App.run()")
+        return self._runtime.play(timeline)
+
     def _init_style(self, style):
         self._style = _style(style, type(self).__name__)
 

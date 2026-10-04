@@ -1,0 +1,26 @@
+{
+  "focused": {
+    "result": "39 passed in 18.10s",
+    "command": ".\\.venv-framework\\Scripts\\python.exe -m pytest tests/test_animation.py -q"
+  },
+  "full": {
+    "result": "88 passed in 62.62s",
+    "command": ".\\.venv-framework\\Scripts\\python.exe -m pytest -q"
+  },
+  "visible_probe": {
+    "qt_messages": [],
+    "checks": 223,
+    "failures": [],
+    "command": ".\\.venv-framework\\Scripts\\python.exe tests/animation_probe.py evidence/TASK-0011/owner-follow-up",
+    "stderr": "",
+    "qml_errors": []
+  },
+  "launcher_probe": {
+    "stderr": "",
+    "animations_exit": 0,
+    "ordinary_exit": 0,
+    "command": ".\\tests\\animation_launch_probe.ps1 -Output evidence/TASK-0011/owner-follow-up/launch"
+  },
+  "input": "Synthetic QtTest; physical follow-up input unverified",
+  "whitespace": "git diff --check passed"
+}

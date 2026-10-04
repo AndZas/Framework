@@ -1,0 +1,24 @@
+[
+  {
+    "name": "ordinary",
+    "command": "call \"F:\\Files\\PythonProjects\\Framework\\run.cmd\"",
+    "working_directory": "C:\\Users\\zasim\\AppData\\Local\\Temp",
+    "window_title": "Python UI — first core slice",
+    "native_handle": 136121110,
+    "process_id": 16992,
+    "physical_input": false,
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "name": "animations",
+    "command": "call \"F:\\Files\\PythonProjects\\Framework\\run-animations.cmd\"",
+    "working_directory": "C:\\Users\\zasim\\AppData\\Local\\Temp",
+    "window_title": "Keyframe animations — Python + Qt Quick",
+    "native_handle": 7803400,
+    "process_id": 2844,
+    "physical_input": false,
+    "exit_code": 0,
+    "stderr": ""
+  }
+]
