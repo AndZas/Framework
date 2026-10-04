@@ -232,7 +232,16 @@ No API-help pane, theme editor, file watching, or automatic rerun was added.
 
 - Branch: `task/TASK-0012-api-playground-foundation` (continued from the
   already-published branch; no duplicate branch).
-- Implementation commit and PR URL will be recorded after the scoped push and
-  PR creation; the review-record update stays on this same branch.
+- Implementation commit: `d6618be645ff27ff2f0189327db8781cb8e43858`
+  (`TASK-0012: build API Playground editor and process runner`).
+- PR: [#10](https://github.com/AndZas/Framework/pull/10), targeting `main`,
+  attached to this Codex chat. The GitHub connector's creation call returned
+  `403 Resource not accessible by integration`; PR creation succeeded through
+  the owner's already-authenticated GitHub browser session. No permissions or
+  repository settings were changed.
+- This report's PR/commit handoff update is committed and pushed separately
+  on the same branch; its commit ID is included in the chat completion report.
+- The scoped branch is pushed to `origin`. No uncommitted task work remains
+  after the handoff update; local scratch verification artifacts are ignored.
 - Leave the PR open and this task in `tasks/in-progress/`; no merge, Done move,
   release, or repository-setting change is authorized or performed.
