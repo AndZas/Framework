@@ -24,4 +24,8 @@ Completed and reviewed:
 - [TASK-0008: Prototype hybrid theme authoring and widget overrides](done/TASK-0008-theme-api-spike.md)
 - [TASK-0009: Place the vertical scrollbar at the window edge](done/TASK-0009-scrollbar-edge-layout.md)
 
-There are currently no ready tasks. The owner approved TASK-0009 after checking both application variants. TASK-0008's theme prototype is complete; its proposed public API and token schema remain undecided. TASK-0007 adds the first installable Python UI slice on the selected Qt Quick foundation; its temporary `pyui_framework` import name must be revisited before public release. The project foundation and selected layout policy are recorded in [ADR-0001](../docs/architecture/decisions/ADR-0001-pyside6-qt-quick.md) and [ADR-0002](../docs/architecture/decisions/ADR-0002-layout-defaults.md). TASK-0005 delivered an owner-validated evaluation app. Create a linked follow-up task for production theme implementation after its API contract is approved.
+Ready for implementation:
+
+- [TASK-0010: Implement production theme support](ready/TASK-0010-production-themes.md)
+
+The owner approved TASK-0009 after checking both application variants. TASK-0008's hybrid theme prototype informed the accepted initial contract in [ADR-0003](../docs/architecture/decisions/ADR-0003-theme-model.md); TASK-0010 now implements it in the production package. Exact public names remain experimental while the package is version 0.x. TASK-0007 adds the first installable Python UI slice on the selected Qt Quick foundation; its temporary `pyui_framework` import name must be revisited before public release. The project foundation and selected layout policy are recorded in [ADR-0001](../docs/architecture/decisions/ADR-0001-pyside6-qt-quick.md) and [ADR-0002](../docs/architecture/decisions/ADR-0002-layout-defaults.md). TASK-0005 delivered an owner-validated evaluation app.
