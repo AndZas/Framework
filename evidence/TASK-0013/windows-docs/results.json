@@ -1,0 +1,24 @@
+{
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.13.9 (tags/v3.13.9:8183fa5, Oct 14 2025, 14:09:13) [MSC v.1944 64 bit (AMD64)]",
+  "executable": "F:\\Files\\PythonProjects\\Framework\\.venv-framework\\Scripts\\python.exe",
+  "pyside": "6.11.2",
+  "qt": "6.11.2",
+  "input": "synthetic QtTest mouse/key and QInputMethodEvent; file dialogs stubbed",
+  "checks": [
+    "default startup loads current canonical docs independent of cwd",
+    "native headings, tables, lists, inline/fenced code and rendered internal link",
+    "literal Unicode-aware rendered search, next/previous/wrap, no-match, Clear/Esc/Ctrl+F; reload keeps query and child/source state",
+    "minimum 560x440 window retains controls; long code and long document scroll horizontally/vertically",
+    "missing docs shows inline error; Stop/Save/Open/Run stay usable; Reload recovers and source tab retains buffer"
+  ],
+  "native_markdown": {
+    "tables": 8,
+    "headings": 15,
+    "lists": 5,
+    "code_lines": 36,
+    "links": 2,
+    "inline_code": 181
+  },
+  "canonical_sha256": "16d4f86b190a9ce478f5ea8c9290dc8e12388c01b120b5debc7f6a970027de6e"
+}
