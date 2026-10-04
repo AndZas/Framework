@@ -30,8 +30,10 @@ Implementation branches, commits, pull requests, iterative review, and owner app
 
 ## Ready
 
-- [TASK-0014: Add a theme editor and preview to the API Playground](ready/TASK-0014-playground-theme-editor.md)
+No tasks currently ready.
 
 ## In progress
+
+- [TASK-0014: Add a theme editor and preview to the API Playground](in-progress/TASK-0014-playground-theme-editor.md)
 
 The owner approved and merged TASK-0012 (PR #10) and TASK-0013 (PR #11) to `main`. The owner reviewed TASK-0013 by running the editor and checking the API Docs tab and search, and accepted the tab-based layout. The owner approved TASK-0009 after checking both application variants, merged TASK-0010 after reviewing production themes and the theme studio, and merged TASK-0011 after trying the animation examples. TASK-0008's hybrid theme prototype informed the accepted initial contract in [ADR-0003](../docs/architecture/decisions/ADR-0003-theme-model.md); production themes and the first keyframe animation API are implemented and recorded in [TASK-0010](done/TASK-0010-production-themes.md) and [TASK-0011](done/TASK-0011-keyframe-animations.md). Exact public names remain experimental while the package is version 0.x. The selected foundation, layout and theme contracts remain ADR-0001, ADR-0002 and ADR-0003.

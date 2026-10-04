@@ -1,6 +1,6 @@
 # TASK-0014: Add a theme editor and preview to the API Playground
 
-**Status:** Ready
+**Status:** Implementation complete; owner review pending
 **Type:** Implementation — repository developer tool; no framework API change
 **Depends on:** TASK-0012 and TASK-0013 (merged to `main`); TASK-0010; ADR-0001 and ADR-0003
 **Likely files:** `tools/api_playground/`, focused files under `tests/`, `tasks/`
@@ -117,3 +117,102 @@ implementation begins. Commit and push scoped changes, then create/update one
 PR to `main`; never merge or move this task to `done/`. At implementation
 completion, mark the report `Implementation complete; owner review pending`
 and leave it in `tasks/in-progress/` until architecture and owner review.
+
+## Implementation report — 2026-10-04
+
+The Playground now has a Theme tab with an independent text buffer, path and
+dirty marker. Open/Save/Save As operate on the selected text tab; Run always
+saves/relaunches Python. The theme starter uses all eight existing tokens and
+a distinct panel. New themes save to `.playground/scratch.theme`, with an
+explicit confirmation before replacing an earlier scratch session.
+
+Validate calls public `Theme.parse(text, source=...)`, displaying its diagnostic
+without changing either buffer, files or child state. Preview validates before
+offering Save/Cancel or requesting a process replacement. It also notices a
+missing/externally changed saved file and offers Save/Cancel rather than
+previewing different text. Invalid text can be saved for editing but never
+reaches the preview launch action. Close checks Python and then Theme; Cancel
+at either prompt preserves both buffers and keeps the child running.
+
+The sample uses public `Theme.load(path)` and `App(window, theme=theme)` in a
+separate process. Window/Labels inherit appearance; one Button shows the
+gradient and another overrides only `gradient=None` to expose solid accent.
+Both update a Label and print click output. It shares the existing runner,
+pending-launch slot, Stop, bounded kill fallback and asynchronous shutdown.
+The Theme pane and Output explain replacement and how Run returns to source.
+
+### Changed files and API impact
+
+- `tools/api_playground/theme_editor.py`, `ThemePane.qml`: theme buffer,
+  file actions, public-parser validation and Save/Cancel preparation.
+- `tools/api_playground/theme_preview.py`: representative public-API sample.
+- `tools/api_playground/editor.py`, `runner.py`, `__main__.py`, `Main.qml`:
+  tab integration, independent close handling and managed preview arguments.
+- `tools/api_playground/README.md`: tab controls, scratch paths, validation,
+  preview/replacement, source Run and limitations.
+- `tests/test_playground_theme.py`, `playground_theme_probe.py`,
+  `playground_theme_sample_probe.py`: buffer/error safety and visible flow.
+- This task moved to `tasks/in-progress/`; `tasks/README.md` updated;
+  `tasks/evidence/TASK-0014/` stores the observed results and five captures.
+
+**Public framework API impact: none.** No changes to `src/pyui_framework/`,
+the theme grammar, examples, `docs/themes.md` or `docs/api.md`.
+
+### Verification actually performed
+
+Windows 11 build 26200, AMD64; repository `.venv-framework`, Python 3.13.9,
+PySide6 6.11.2 / Qt 6.11.2. Commands ran from the repository in PowerShell.
+
+| Command | Observed result |
+| --- | --- |
+| `.venv-framework/Scripts/python.exe -m pytest tests/test_playground.py tests/test_playground_docs.py -q` | 15 passed; existing source runner and API Docs visible flows retained. |
+| `.venv-framework/Scripts/python.exe tests/playground_theme_probe.py .playground/verification/TASK-0014` | Passed the visible Theme/editor/native-preview flow with synthetic Qt input. |
+| `.venv-framework/Scripts/python.exe -m pytest -q` | 121 passed in 92.77 s. |
+| `.venv-framework/Scripts/python.exe -m pytest tests/test_playground_theme.py -q` | 18 passed in 13.12 s after strengthening the shutdown probe to check the real interpreter PID exits. Only the probe and README wording changed after the full suite. |
+| `git diff --check` | Passed. |
+| `git diff --name-only origin/main -- src docs/api.md docs/themes.md examples` | Empty; excluded framework/API/theme-documentation paths unchanged. |
+
+Focused checks cover UTF-8/BOM input, plain UTF-8 output, Cyrillic/spaced paths,
+Save As filter/default suffix/overwrite-confirmation configuration, existing
+scratch Cancel/confirm, failed reads/writes, and independent dirty state.
+Malformed/duplicate/unknown/out-of-range declarations retain useful parser
+source/line/token information. Validation and invalid Preview do not save or
+request a lifecycle change. Close covers Python-only, Theme-only and both-dirty
+Save/Discard/Cancel cases, including Discard followed by Cancel.
+
+The visible probe edits both QML text areas and switches all three tabs. It
+loads Lagoon with a BOM, preserves dirty Python and a sleeping authored child,
+shows an invalid radius diagnostic without stopping it, tests Preview Cancel
+and Save, and checks a separate visible native preview/PID. It then reopens,
+edits, saves with Ctrl+S and previews again, and uses Run from Theme to save and
+relaunch source. A timer continues firing during stop/start and close; Win32
+checks confirm replaced and shutdown interpreter processes exit. The sample
+probe renders the same `build(path)` for two palettes, checks resolved tokens
+and native opacity 1.0/0.8, and activates both Buttons with QtTest mouse input.
+
+Evidence: [results](../evidence/TASK-0014/results.json),
+[valid Theme tab](../evidence/TASK-0014/theme-valid.png),
+[invalid diagnostic](../evidence/TASK-0014/theme-invalid.png),
+[560×440 editor](../evidence/TASK-0014/theme-narrow.png),
+[Lagoon-style sample](../evidence/TASK-0014/preview-lagoon.png),
+[modified sample](../evidence/TASK-0014/preview-modified.png).
+Generated captures were visually inspected for text/control layout.
+
+### Limitations and owner checks
+
+UI evidence uses synthetic QtTest/QInputMethodEvent input; file selections and
+question responses are stubbed. Native file-dialog interaction and physical
+mouse/keyboard usability have not been manually exercised. Window opacity is
+asserted through Qt; `grabWindow()` captures do not prove physical desktop
+compositing/monitor perception. Other DPI/hardware, prolonged sessions and
+non-Windows platforms remain unverified. No live replacement, file watching,
+general CSS features or additional framework capabilities were introduced.
+No implementation blockers remain; architecture/owner review is pending.
+
+### Git delivery
+
+- Branch: `task/TASK-0014-playground-theme-editor` (existing branch continued).
+- Implementation commit: to be recorded after committing this scoped change.
+- PR: to be recorded after pushing and creating the PR to `main`.
+- Task remains in `tasks/in-progress/`; PR merge and Done transition await
+  separate owner authorization in the architecture chat.
