@@ -418,8 +418,12 @@ tested configuration.
 Changed scoped files: `src/pyui_framework/theme.py`, `examples/lagoon.theme`,
 `examples/themes.py`, `docs/themes.md`, `tests/test_theme.py`, new
 `tests/theme_review_probe.py`, this task report and the new `owner-follow-up`
-evidence. The follow-up implementation commit is recorded below after commit;
-the task remains in progress for owner review.
+evidence. Follow-up implementation commit:
+`84eae182185d78b3a74d56eff4d1b32b03fb4743`
+(`TASK-0010: address Dark labels and verify opacity and Midnight rendering`),
+pushed to origin on `task/TASK-0010-production-themes`. This report-only follow-up
+records the implementation ID; final handoff verifies its push and a clean
+working tree. The task remains in progress for owner review.
 
 ### Git and review
 
