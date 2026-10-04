@@ -67,11 +67,21 @@ raise SystemExit(App(window).run())
 | `App(window, theme="light")` / `app.set_theme(theme)` | Light, Dark, System or custom `Theme`; live appearance updates |
 | `Theme(name="Custom", **tokens)` / `Theme.load(path)` | Equivalent Python and CSS-inspired file authoring |
 | `Window/Label/Button(..., style={...})` / `widget.set_style(**tokens)` | Local override; replace or clear with an empty call |
+| `Timeline(Keyframe(ms, **values), ...)` / `widget.play(timeline)` | Validated temporary keyframes; Qt Quick performs playback |
+| `playback.stop()` / `playback.restart()` | Restore base or start a new run from zero |
 
 Production theme API, grammar, ranges, precedence, System behavior and limits
 are documented in [docs/themes.md](docs/themes.md). Run `./run-themes.cmd` after
 setup to compare the themes, reload `examples/lagoon.theme` and replace/clear a
 local Button override. The ordinary `run.cmd` remains the core example.
+
+The [experimental animation API](docs/animations.md) supports fade/scale,
+corners and selected colors on existing controls, with Window opacity/background.
+Run `./run-animations.cmd` or
+`./.venv-framework/Scripts/python.exe examples/animations.py` to replay two
+keyframe samples, stop/restart, and switch themes/local styles during playback.
+Completion/stop restores the base; valid theme/style updates stop affected runs.
+There is no Python callback per rendered frame.
 
 Children have one owner. Invalid types, duplicate ownership and cycles raise
 Python errors. Use retained container references to append controls in callbacks.
@@ -110,7 +120,8 @@ to a directory outside this checkout, change to that directory and run them
 with the absolute path to `.venv-framework-wheel\Scripts\python.exe`. The
 installed package must resolve QML from that environment's `site-packages`.
 The runtime dependency is PySide6 6.11.2; pytest/build/setuptools belong to the
-optional development extra. A wheel includes all seven internal QML files.
+optional development extra. Package data includes every internal QML file,
+including the animation controller.
 
 ## Owner checks and limits
 
@@ -131,4 +142,4 @@ creates its children; no large-list performance claim is made.
 
 ## Current status
 
-See [the architecture overview](docs/architecture/overview.md), accepted [ADR-0001](docs/architecture/decisions/ADR-0001-pyside6-qt-quick.md), [ADR-0002](docs/architecture/decisions/ADR-0002-layout-defaults.md), and [ADR-0003](docs/architecture/decisions/ADR-0003-theme-model.md). [TASK-0010](tasks/done/TASK-0010-production-themes.md) implements the production theme runtime and has been owner-reviewed and merged. [TASK-0011](tasks/ready/TASK-0011-keyframe-animations.md) is ready to implement a Python keyframe animation API and runnable Windows demo. Completed evidence: [Qt Quick feasibility](tasks/done/TASK-0001-qt-quick-feasibility.md), [Python-first API](tasks/done/TASK-0002-python-api-spike.md), [Python API backend comparison](tasks/done/TASK-0003-python-api-backend-comparison.md), [QML controls and dynamic Python tree](tasks/done/TASK-0004-qml-controls-dynamic-tree.md), [interactive showcase](tasks/done/TASK-0005-interactive-qt-quick-showcase.md), [layout API comparison](tasks/done/TASK-0006-layout-api-comparison.md), [first production Python UI slice](tasks/done/TASK-0007-core-vertical-slice.md), [hybrid theme authoring prototype](tasks/done/TASK-0008-theme-api-spike.md), and [scrollbar edge layout](tasks/done/TASK-0009-scrollbar-edge-layout.md).
+See [the architecture overview](docs/architecture/overview.md), accepted [ADR-0001](docs/architecture/decisions/ADR-0001-pyside6-qt-quick.md), [ADR-0002](docs/architecture/decisions/ADR-0002-layout-defaults.md), and [ADR-0003](docs/architecture/decisions/ADR-0003-theme-model.md). [TASK-0010](tasks/done/TASK-0010-production-themes.md) implements the production theme runtime and has been owner-reviewed and merged. [TASK-0011](tasks/in-progress/TASK-0011-keyframe-animations.md) adds an experimental Python keyframe API and runnable Windows demo; owner review is pending. Completed evidence: [Qt Quick feasibility](tasks/done/TASK-0001-qt-quick-feasibility.md), [Python-first API](tasks/done/TASK-0002-python-api-spike.md), [Python API backend comparison](tasks/done/TASK-0003-python-api-backend-comparison.md), [QML controls and dynamic Python tree](tasks/done/TASK-0004-qml-controls-dynamic-tree.md), [interactive showcase](tasks/done/TASK-0005-interactive-qt-quick-showcase.md), [layout API comparison](tasks/done/TASK-0006-layout-api-comparison.md), [first production Python UI slice](tasks/done/TASK-0007-core-vertical-slice.md), [hybrid theme authoring prototype](tasks/done/TASK-0008-theme-api-spike.md), and [scrollbar edge layout](tasks/done/TASK-0009-scrollbar-edge-layout.md).

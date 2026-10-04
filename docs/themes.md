@@ -90,6 +90,12 @@ Spacing, fonts, content inset, layout and edge scrollbar geometry are independen
 of theme tokens. Hover/pressed overlays and the focus outline are internal
 feedback, with no public interaction-state tokens in this version.
 
+The experimental [keyframe API](animations.md) adds a temporary appearance
+overlay. A valid theme switch stops every active animation before applying its
+palette; a valid local style replacement/clear stops that widget's animation.
+Invalid updates retain active playback. Completion/stop restores normal theme
+and local-style bindings. Animation never changes authored theme/style tokens.
+
 Theme/style validation finishes before mutation or notification. A failed load
 or update raises an error and preserves the previous appearance and local styles.
 Catch `ThemeError` in a callback to show an error without treating it as an
