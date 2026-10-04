@@ -1,6 +1,6 @@
 # TASK-0012: Build the API Playground editor and separate-process runner
 
-**Status:** Ready
+**Status:** Implementation complete; owner review pending
 **Type:** Implementation — repository developer tool; no framework API change
 **Depends on:** TASK-0007, TASK-0010, TASK-0011; ADR-0001
 **Likely files:** `tools/api_playground/`, `run-playground.cmd`, `.gitignore`, `README.md`, focused files under `tests/`
@@ -144,3 +144,95 @@ Do not implement these follow-ups as hidden scope in TASK-0012.
   how the child uses the framework environment.
 - List changed files, task branch, commit IDs, PR URL, actual checks and Windows
   launch results, plus limitations and unresolved items.
+
+## Implementation report — 2026-10-04
+
+### Result and API impact
+
+Implemented a repository-only Qt Quick editor in `tools/api_playground/` with
+a monospace multi-line Python buffer, Run/Stop/Open/Save/Save As, keyboard
+shortcuts, and a resizable output panel. The initial example imports only
+public `App`, `Button`, `Label`, and `Window` names. Qt Widgets supplies native
+file/confirmation dialogs only; both editor and framework presentation remain
+Qt Quick. No public framework API was added, changed, or removed; neither
+`src/pyui_framework/` nor `docs/api.md` was changed.
+
+Run saves the exact current text before starting the child. A new buffer saves
+to root `.playground/scratch.py`; Save As selects an alternative active file.
+The scratch directory is ignored by Git. Existing scratch content requires
+confirmation before a fresh starter can replace it. Open accepts UTF-8 with
+or without BOM, and Save writes plain UTF-8. Unsaved edits prompt on Open and
+close; failed file operations preserve the buffer and prevent a new launch.
+The unchanged starter can be closed without a save prompt.
+
+The runner passes `sys.executable`, `-u`, and the absolute source path separately
+to `QProcess`, with the source's parent as working directory and UTF-8,
+unbuffered stdout/stderr. The existing editable framework environment is used;
+no package installation or new environment is performed. The authored app
+has its own normal top-level window in a different process, with no embedding.
+Status distinguishes startup, running, stopped, normal/nonzero exit, crash,
+and failed start. The output panel retains 120,000 recent characters.
+
+Rerun queues only the latest source and waits for the previous process to exit.
+Stop cancels pending reruns. Shutdown prevents further edits/runs and keeps the
+window alive until child exit. Terminate and the 1.5-second kill fallback use
+signals/timers, with no blocking `waitForFinished` in the tool. The Windows
+venv redirector can have a different PID from the actual interpreter: the
+visible probe checks that actual interpreter exits after rerun, Stop, and
+editor close as well as checking `QProcess` state. Fallback termination was
+observed in the Windows flow; the editor's event loop continued responding.
+
+### Changed files
+
+- `tools/api_playground/{__init__.py,__main__.py,editor.py,runner.py,Main.qml,README.md}`:
+  editor host, file controls, child lifecycle, and setup/control/limitation notes.
+- `run-playground.cmd`, `.gitignore`, `README.md`: root-relative launcher using
+  `.venv-framework`, ignored scratch workspace, and the entry-point documentation.
+- `tests/test_playground.py`, `tests/playground_probe.py`,
+  `tests/playground_launch_probe.ps1`: focused runner/file checks, visible QtTest
+  acceptance flow, and actual Windows launcher checks.
+- `evidence/TASK-0012/`: visible editor/child captures, flow JSON, launcher JSON.
+- This task moved from `ready/` to `in-progress/`; `tasks/README.md` links to
+  its current location. It stays in progress for review.
+
+### Verification performed
+
+Environment: Windows 11 build 26200, Python 3.13.9 (64-bit), PySide6/Qt 6.11.2,
+using `F:\Files\PythonProjects\Framework\.venv-framework\Scripts\python.exe`.
+
+| Command/check | Observed result |
+| --- | --- |
+| `.\.venv-framework\Scripts\python.exe -m pytest -q` | Final complete run: 97 passed in 73.30 seconds; includes the existing framework suite and 9 Playground tests. |
+| `.\.venv-framework\Scripts\python.exe -m pytest -q tests/test_playground.py` | Final focused run: 9 passed in 10.09 seconds. Covers real launches, separate executable/arguments, UTF-8 stdout/stderr, spaced/Unicode paths, relative files, nonzero exit, failed start/recovery, latest-only rerun, asynchronous kill fallback, cancellation, shutdown during startup, current-buffer save, failed save/open, BOM, and unsaved/scratch protection. |
+| `.\.venv-framework\Scripts\python.exe tests/playground_probe.py evidence/TASK-0012/windows-flow` | Passed on visible Windows Qt windows with synthetic QtTest mouse/key and text-input events: edit, Save As, Run, separate top-level child, rerun, Stop, Save, relative-file/stdout/stderr output, Python error, failed start, UTF-8 Open, and editor shutdown. Actual child interpreter PIDs were checked for exit. File/confirmation dialogs were stubbed for determinism. |
+| `.\tests\playground_launch_probe.ps1` | Actual `run-playground.cmd` launched from `%TEMP%`, opened a visible native editor window, and exited 0 after programmatic window close; final stderr empty. A copied launcher in a spaced folder without the environment exited 1 and printed `Run setup.cmd first.` |
+| `git check-ignore .playground/scratch.py` | Scratch path is ignored. |
+| `git diff --check` and scoped diff inspection | Passed; no framework/API/prototype changes or generated environments staged. |
+
+Screenshots and JSON are under [Windows flow](../../evidence/TASK-0012/windows-flow/)
+and [launcher evidence](../../evidence/TASK-0012/launch/launch.json). Captures were
+visually inspected. QML shortcut warnings and teardown null-context warnings
+found in the first launcher check were fixed; final launcher stderr is empty.
+
+### Limitations and owner review
+
+The owner explicitly requested in this implementation chat to leave manual
+Windows interaction for review. No physical/manual input is claimed. Native
+Open/Save As dialogs, physical keyboard/mouse usability, appearance on the
+owner's display, and hardware/DPI coverage remain owner checks; synthetic input
+and stubbed dialogs do not establish those results. The functional acceptance
+flow above has automated evidence. No remaining automated failures are known.
+
+Only one direct child is managed. User code that spawns additional processes
+must manage them itself. Forced stop can skip Python cleanup handlers. This is
+not a sandbox, IDE, executable packager, or a cross-platform support claim.
+No API-help pane, theme editor, file watching, or automatic rerun was added.
+
+### Git and review handoff
+
+- Branch: `task/TASK-0012-api-playground-foundation` (continued from the
+  already-published branch; no duplicate branch).
+- Implementation commit and PR URL will be recorded after the scoped push and
+  PR creation; the review-record update stays on this same branch.
+- Leave the PR open and this task in `tasks/in-progress/`; no merge, Done move,
+  release, or repository-setting change is authorized or performed.

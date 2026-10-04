@@ -1,0 +1,27 @@
+{
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.13.9 (tags/v3.13.9:8183fa5, Oct 14 2025, 14:09:13) [MSC v.1944 64 bit (AMD64)]",
+  "executable": "F:\\Files\\PythonProjects\\Framework\\.venv-framework\\Scripts\\python.exe",
+  "pyside": "6.11.2",
+  "input": "synthetic QtTest mouse/key and QInputMethodEvent; file dialogs stubbed",
+  "editor_pid": 24904,
+  "checks": [
+    "starter uses only public framework imports",
+    "edit, UTF-8 Save As, Run, separate visible top-level child, editor usable",
+    "rerun replaces child with exact latest buffer; event loop stays responsive",
+    "Stop ends sleeping child through bounded fallback",
+    "Save, relative file from spaced source folder, stdout/stderr, normal exit",
+    "Python error and nonzero exit preserve editor",
+    "failed process start reported without closing editor",
+    "Open loads UTF-8 source into visible editor",
+    "window close asynchronously stops child before editor disappears"
+  ],
+  "child_window": {
+    "pid": 36132,
+    "title": "Playground app",
+    "parent_none": true,
+    "visible": true
+  },
+  "event_loop_pulses": 313,
+  "output": "Run saves the current buffer, then opens the app in a separate window.\n\n>>> Run: C:\\Users\\zasim\\AppData\\Local\\Temp\\playground source folder with spaces 4vzkbmm6\\пример с пробелами.py\n[Starting…]\n[Running (PID 33804)]\nстарт — UTF-8\r\nCHILD_WINDOW {\"pid\": 36132, \"title\": \"Playground app\", \"parent_none\": true, \"visible\": true}\r\n[Stopping…]\nChild did not stop in time; killing it.\nProcess error: Process crashed\n[Stopped (exit code 62097)]\n\n>>> Run: C:\\Users\\zasim\\AppData\\Local\\Temp\\playground source folder with spaces 4vzkbmm6\\пример с пробелами.py\n[Starting…]\n[Running (PID 28336)]\nlatest-buffer 23756\r\n[Stopping…]\nChild did not stop in time; killing it.\nProcess error: Process crashed\n[Stopped (exit code 62097)]\n\n>>> Run: C:\\Users\\zasim\\AppData\\Local\\Temp\\playground source folder with spaces 4vzkbmm6\\пример с пробелами.py\n[Starting…]\n[Running (PID 7796)]\nstderr marker\r\nотносительный файл\r\n[Exited (code 0)]\n\n>>> Run: C:\\Users\\zasim\\AppData\\Local\\Temp\\playground source folder with spaces 4vzkbmm6\\пример с пробелами.py\n[Starting…]\n[Running (PID 35388)]\nTraceback (most recent call last):\r\n  File \"C:\\Users\\zasim\\AppData\\Local\\Temp\\playground source folder with spaces 4vzkbmm6\\пример с пробелами.py\", line 1, in <module>\r\n    raise RuntimeError('probe Python error')\r\nRuntimeError: probe Python error\r\n[Exited (code 1)]\n\n>>> Run: C:\\Users\\zasim\\AppData\\Local\\Temp\\playground source folder with spaces 4vzkbmm6\\пример с пробелами.py\n[Starting…]\nProcess error: Process failed to start: The system cannot find the file specified.\n[Failed to start]\n\n>>> Run: C:\\Users\\zasim\\AppData\\Local\\Temp\\playground source folder with spaces 4vzkbmm6\\open UTF-8.py\n[Starting…]\n[Running (PID 33100)]\nshutdown-ready 36084\r\n[Stopping…]\nChild did not stop in time; killing it.\nProcess error: Process crashed\n[Stopped (exit code 62097)]\n"
+}
