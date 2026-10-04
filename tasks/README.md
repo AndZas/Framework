@@ -12,7 +12,11 @@ Use IDs such as `TASK-0001`. Keep the task file with the code history. The task 
 
 Implementation branches, commits, pull requests, iterative review, and owner approval follow [`docs/git-workflow.md`](../docs/git-workflow.md). The implementation chat creates the PR after implementation and updates that same PR for requested changes. It never merges. After review and explicit owner approval, the architecture chat completes the task record in that PR and merges it.
 
-Completed and reviewed:
+## Ready for implementation
+
+- [TASK-0012: Build the API Playground editor and separate-process runner](ready/TASK-0012-api-playground-foundation.md)
+
+## Completed and reviewed
 
 - [TASK-0001: Qt Quick feasibility spike](done/TASK-0001-qt-quick-feasibility.md)
 - [TASK-0002: Python-first API feasibility spike](done/TASK-0002-python-api-spike.md)
