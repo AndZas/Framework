@@ -222,6 +222,10 @@ is pending.
 Continued the existing `task/TASK-0009-scrollbar-edge-layout` branch, preserving
 specification commit `d5ec77a`. Fetch and fast-forward check were already up to
 date. Moved the task from ready to in-progress at startup; it stays here marked
-`Implementation complete; owner review pending`. Implementation commit is
-recorded in the report follow-up after committing the scoped changes. No PR
+`Implementation complete; owner review pending`. Implementation commit:
+`0ce71a7af6f39f4e73eb6c29138c7b31ccdac2a2`
+(`TASK-0009: place attached scrollbars at the client edge`). A report-only
+follow-up commit, `TASK-0009: record implementation commit for owner review`,
+records this ID. Both commits are pushed to origin on the task branch. No PR
 merge, main push, force-push, release, repository setting or move to Done.
+Working tree is clean at handoff.
