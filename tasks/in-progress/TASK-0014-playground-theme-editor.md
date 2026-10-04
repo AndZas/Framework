@@ -168,7 +168,7 @@ PySide6 6.11.2 / Qt 6.11.2. Commands ran from the repository in PowerShell.
 | `.venv-framework/Scripts/python.exe -m pytest tests/test_playground.py tests/test_playground_docs.py -q` | 15 passed; existing source runner and API Docs visible flows retained. |
 | `.venv-framework/Scripts/python.exe tests/playground_theme_probe.py .playground/verification/TASK-0014` | Passed the visible Theme/editor/native-preview flow with synthetic Qt input. |
 | `.venv-framework/Scripts/python.exe -m pytest -q` | 121 passed in 92.77 s. |
-| `.venv-framework/Scripts/python.exe -m pytest tests/test_playground_theme.py -q` | 18 passed in 13.12 s after strengthening the shutdown probe to check the real interpreter PID exits. Only the probe and README wording changed after the full suite. |
+| `.venv-framework/Scripts/python.exe -m pytest tests/test_playground_theme.py -q` | 18 passed in 13.12 s after strengthening the shutdown probe to check the real interpreter PID exits. After the full suite, changes were limited to that probe and explanatory Run text in the README/editor. |
 | `git diff --check` | Passed. |
 | `git diff --name-only origin/main -- src docs/api.md docs/themes.md examples` | Empty; excluded framework/API/theme-documentation paths unchanged. |
 
@@ -212,7 +212,13 @@ No implementation blockers remain; architecture/owner review is pending.
 ### Git delivery
 
 - Branch: `task/TASK-0014-playground-theme-editor` (existing branch continued).
-- Implementation commit: to be recorded after committing this scoped change.
-- PR: to be recorded after pushing and creating the PR to `main`.
+- Implementation commit: `fa3014e85a6d3a292c1cd63f7365001b00f27d00`
+  (`TASK-0014: add Playground theme editor and managed preview`), pushed to origin.
+- PR: [#12](https://github.com/AndZas/Framework/pull/12), targeting `main`.
+  The GitHub connector initially returned HTTP 403; creation succeeded through
+  the GitHub REST API using the existing Git credential helper. No repository
+  settings or protected branches were changed.
+- This delivery metadata is committed separately on the same branch; no
+  task files or code are left uncommitted.
 - Task remains in `tasks/in-progress/`; PR merge and Done transition await
   separate owner authorization in the architecture chat.
