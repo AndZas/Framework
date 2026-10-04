@@ -287,7 +287,15 @@ observed in the tested configuration.
 - `docs/animations.md`, `docs/themes.md`, `docs/architecture/overview.md`,
   `README.md`, `tasks/README.md`, this moved task and `evidence/TASK-0011/`.
 
-Branch: `task/TASK-0011-keyframe-animations`. Implementation commit ID and push
-verification are recorded in the report-only follow-up below. The task remains
+Branch: `task/TASK-0011-keyframe-animations`. Implementation commit and push
+verification are recorded below. The task remains
 in `tasks/in-progress/` as **Implementation complete; owner review pending**.
 Only the architecture chat handles owner-approved merge and movement to Done.
+
+Implementation commit: `aa01a7def478aff540cb03f9aac361daa30349f7`
+(`TASK-0011: add Qt Quick keyframe animations and Windows demo`), pushed
+successfully to origin on the named branch. This report-only follow-up records
+the implementation ID without rewriting history. Final handoff verifies the
+report commit's push and clean working tree. Ignored probe stdout/stderr logs
+remain local; final standalone probe stderr was empty. No uncommitted scoped
+source, test, doc or evidence work remains after the handoff.
