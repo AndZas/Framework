@@ -1,6 +1,6 @@
 # TASK-0013: Add an API documentation pane to the Playground
 
-**Status:** Implementation complete; owner approved; merge pending
+**Status:** Done — owner approved and merged to `main`
 **Type:** Implementation — repository developer tool; no framework API change
 **Depends on:** TASK-0012 (merged to `main`); ADR-0001
 **Likely files:** `tools/api_playground/`, focused files under `tests/`, `tasks/`
@@ -164,7 +164,7 @@ claimed.
   running editor and reported that the API Docs tab,
   rendered reference, and search work correctly. The owner accepts the current
   tab arrangement and prefers not to add a right-side panel to this small
-  developer tool at this stage. PR #11 is still open pending owner merge.
+  developer tool at this stage. PR #11 was merged after owner review.
 
 Git handoff: continued `task/TASK-0013-playground-api-docs-pane` at `15c9a60`,
 the existing published specification branch, without creating a duplicate.
@@ -174,11 +174,9 @@ origin branch. A report-only follow-up records this Git/PR handoff; its commit
 ID is available in the branch log and the implementation chat's completion
 message. No task changes remain uncommitted after that handoff push.
 
-PR: [#11](https://github.com/AndZas/Framework/pull/11), targeting `main`.
-GitHub currently reports the PR open and mergeable, with no combined CI status
-checks configured. The connector can read the PR but returned HTTP 403,
-`Resource not accessible by integration`, when submitting an approval review.
-The owner approved the result in the architecture chat after manual use. The
-connector also returned HTTP 403 when asked to merge; no direct push to `main`
-was attempted. Merge completion and moving this record to `done/` remain pending
-until the owner merges PR #11. No framework/API change was made.
+PR: [#11](https://github.com/AndZas/Framework/pull/11), merged to `main` on
+2026-10-04 as `2db859395532a1c3f418295882ecad73bb3fbfdb`. The owner reviewed the
+running editor, confirmed that the API Docs tab and search work, and accepted
+the tab-based layout. GitHub's Codex integration returned HTTP 403 for review
+and merge writes; the owner merged the PR through GitHub. No framework/API
+change was made.
