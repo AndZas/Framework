@@ -10,7 +10,7 @@ Each task is a self-contained instruction for one implementation chat. Start wit
 
 Use IDs such as `TASK-0001`. Keep the task file with the code history. The task author should specify a goal, context, scope, acceptance criteria, verification, and report format. A task's completion does not automatically approve an architectural decision. Once reviewed and moved to `done/`, keep it as a record; create a new linked task for follow-up work instead of reopening it.
 
-Implementation branches, commits, pushes, and owner review follow [`docs/git-workflow.md`](../docs/git-workflow.md). Implementation agents push task branches but do not merge them. After the owner explicitly approves a reviewed result, the architecture chat creates and merges the PR, then marks the task done.
+Implementation branches, commits, pull requests, iterative review, and owner approval follow [`docs/git-workflow.md`](../docs/git-workflow.md). The implementation chat creates the PR after implementation and updates that same PR for requested changes. It never merges. After review and explicit owner approval, the architecture chat completes the task record in that PR and merges it.
 
 Completed and reviewed:
 

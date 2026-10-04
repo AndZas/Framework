@@ -31,7 +31,14 @@ One concrete outcome.
 
 - Exact checks or manual scenarios, with platform/environment requirements
 
+## Pull request and review
+
+- After implementation and checks pass, open a PR from the named task branch to `main`; include the task ID and verification summary, then attach/report the PR URL.
+- Keep fixes on this branch and update the same PR after `Request changes`; respond to comments and rerun relevant checks.
+- Do not merge or move this task to Done. The architecture chat handles final review, owner approval, completion status, and merge.
+- If PR creation is blocked by missing tooling or permissions, report the error and provide the compare link. Never bypass branch protection.
+
 ## Report
 
 - Changed files, evidence, limitations, and unresolved questions
-- Task branch and commit ID(s), plus verification performed
+- Task branch and commit ID(s), PR URL, plus verification performed
