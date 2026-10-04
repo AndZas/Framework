@@ -236,6 +236,51 @@ interaction-state/typography tokens, selectors, image/shader fills or stable 1.x
 schema is promised. These are current limits/future design questions, with no
 unresolved blocker for the task's tested Windows theme contract.
 
+### Owner review follow-up (2026-10-04)
+
+The owner launched the theme studio and confirmed Light/Dark/System switching
+(including a real Windows system light/dark transition), physical clicks, and
+file reload work. Resolve these remaining visual questions on this task branch
+before asking for final approval:
+
+1. **Dark Label surface:** the built-in Dark palette currently sets
+   `panel: #202c42` and `background: #131a2a`, while Light sets `panel` equal
+   to its window background. Every Label paints its `panel`, so Labels blend
+   into Light but appear as cards in Dark. Make the built-in Dark Label surface
+   blend into the window by default (match its background), while retaining
+   explicit custom `panel` values. Add regression coverage for both built-in
+   palettes and custom panels.
+2. **File-theme window opacity:** `examples/lagoon.theme` explicitly declares
+   `opacity: 0.94`; runtime applies it to the whole Window. Desktop show-through
+   is therefore expected from this particular file, not an implicit effect of
+   loading any file theme. Confirm visibly at 0.94 and 1.0, ensure the Python
+   Lagoon object matches, and make the studio/docs explain whole-window opacity.
+   Keep custom transparency supported. Set the shipped example's Lagoon
+   opacity to 1.0 if that removes the surprising default; explain the choice
+   and retain a test proving explicit opacity reaches the Window.
+3. **Midnight gradient:** `prototypes/theme_api_spike/midnight.theme` uses the
+   same two-stop `linear-gradient(#RRGGBB, #RRGGBB)` syntax accepted in
+   production; no format migration is evident. Compare file-loaded Midnight
+   with an equivalent Python Theme and Lagoon. Inspect resolved stops and a
+   rendered horizontal pixel profile/capture to determine whether reported
+   bands come from the selected stop colors, Qt rendering, or a regression.
+   Fix the renderer/mapping if it is a regression; otherwise record evidence
+   for correct interpolation versus color/display quantization. Token equality
+   alone does not establish visual gradient quality.
+
+#### Follow-up acceptance and verification
+
+- Built-in Dark Labels have no visually distinct unintended card background;
+  custom themes with a distinct `panel` still render it.
+- The studio explains opacity, the owner can compare the file and equivalent
+  Python theme, and explicit opacity remains functional.
+- Midnight file and Python forms resolve to the same stops. Include a capture
+  or measured profile to establish smooth interpolation or reproduce banding.
+- Re-run focused theme tests and the full suite, launch the studio on Windows,
+  and repeat Dark Label, Lagoon opacity, Midnight gradient, file reload, and
+  theme switching checks. Record results and any visual limitation.
+- Leave the task in `tasks/in-progress/` until owner review of these fixes.
+
 ### Git and review
 
 Task branch: `task/TASK-0010-production-themes`. Implementation commit:
