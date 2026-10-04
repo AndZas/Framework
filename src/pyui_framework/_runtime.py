@@ -2,15 +2,17 @@
 from pathlib import Path
 import sys
 import traceback
+import warnings
 
 import shiboken6
-from PySide6.QtCore import QAbstractListModel, QModelIndex, QObject, Property, Qt, Signal, Slot, QThread
+from PySide6.QtCore import QAbstractListModel, QModelIndex, QObject, Property, Qt, Signal, Slot, QThread, QEvent
 from PySide6.QtQml import QQmlApplicationEngine
 from PySide6.QtQuick import QQuickWindow
 from PySide6.QtQuickControls2 import QQuickStyle
 from PySide6.QtGui import QGuiApplication
 
 from ._model import Button, Column, Label, Row, Window
+from .theme import _resolve, ThemeError
 
 
 class Children(QAbstractListModel):
@@ -40,6 +42,7 @@ class Children(QAbstractListModel):
 
 class Node(QObject):
     textChanged = Signal()
+    styleChanged = Signal()
 
     def __init__(self, value, app):
         super().__init__(app.bridge)
@@ -50,13 +53,11 @@ class Node(QObject):
         self._kind = kinds[type(value)]
         self._id = f"node-{len(app.nodes)}"
         app.nodes.append(self)
+        value._runtime = self
         self.model = Children(self)
         if hasattr(value, "children"):
             for child in value.children:
                 self.model.append(Node(child, app))
-            value._runtime = self
-        if isinstance(value, Label):
-            value._runtime = self
 
     def check_thread(self):
         if QThread.currentThread() != self.thread():
@@ -85,6 +86,16 @@ class Node(QObject):
     def childrenModel(self):
         return self.model
 
+    @Property("QVariantMap", notify=styleChanged)
+    def appearance(self):
+        values = self.app.public.resolved_theme | getattr(self.value, "style", {})
+        # Nested tuple QVariant conversion is deliberately avoided at the QML boundary.
+        gradient = values.pop("gradient")
+        values.update(hasGradient=gradient is not None,
+                      gradientStart=gradient[0] if gradient else values["accent"],
+                      gradientEnd=gradient[1] if gradient else values["accent"])
+        return values
+
 
 class Bridge(QObject):
     def __init__(self, app):
@@ -104,10 +115,15 @@ class Bridge(QObject):
 
 
 class Runtime:
-    def __init__(self, window):
+    def __init__(self, window, public=None):
         self.qt_app = QGuiApplication.instance() or QGuiApplication([])
+        self.public = public or window._app
         self.errors, self.nodes = [], []
         self.bridge = Bridge(self)
+        self.hints = self.qt_app.styleHints()
+        values = _resolve(self.public.theme, self.system_scheme())
+        self.public._resolved = values
+        self.hints.colorSchemeChanged.connect(self.system_changed)
         # Window has a deterministic implicit Column; explicit root Column
         # introduces one extra container with no additional margins.
         self.root_node = Node(window, self)
@@ -122,9 +138,38 @@ class Runtime:
         context.setContextProperty("initialHeight", window.height)
         self.engine.load(str(Path(__file__).with_name("qml") / "Main.qml"))
         if not self.engine.rootObjects():
+            self.hints.colorSchemeChanged.disconnect(self.system_changed)
+            self.engine.deleteLater()
+            self.qt_app.sendPostedEvents(None, QEvent.Type.DeferredDelete)
+            for node in self.nodes:
+                node.value._runtime = None
             raise RuntimeError("Internal QML load failed: " + "\n".join(self.errors))
         self.window = self.engine.rootObjects()[0]
         self.quick = shiboken6.wrapInstance(shiboken6.getCppPointer(self.window)[0], QQuickWindow)
+
+    def system_scheme(self):
+        return {Qt.ColorScheme.Light: "light", Qt.ColorScheme.Dark: "dark"}.get(self.hints.colorScheme())
+
+    def set_theme(self, choice):
+        self.root_node.check_thread()
+        values = _resolve(choice, self.system_scheme())
+        self.apply_theme(choice, values)
+
+    def apply_theme(self, choice, values):
+        self.public._theme, self.public._resolved = choice, values
+        for node in self.nodes:
+            node.styleChanged.emit()
+
+    def system_changed(self, scheme):
+        if self.public.theme == "system":
+            try:
+                values = _resolve("system", {Qt.ColorScheme.Light: "light", Qt.ColorScheme.Dark: "dark"}.get(scheme))
+            except ThemeError as exc:
+                message = f"{exc}; retaining previous appearance"
+            else:
+                self.apply_theme("system", values)
+                return
+            warnings.warn(message, RuntimeWarning, stacklevel=2)
 
     def warnings(self, warnings):
         for warning in warnings:
@@ -137,7 +182,15 @@ class Runtime:
 
     def close(self):
         self.window.close()
+        self.hints.colorSchemeChanged.disconnect(self.system_changed)
+        self.engine.deleteLater()
+        # Destroy QML before bridge objects; include teardown in diagnostics.
+        self.qt_app.sendPostedEvents(None, QEvent.Type.DeferredDelete)
         for node in self.nodes:
             node.value._runtime = None
-        self.engine.deleteLater()
+            node.app = None
+        shiboken6.delete(self.bridge)
+        self.nodes.clear()
+        self.root_node = None
+        self.bridge.app = None
         self.qt_app.processEvents()

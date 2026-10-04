@@ -1,0 +1,35 @@
+[
+  {
+    "name": "ordinary",
+    "command": "call \"F:\\Files\\PythonProjects\\Framework\\run.cmd\"",
+    "working_directory": "C:\\Users\\zasim\\AppData\\Local\\Temp",
+    "window_title": "Python UI — first core slice",
+    "native_handle": 115477518,
+    "process_id": 11972,
+    "physical_input": false,
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "name": "studio",
+    "command": "call \"F:\\Files\\PythonProjects\\Framework\\run-themes.cmd\"",
+    "working_directory": "C:\\Users\\zasim\\AppData\\Local\\Temp",
+    "window_title": "Production themes · TASK-0010",
+    "native_handle": 45354662,
+    "process_id": 27292,
+    "physical_input": false,
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "name": "alternate-path",
+    "command": "call \"F:\\Files\\PythonProjects\\Framework\\run-themes.cmd\" \"C:\\Users\\zasim\\AppData\\Local\\Temp\\framework TASK-0010 launch\\custom palette.theme\"",
+    "working_directory": "C:\\Users\\zasim\\AppData\\Local\\Temp",
+    "window_title": "Production themes · TASK-0010",
+    "native_handle": 72551638,
+    "process_id": 15716,
+    "physical_input": false,
+    "exit_code": 0,
+    "stderr": ""
+  }
+]

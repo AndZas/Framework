@@ -1,4 +1,5 @@
 """Python declarations with single ownership and atomic validation."""
+from .theme import _style
 
 
 def _text(value):
@@ -11,6 +12,24 @@ class _Element:
     def __init__(self):
         self._owner = None
         self._runtime = None
+
+
+class _Styled:
+    def _init_style(self, style):
+        self._style = _style(style, type(self).__name__)
+
+    @property
+    def style(self):
+        return self._style.copy()
+
+    def set_style(self, **tokens):
+        """Replace local overrides atomically; an empty call restores inheritance."""
+        values = _style(tokens, type(self).__name__)
+        if self._runtime:
+            self._runtime.check_thread()
+        self._style = values
+        if self._runtime:
+            self._runtime.styleChanged.emit()
 
 
 class _Container(_Element):
@@ -57,8 +76,9 @@ class Row(_Container):
     """Horizontal group; children share the available width."""
 
 
-class Window(_Container):
-    def __init__(self, title, *children, width=640, height=520):
+class Window(_Styled, _Container):
+    def __init__(self, title, *children, width=640, height=520, style=None):
+        self._init_style(style)
         self.title = _text(title)
         for name, value, minimum in (("width", width, 280), ("height", height, 260)):
             if type(value) is not int or value < minimum:
@@ -68,8 +88,9 @@ class Window(_Container):
         super().__init__(*children)
 
 
-class Label(_Element):
-    def __init__(self, text, *, heading=False):
+class Label(_Styled, _Element):
+    def __init__(self, text, *, heading=False, style=None):
+        self._init_style(style)
         super().__init__()
         self._text = _text(text)
         if type(heading) is not bool:
@@ -89,8 +110,9 @@ class Label(_Element):
             self._runtime.textChanged.emit()
 
 
-class Button(_Element):
-    def __init__(self, text, *, on_click):
+class Button(_Styled, _Element):
+    def __init__(self, text, *, on_click, style=None):
+        self._init_style(style)
         super().__init__()
         self.text = _text(text)
         if not callable(on_click):

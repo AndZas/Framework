@@ -64,6 +64,14 @@ raise SystemExit(App(window).run())
 | `Column(*children)` | Vertical group in insertion order |
 | `container.add(child)` | Append and return the child, before or after startup |
 | `App(window).run()` | Show, block until closed, return exit status; one run per App |
+| `App(window, theme="light")` / `app.set_theme(theme)` | Light, Dark, System or custom `Theme`; live appearance updates |
+| `Theme(name="Custom", **tokens)` / `Theme.load(path)` | Equivalent Python and CSS-inspired file authoring |
+| `Window/Label/Button(..., style={...})` / `widget.set_style(**tokens)` | Local override; replace or clear with an empty call |
+
+Production theme API, grammar, ranges, precedence, System behavior and limits
+are documented in [docs/themes.md](docs/themes.md). Run `./run-themes.cmd` after
+setup to compare the themes, reload `examples/lagoon.theme` and replace/clear a
+local Button override. The ordinary `run.cmd` remains the core example.
 
 Children have one owner. Invalid types, duplicate ownership and cycles raise
 Python errors. Use retained container references to append controls in callbacks.
@@ -116,11 +124,11 @@ or prolonged-operation behavior.
 
 Only Windows is verified. Rows keep a horizontal grouping rather than becoming
 vertical; arbitrarily large rows and extremely long unbroken text are outside
-the tested cases. There is one built-in appearance, no public styling API,
-remove/reorder/reparent, multiple windows, worker-thread UI updates, executable
+the tested cases. Light/Dark/System and a validated semantic styling API are
+available; there is no remove/reorder/reparent, multiple windows, worker-thread UI updates, executable
 packaging or platform support beyond this Windows slice. Each Repeater eagerly
 creates its children; no large-list performance claim is made.
 
 ## Current status
 
-See [the architecture overview](docs/architecture/overview.md), accepted [ADR-0001](docs/architecture/decisions/ADR-0001-pyside6-qt-quick.md) and [ADR-0002](docs/architecture/decisions/ADR-0002-layout-defaults.md), and completed evidence: [Qt Quick feasibility](tasks/done/TASK-0001-qt-quick-feasibility.md), [Python-first API](tasks/done/TASK-0002-python-api-spike.md), [Python API backend comparison](tasks/done/TASK-0003-python-api-backend-comparison.md), [QML controls and dynamic Python tree](tasks/done/TASK-0004-qml-controls-dynamic-tree.md), [interactive showcase](tasks/done/TASK-0005-interactive-qt-quick-showcase.md), [layout API comparison](tasks/done/TASK-0006-layout-api-comparison.md), [first production Python UI slice](tasks/done/TASK-0007-core-vertical-slice.md), [hybrid theme authoring prototype](tasks/done/TASK-0008-theme-api-spike.md), and [scrollbar edge layout](tasks/done/TASK-0009-scrollbar-edge-layout.md).
+See [the architecture overview](docs/architecture/overview.md), accepted [ADR-0001](docs/architecture/decisions/ADR-0001-pyside6-qt-quick.md), [ADR-0002](docs/architecture/decisions/ADR-0002-layout-defaults.md), and [ADR-0003](docs/architecture/decisions/ADR-0003-theme-model.md). [TASK-0010](tasks/in-progress/TASK-0010-production-themes.md) implements the production theme runtime; owner review is pending. Completed evidence: [Qt Quick feasibility](tasks/done/TASK-0001-qt-quick-feasibility.md), [Python-first API](tasks/done/TASK-0002-python-api-spike.md), [Python API backend comparison](tasks/done/TASK-0003-python-api-backend-comparison.md), [QML controls and dynamic Python tree](tasks/done/TASK-0004-qml-controls-dynamic-tree.md), [interactive showcase](tasks/done/TASK-0005-interactive-qt-quick-showcase.md), [layout API comparison](tasks/done/TASK-0006-layout-api-comparison.md), [first production Python UI slice](tasks/done/TASK-0007-core-vertical-slice.md), [hybrid theme authoring prototype](tasks/done/TASK-0008-theme-api-spike.md), and [scrollbar edge layout](tasks/done/TASK-0009-scrollbar-edge-layout.md).

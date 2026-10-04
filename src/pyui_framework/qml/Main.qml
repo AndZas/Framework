@@ -10,7 +10,8 @@ ApplicationWindow {
     minimumHeight: 260
     title: windowTitle
     visible: true
-    color: tokens.surface
+    color: rootNode.appearance.background
+    opacity: rootNode.appearance.opacity
 
     Flickable {
         id: viewport
