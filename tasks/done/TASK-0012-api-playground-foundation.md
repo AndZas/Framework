@@ -1,6 +1,6 @@
 # TASK-0012: Build the API Playground editor and separate-process runner
 
-**Status:** Implementation complete; owner review pending
+**Status:** Done — owner reviewed and merged as PR #10
 **Type:** Implementation — repository developer tool; no framework API change
 **Depends on:** TASK-0007, TASK-0010, TASK-0011; ADR-0001
 **Likely files:** `tools/api_playground/`, `run-playground.cmd`, `.gitignore`, `README.md`, focused files under `tests/`
@@ -228,6 +228,13 @@ must manage them itself. Forced stop can skip Python cleanup handlers. This is
 not a sandbox, IDE, executable packager, or a cross-platform support claim.
 No API-help pane, theme editor, file watching, or automatic rerun was added.
 
+### Owner review — 2026-10-04
+
+The owner opened the Playground, edited code, opened previously created Python
+files, and launched them. They reported that the files opened and ran as before,
+without observed errors, and approved the editor as ready. This is owner-observed
+Windows coverage; it does not extend platform or hardware support claims.
+
 ### Git and review handoff
 
 - Branch: `task/TASK-0012-api-playground-foundation` (continued from the
@@ -243,5 +250,6 @@ No API-help pane, theme editor, file watching, or automatic rerun was added.
   on the same branch; its commit ID is included in the chat completion report.
 - The scoped branch is pushed to `origin`. No uncommitted task work remains
   after the handoff update; local scratch verification artifacts are ignored.
-- Leave the PR open and this task in `tasks/in-progress/`; no merge, Done move,
-  release, or repository-setting change is authorized or performed.
+- The owner approved the result after manual use. The architecture review found
+  no blocking issue; PR #10 was merged and this task moved to `tasks/done/`.
+  No release or repository-setting change was made.

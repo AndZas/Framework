@@ -12,10 +12,6 @@ Use IDs such as `TASK-0001`. Keep the task file with the code history. The task 
 
 Implementation branches, commits, pull requests, iterative review, and owner approval follow [`docs/git-workflow.md`](../docs/git-workflow.md). The implementation chat creates the PR after implementation and updates that same PR for requested changes. It never merges. After review and explicit owner approval, the architecture chat completes the task record in that PR and merges it.
 
-## In progress
-
-- [TASK-0012: Build the API Playground editor and separate-process runner](in-progress/TASK-0012-api-playground-foundation.md)
-
 ## Completed and reviewed
 
 - [TASK-0001: Qt Quick feasibility spike](done/TASK-0001-qt-quick-feasibility.md)
@@ -29,5 +25,6 @@ Implementation branches, commits, pull requests, iterative review, and owner app
 - [TASK-0009: Place the vertical scrollbar at the window edge](done/TASK-0009-scrollbar-edge-layout.md)
 - [TASK-0010: Implement production theme support](done/TASK-0010-production-themes.md)
 - [TASK-0011: Implement a first Python keyframe animation API](done/TASK-0011-keyframe-animations.md)
+- [TASK-0012: Build the API Playground editor and separate-process runner](done/TASK-0012-api-playground-foundation.md)
 
-TASK-0012 is in progress. The owner approved TASK-0009 after checking both application variants, merged TASK-0010 after reviewing production themes and the theme studio, and merged TASK-0011 after trying the animation examples. TASK-0008's hybrid theme prototype informed the accepted initial contract in [ADR-0003](../docs/architecture/decisions/ADR-0003-theme-model.md); production themes and the first keyframe animation API are implemented and recorded in [TASK-0010](done/TASK-0010-production-themes.md) and [TASK-0011](done/TASK-0011-keyframe-animations.md). Exact public names remain experimental while the package is version 0.x. The selected foundation, layout and theme contracts remain ADR-0001, ADR-0002 and ADR-0003.
+The owner approved TASK-0012 after opening the Playground, editing code, and launching existing Python files; PR #10 was merged. The owner approved TASK-0009 after checking both application variants, merged TASK-0010 after reviewing production themes and the theme studio, and merged TASK-0011 after trying the animation examples. TASK-0008's hybrid theme prototype informed the accepted initial contract in [ADR-0003](../docs/architecture/decisions/ADR-0003-theme-model.md); production themes and the first keyframe animation API are implemented and recorded in [TASK-0010](done/TASK-0010-production-themes.md) and [TASK-0011](done/TASK-0011-keyframe-animations.md). Exact public names remain experimental while the package is version 0.x. The selected foundation, layout and theme contracts remain ADR-0001, ADR-0002 and ADR-0003.
