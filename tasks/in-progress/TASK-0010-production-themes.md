@@ -281,6 +281,146 @@ before asking for final approval:
   theme switching checks. Record results and any visual limitation.
 - Leave the task in `tasks/in-progress/` until owner review of these fixes.
 
+### Owner review follow-up results (2026-10-04)
+
+Continued `task/TASK-0010-production-themes` at owner-feedback commit `4b98832`.
+Startup `git status --short` was empty; `git fetch origin` and
+`git merge --ff-only origin/task/TASK-0010-production-themes` reported already
+up to date. The status was set to follow-up in progress while working and is now
+Implementation complete; owner review pending. No branch switch, main change,
+PR/merge or move to Done was performed.
+
+**Dark Label correction.** Changed only the built-in Dark `panel` token from
+`#202c42` to `#131a2a`, matching its background. The Label Rectangle and custom
+panel resolution were retained. Actual rendered pixels in a text-free part of
+the heading match the window in Light, Dark and System. A custom theme using
+Midnight's `panel: #24263a` against `background: #171827` still paints the
+distinct surface; a runtime Label-local `panel: #36495b` also renders correctly.
+Default Dark now looks like plain text on the window, without unintended cards.
+
+**Opacity confirmation.** Shipped Lagoon file and Python object now both use
+1.0 so the default does not reveal the desktop. Explicit 0.94 remains accepted
+and functional through both forms. The studio now explains whole-window plus
+control opacity, displays the active theme opacity and offers Window-only
+0.94/1.0 overrides plus clearing. Those actions are verified by synthetic clicks;
+window opacity changes while the inherited sample's opacity remains 1.0, and
+clearing resumes inheritance. Python Midnight was added to compare with the
+existing compatible prototype theme file through the owner-facing studio.
+
+The new render probe opens the actual production studio using its public
+App.run lifecycle and places a solid magenta **test-only native Qt backdrop**
+behind it. The studio still uses the unchanged Qt Quick renderer; no production
+widget or rendering foundation was added. Captures are restricted to the
+studio client area and saved only after checking the expected client color.
+The test window is temporarily kept above the backdrop for reliable native
+screen compositing, then both windows are closed. QQuickWindow.grabWindow is
+used for scene/gradient evidence, whereas QScreen screen pixels are used for
+Windows-composited opacity evidence: the former alone does not prove desktop
+show-through. At a blank client pixel over `#ff00ff`:
+
+| Authored opacity | File rendered RGB | Python rendered RGB | Expected compositing |
+| --- | --- | --- | --- |
+| 0.94 | [235,231,243] | [235,231,243] | [235.26,230.30,242.78] |
+| 1.0 | [234,245,242] | [234,245,242] | [234,245,242] (#eaf5f2) |
+
+Both Qt Window.opacity and the inherited Button.opacity read exactly the
+authored value. At global 0.94, the control first blends into the app background,
+then the whole window is blended by Windows; an isolated foreground contribution
+is about 0.94² = 0.8836. Window-local opacity can independently control desktop
+show-through. No transparency is implicitly introduced by loading a file, and
+custom transparency has not been clamped or removed. Visual inspection of the
+0.94/1.0 screen captures confirms the tint/show-through difference.
+
+**Midnight investigation.** Loaded the original
+`prototypes/theme_api_spike/midnight.theme` as a data file via production
+Theme.load, without importing prototype modules or migrating syntax. The new
+equivalent Python MIDNIGHT Theme has the same complete tokens. The resolved
+horizontal stops are exactly `#55377e` → `#285b78`; opacity is 1.0. Whole-window
+scene images from the file and Python object are pixel-identical. Lagoon's file
+and Python images are also pixel-identical with matching UI state.
+
+Measured every physical pixel in a horizontal row 6 logical pixels below the
+inherited Button's top, excluding 30 pixels at each side to avoid rounded-edge
+antialiasing and avoiding text, hover, press and focus overlays. Saved the raw
+RGB samples and ideal floating-point linear values in CSV, with captures and
+summary metrics in `evidence/TASK-0010/owner-follow-up/`. The result is actual
+Qt Quick Direct3D11 output, not inferred from token equality:
+
+| Render / physical Button width | Samples | Distinct RGB | Longest equal-RGB run | Max adjacent channel step | Max error vs ideal RGB |
+| --- | --- | --- | --- | --- | --- |
+| Lagoon, 762 px, radius 20 | 702 | 188 | 9 px | 1/255 | 0.843/255 |
+| Midnight file/Python, 762 px, radius 20 | 702 | 80 | 17 px | 1/255 | 1.691/255 |
+| Midnight, 762 px, radius 0 | 702 | 78 | 18 px | 1/255 | 0.552/255 |
+| Midnight, 400 px, radius 20 | 340 | 71 | 9 px | 1/255 | 1.655/255 |
+
+All measured channels are monotonic toward their respective end stop. Small
+flat runs are reproduced; no large discrete jumps, missing stops or reversed
+interpolation were found. Midnight spans only 45 red, 36 green and 6 blue code
+values, versus Lagoon's 83/74/60. Stretching these narrow ranges over hundreds
+of pixels with 8 bits per channel necessarily repeats colors. The captured
+format is RGBA8888 premultiplied (32 total bits). Radius 0 reduces the small
+offset from ideal interpolation, but does not remove the repeated colors.
+
+The evidence is consistent with color quantization and Qt's rounded-Rectangle
+mesh arithmetic, rather than a framework theme mapping regression. The verified
+[Qt 6.11.2 Rectangle source](https://github.com/qt/qtdeclarative/blob/v6.11.2/src/quick/scenegraph/qsgbasicinternalrectanglenode.cpp)
+stores vertex colors in unsigned bytes and interpolates them at arc vertices
+using byte arithmetic (`fillColorFromX`, lines 523–535; operators near lines
+10–26). This explains additional small rounding offsets on rounded controls.
+Source review supports this interpretation; the render measurements above are
+the direct evidence. The existing Button QML gradient renderer was retained.
+No shader/dithering implementation or palette alteration was introduced.
+
+Visual inspection: Dark has no distinct Label cards; explicit custom panels
+remain visible; Lagoon at 1.0 appears opaque, while 0.94 tints the whole window
+over the magenta backdrop; Midnight transitions violet to blue continuously
+at macro scale with subtle quantized color steps, identical for file/Python.
+The supplied Midnight palette has dark button text on dark gradient stops;
+its contrast remains the palette author's responsibility. This follow-up does
+not claim to eliminate perceived monitor banding or improve arbitrary contrast.
+
+**Verification actually run.** Windows 11 build 26200, Python 3.13.9 AMD64,
+PySide6/Qt 6.11.2, Direct3D11, Window DPR 1.0, screen depth 32, existing dedicated
+`.venv-framework`; no global dependency installation. Commands from repository:
+
+```powershell
+git fetch origin
+git merge --ff-only origin/task/TASK-0010-production-themes
+.\.venv-framework\Scripts\python.exe tests/theme_review_probe.py evidence/TASK-0010/owner-follow-up
+.\.venv-framework\Scripts\python.exe -m pytest tests/test_theme.py -q
+.\.venv-framework\Scripts\python.exe -m pytest -q
+.\tests\theme_launch_probe.ps1 -Output evidence/TASK-0010/owner-follow-up/launch
+git diff --check
+```
+
+New visible render probe: **68 checks**, no failures, Qt messages or QML errors,
+including normal lifecycle teardown. Focused suite: **37 passed in 17.62 s**.
+Full suite: **48 passed in 44.34 s**, retaining the existing switching, reload,
+rollback, override, identity, resizing, scrolling and rapid-click regressions.
+Normal launcher verification independently opened the ordinary example and
+studio plus a studio with an alternate path containing spaces; visible window
+titles/handles were confirmed, every launcher exited 0 after normal close with
+empty stderr. Fresh launch JSON is under `owner-follow-up/launch/`. Earlier task
+captures/reports were preserved. Whitespace verification passed.
+
+Viewed new `dark-labels.png`, `explicit-panel.png`, the two file-opacity screen
+captures, and `midnight-file.png` directly, alongside numeric profiles. Automated
+input is synthetic QtTest; Codex did not physically use a mouse or change the
+Windows OS appearance setting. The owner's prior confirmation of physical
+clicks, reload and a real OS transition is now reflected in studio/docs and is
+attributed to owner review; the original report's unverified statement described
+Codex's initial coverage. Owner should now judge the corrected Dark appearance,
+opacity comparison and Midnight bands on their actual display. Other GPUs,
+DPI/backends, HDR/high-bit-depth surfaces, prolonged operation and non-Windows
+targets remain unverified. No follow-up acceptance blocker remains for this
+tested configuration.
+
+Changed scoped files: `src/pyui_framework/theme.py`, `examples/lagoon.theme`,
+`examples/themes.py`, `docs/themes.md`, `tests/test_theme.py`, new
+`tests/theme_review_probe.py`, this task report and the new `owner-follow-up`
+evidence. The follow-up implementation commit is recorded below after commit;
+the task remains in progress for owner review.
+
 ### Git and review
 
 Task branch: `task/TASK-0010-production-themes`. Implementation commit:

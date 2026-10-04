@@ -130,7 +130,7 @@ class Theme:
 
 LIGHT = Theme("Light", background="#f1f4f9", foreground="#23324d", panel="#f1f4f9",
               accent="#365a94", accent_text="#ffffff", radius=10, opacity=1, gradient=None)
-DARK = Theme("Dark", background="#131a2a", foreground="#e5eafa", panel="#202c42",
+DARK = Theme("Dark", background="#131a2a", foreground="#e5eafa", panel="#131a2a",
              accent="#819bff", accent_text="#131a2a", radius=10, opacity=1, gradient=None)
 
 

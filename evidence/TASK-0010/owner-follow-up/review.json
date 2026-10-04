@@ -1,0 +1,303 @@
+{
+  "environment": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.9 (tags/v3.13.9:8183fa5, Oct 14 2025, 14:09:13) [MSC v.1944 64 bit (AMD64)]",
+    "PySide6": "6.11.2",
+    "Qt": "6.11.2",
+    "graphics_api": "Direct3D11",
+    "window_dpr": 1.0,
+    "screen_depth": 32
+  },
+  "checks": [
+    "capture light-labels",
+    "built-in Label blends light",
+    "capture dark-labels",
+    "built-in Label blends dark",
+    "capture system-labels",
+    "built-in Label blends system",
+    "capture explicit-panel",
+    "explicit custom panel preserved",
+    "capture local-panel",
+    "local panel preserved",
+    "shipped Lagoon opaque and equivalent",
+    "click visible Load / reload file",
+    "explicit theme opacity reaches Window",
+    "explicit theme opacity reaches Button",
+    "screen client capture",
+    "desktop compositing lagoon-file-opacity-0.94",
+    "capture lagoon-file-opacity-0.94",
+    "explicit theme opacity reaches Window",
+    "explicit theme opacity reaches Button",
+    "screen client capture",
+    "desktop compositing lagoon-python-opacity-0.94",
+    "capture lagoon-python-opacity-0.94",
+    "click visible Load / reload file",
+    "explicit theme opacity reaches Window",
+    "explicit theme opacity reaches Button",
+    "screen client capture",
+    "desktop compositing lagoon-file-opacity-1",
+    "capture lagoon-file-opacity-1",
+    "explicit theme opacity reaches Window",
+    "explicit theme opacity reaches Button",
+    "screen client capture",
+    "desktop compositing lagoon-python-opacity-1",
+    "capture lagoon-python-opacity-1",
+    "click visible Window opacity 0.94",
+    "window-only opacity callback Window opacity 0.94",
+    "click visible Window opacity 1.0",
+    "window-only opacity callback Window opacity 1.0",
+    "click visible Clear window opacity",
+    "window-only opacity callback Clear window opacity",
+    "window opacity clear callback",
+    "capture lagoon-gradient",
+    "retained gradient control lagoon-gradient",
+    "resolved gradient stops lagoon-gradient",
+    "linear interpolation lagoon-gradient",
+    "capture lagoon-python-gradient",
+    "retained gradient control lagoon-python-gradient",
+    "resolved gradient stops lagoon-python-gradient",
+    "linear interpolation lagoon-python-gradient",
+    "Lagoon file/Python rendering",
+    "Midnight file/Python tokens",
+    "capture midnight-file",
+    "retained gradient control midnight-file",
+    "resolved gradient stops midnight-file",
+    "linear interpolation midnight-file",
+    "capture midnight-python",
+    "retained gradient control midnight-python",
+    "resolved gradient stops midnight-python",
+    "linear interpolation midnight-python",
+    "Midnight file/Python rendering",
+    "capture midnight-square",
+    "retained gradient control midnight-square",
+    "resolved gradient stops midnight-square",
+    "linear interpolation midnight-square",
+    "capture midnight-narrow",
+    "retained gradient control midnight-narrow",
+    "resolved gradient stops midnight-narrow",
+    "linear interpolation midnight-narrow",
+    "no Qt/QML diagnostics"
+  ],
+  "failures": [],
+  "profiles": {
+    "lagoon-gradient": {
+      "stops": [
+        "#126e67",
+        "#65b8a3"
+      ],
+      "physical_width": 762.0,
+      "sample_count": 702,
+      "image_format": "Format_RGBA8888_Premultiplied",
+      "image_depth": 32,
+      "unique_rgb": 188,
+      "max_flat_run": 9,
+      "max_neighbor_step": 1,
+      "max_linear_error": 0.8425196850393775,
+      "monotonic": true,
+      "first": [
+        21,
+        113,
+        106
+      ],
+      "last": [
+        98,
+        181,
+        160
+      ]
+    },
+    "lagoon-python-gradient": {
+      "stops": [
+        "#126e67",
+        "#65b8a3"
+      ],
+      "physical_width": 762.0,
+      "sample_count": 702,
+      "image_format": "Format_RGBA8888_Premultiplied",
+      "image_depth": 32,
+      "unique_rgb": 188,
+      "max_flat_run": 9,
+      "max_neighbor_step": 1,
+      "max_linear_error": 0.8425196850393775,
+      "monotonic": true,
+      "first": [
+        21,
+        113,
+        106
+      ],
+      "last": [
+        98,
+        181,
+        160
+      ]
+    },
+    "midnight-file": {
+      "stops": [
+        "#55377e",
+        "#285b78"
+      ],
+      "physical_width": 762.0,
+      "sample_count": 702,
+      "image_format": "Format_RGBA8888_Premultiplied",
+      "image_depth": 32,
+      "unique_rgb": 80,
+      "max_flat_run": 17,
+      "max_neighbor_step": 1,
+      "max_linear_error": 1.690944881889763,
+      "monotonic": true,
+      "first": [
+        82,
+        55,
+        125
+      ],
+      "last": [
+        41,
+        89,
+        119
+      ]
+    },
+    "midnight-python": {
+      "stops": [
+        "#55377e",
+        "#285b78"
+      ],
+      "physical_width": 762.0,
+      "sample_count": 702,
+      "image_format": "Format_RGBA8888_Premultiplied",
+      "image_depth": 32,
+      "unique_rgb": 80,
+      "max_flat_run": 17,
+      "max_neighbor_step": 1,
+      "max_linear_error": 1.690944881889763,
+      "monotonic": true,
+      "first": [
+        82,
+        55,
+        125
+      ],
+      "last": [
+        41,
+        89,
+        119
+      ]
+    },
+    "midnight-square": {
+      "stops": [
+        "#55377e",
+        "#285b78"
+      ],
+      "physical_width": 762.0,
+      "sample_count": 702,
+      "image_format": "Format_RGBA8888_Premultiplied",
+      "image_depth": 32,
+      "unique_rgb": 78,
+      "max_flat_run": 18,
+      "max_neighbor_step": 1,
+      "max_linear_error": 0.5511811023622073,
+      "monotonic": true,
+      "first": [
+        83,
+        56,
+        126
+      ],
+      "last": [
+        42,
+        90,
+        120
+      ]
+    },
+    "midnight-narrow": {
+      "stops": [
+        "#55377e",
+        "#285b78"
+      ],
+      "physical_width": 400.0,
+      "sample_count": 340,
+      "image_format": "Format_RGBA8888_Premultiplied",
+      "image_depth": 32,
+      "unique_rgb": 71,
+      "max_flat_run": 9,
+      "max_neighbor_step": 1,
+      "max_linear_error": 1.6550000000000011,
+      "monotonic": true,
+      "first": [
+        81,
+        57,
+        125
+      ],
+      "last": [
+        43,
+        87,
+        120
+      ]
+    }
+  },
+  "opacity": [
+    {
+      "source": "file",
+      "requested": 0.94,
+      "window": 0.94,
+      "button": 0.94,
+      "composed": [
+        235,
+        231,
+        243
+      ],
+      "ideal_over_magenta": [
+        235.26,
+        230.29999999999998,
+        242.78
+      ]
+    },
+    {
+      "source": "python",
+      "requested": 0.94,
+      "window": 0.94,
+      "button": 0.94,
+      "composed": [
+        235,
+        231,
+        243
+      ],
+      "ideal_over_magenta": [
+        235.26,
+        230.29999999999998,
+        242.78
+      ]
+    },
+    {
+      "source": "file",
+      "requested": 1.0,
+      "window": 1.0,
+      "button": 1.0,
+      "composed": [
+        234,
+        245,
+        242
+      ],
+      "ideal_over_magenta": [
+        234.0,
+        245.0,
+        242.0
+      ]
+    },
+    {
+      "source": "python",
+      "requested": 1.0,
+      "window": 1.0,
+      "button": 1.0,
+      "composed": [
+        234,
+        245,
+        242
+      ],
+      "ideal_over_magenta": [
+        234.0,
+        245.0,
+        242.0
+      ]
+    }
+  ],
+  "physical_input": false,
+  "qt_messages": [],
+  "qml_errors": []
+}

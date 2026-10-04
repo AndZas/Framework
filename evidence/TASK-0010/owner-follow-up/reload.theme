@@ -5,6 +5,6 @@
     accent: #126e67;
     accent-text: #ffffff;
     radius: 20;
-    opacity: 1;
+    opacity: 1.0;
     gradient: linear-gradient(#126e67, #65b8a3);
 }

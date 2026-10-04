@@ -113,3 +113,9 @@ def test_live_theme_example(example, tmp_path):
                              "--app", example, "--output", str(tmp_path)],
                             capture_output=True, text=True, timeout=50)
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_owner_review_rendering(tmp_path):
+    result = subprocess.run([sys.executable, str(Path(__file__).with_name("theme_review_probe.py")), str(tmp_path)],
+                            capture_output=True, text=True, timeout=50)
+    assert result.returncode == 0, result.stdout + result.stderr

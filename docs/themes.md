@@ -49,7 +49,7 @@ the source, line and token/value; structural errors identify the source.
     accent: #126e67;
     accent-text: #ffffff;
     radius: 20;
-    opacity: 0.94;
+    opacity: 1;
     gradient: linear-gradient(#126e67, #65b8a3);
 }
 ```
@@ -83,7 +83,9 @@ do not cascade into children. Window opacity also affects its displayed content
 through Qt's window compositing; child opacity can further reduce it.
 
 Light retains the core slice palette and radius 10, opacity 1, no gradient;
-Dark uses a dark background/panel, pale foreground/accent and dark button text.
+Dark uses matching dark background/panel, pale foreground/accent and dark button
+text. Both built-in palettes blend Labels into the window. An explicit custom
+or local `panel` still paints a distinct Label surface; it is not discarded.
 Spacing, fonts, content inset, layout and edge scrollbar geometry are independent
 of theme tokens. Hover/pressed overlays and the focus outline are internal
 feedback, with no public interaction-state tokens in this version.
@@ -108,7 +110,47 @@ The Windows probe exercised Qt's application-only `setColorScheme` Light →
 Dark → Light and reset via `unsetColorScheme`, which Qt exposes for testing:
 [Qt QStyleHints documentation](https://doc.qt.io/qt-6/qstylehints.html#colorScheme-prop).
 This is evidence of the Qt signal path, **not a real Windows settings transition**.
-The owner must still check Windows Light → Dark → Light while System is selected.
+The owner subsequently confirmed a real Windows Light/Dark transition in the
+studio on this setup (TASK-0010 owner review, 2026-10-04). This is owner-observed
+coverage; Codex has not repeated the OS-setting change or verified other setups.
+
+## Whole-window opacity and gradient quantization
+
+Loading a file does not implicitly enable transparency. The original Lagoon
+asset explicitly used `opacity: 0.94`; the equivalent Python Theme did the same.
+That value reaches Qt's native Window opacity and lets the desktop show through
+the whole window. The shipped Lagoon file and Python object now both use **1.0**
+to give an opaque default. Explicit values below 1 remain supported in both
+authoring forms. See [Qt Window opacity](https://doc.qt.io/qt-6/qwindow.html#opacity-prop).
+
+The semantic opacity token also applies to each Label and Button. At theme
+opacity 0.94, controls first blend into the client background at 0.94, and the
+whole window then blends with the desktop at 0.94; an isolated foreground's
+contribution is approximately `0.94 * 0.94 = 0.8836`. A Window-local
+`set_style(opacity=...)` affects only the native window; a Button-local override
+affects only that control. Studio's 0.94/1.0 comparison buttons set a Window-local
+override; the Clear window opacity button restores inheritance. A theme switch
+preserves this override, just as it preserves other local styles.
+
+Midnight uses the same accepted file syntax with stops `#55377e` → `#285b78`;
+no format migration is needed. The Windows Direct3D11 follow-up probe compares
+file/Python frames and measures a text-free horizontal row of the actual Button
+render. Both forms produce identical images. Channels change monotonically by
+at most 1/255 per adjacent pixel. On a 762-pixel button, Midnight's narrow RGB
+range yields 80 distinct sampled RGB triplets and repeated colors for up to
+17 pixels, versus 188 triplets / 9 pixels for Lagoon. These small quantized steps
+can be perceived as bands, particularly in the dark palette.
+
+The capture is RGBA8 (8 bits per channel). Rounded Qt Rectangles additionally
+interpolate byte vertex colors at their arc mesh vertices; the verified
+[Qt 6.11.2 source](https://github.com/qt/qtdeclarative/blob/v6.11.2/src/quick/scenegraph/qsgbasicinternalrectanglenode.cpp)
+uses byte color arithmetic. Rounded Midnight differs from ideal float-linear RGB
+by at most 1.70/255; the radius-0 control reduces this to 0.56/255 but still has
+flat runs up to 18 pixels. Narrowing the rounded control to 400 pixels reduces
+its longest flat run to 9. This evidence points to finite color precision and
+Qt mesh quantization, rather than missing stops or a framework mapping regression.
+It does not establish the exact physical monitor's perceived banding. No dithering
+or alternate renderer is added; HDR, other GPUs/DPI/backends remain unverified.
 
 ## Owner launch and limits
 
@@ -123,7 +165,11 @@ From the repository in PowerShell, with Python 3.13 installed:
 ```
 
 The theme studio has built-in choices, file reload, an equivalent Python Lagoon
-theme and local replace/clear actions. Edit `examples/lagoon.theme`, save and
+theme, Python Midnight, window-opacity comparison and local replace/clear actions.
+Load the original Midnight file with
+`./run-themes.cmd prototypes/theme_api_spike/midnight.theme`, then compare with
+Python Midnight. The production package does not import prototype modules.
+Edit `examples/lagoon.theme`, save and
 reload to test valid/invalid input. File errors appear in the studio status.
 Scripts use the ignored `.venv-framework`, work from another current directory
 and require no global package install. Close one example before launching the
@@ -131,9 +177,10 @@ other. `run.cmd` retains its ordinary core example and callbacks.
 
 Physically compare colors/gradient/text, switch themes, replace/clear the local
 sample, resize and scroll, and test valid/invalid file reloads. Inspect Tab/Space
-focus and activation. Real OS transitions, physical input, different DPI/hardware,
-accessibility, contrast safety, prolonged operation and other platforms remain
-owner/future verification. No automatic contrast correction, file watching,
+focus and activation. The owner has verified physical clicks, reload and a real
+OS transition on this setup; different DPI/hardware, accessibility, contrast
+safety, prolonged operation and other platforms remain future verification.
+No automatic contrast correction, file watching,
 typography themes, arbitrary selectors, images/shaders, custom geometry or stable
 1.x schema is promised. Themes and launch examples are source assets; executable
 distribution remains out of scope.
