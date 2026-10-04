@@ -1,6 +1,6 @@
 # TASK-0009: Place the vertical scrollbar at the window edge
 
-**Status:** Implementation complete; owner review pending
+**Status:** Done; owner-approved
 **Type:** Implementation
 **Depends on:** TASK-0007, TASK-0008
 **Likely files:** `src/pyui_framework/qml/Main.qml`, `prototypes/theme_api_spike/Main.qml`, `tests/`, `prototypes/theme_api_spike/`
@@ -215,7 +215,15 @@ installed-wheel, long-run or performance verification was rerun for this layout
 change. Launch scripts were unchanged; these launches used the same application
 construction paths directly through the probes. No acceptance blocker remains
 for the stated Windows sizes and synthetic input; owner visual/physical review
-is pending.
+was pending at implementation handoff.
+
+### Owner review (2026-10-04)
+
+The owner inspected and exercised both the basic production app and the theme
+prototype after the change. In both apps the scrollbar sits at the right edge
+without covering content; the owner approves the result. This confirms the
+reported visual behavior on the owner's setup; the remaining platform and
+physical-input coverage limits above still apply.
 
 ### Git and owner review
 
@@ -226,6 +234,6 @@ date. Moved the task from ready to in-progress at startup; it stays here marked
 `0ce71a7af6f39f4e73eb6c29138c7b31ccdac2a2`
 (`TASK-0009: place attached scrollbars at the client edge`). A report-only
 follow-up commit, `TASK-0009: record implementation commit for owner review`,
-records this ID. Both commits are pushed to origin on the task branch. No PR
-merge, main push, force-push, release, repository setting or move to Done.
-Working tree is clean at handoff.
+records this ID. Both implementation commits are pushed to origin on the task
+branch. The owner approved the result after checking both applications; the
+architecture chat records final integration in the GitHub pull request.
