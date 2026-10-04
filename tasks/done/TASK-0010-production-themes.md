@@ -1,6 +1,6 @@
 # TASK-0010: Implement production theme support
 
-**Status:** Implementation complete; owner review pending
+**Status:** Done — owner reviewed and merged
 **Type:** Implementation
 **Depends on:** TASK-0007, TASK-0008, TASK-0009; ADR-0003
 **Likely files:** `src/pyui_framework/`, `tests/`, `examples/`, `README.md`, package resource configuration
@@ -518,6 +518,15 @@ on `task/TASK-0010-production-themes`. This report-only follow-up records the
 implementation ID; final handoff verifies the report push and clean working tree.
 No merge or move to Done.
 
+### Owner review and completion (2026-10-04)
+
+The owner reviewed the corrected theme studio and approved the implementation,
+including the Midnight surface and opacity controls. The owner accepts the
+monitor-specific gradient banding observation on one display as a limitation;
+no renderer workaround was requested. TASK-0010 was merged into `main` by the
+owner in merge commit `a2f7cb8`. The task record is complete; future theme work
+should use a new linked task rather than reopening this one.
+
 ### Git and review
 
 Task branch: `task/TASK-0010-production-themes`. Implementation commit:
@@ -527,4 +536,5 @@ origin. This report-only follow-up records that ID; final handoff verifies its
 push and a clean working tree. Scoped source, tests, docs, task move and evidence
 are committed; ignored environments/logs remain local. The task stays in
 `tasks/in-progress/` with owner review pending; the architecture chat handles
-the explicitly approved PR/merge and completion. No task code was pushed to main.
+the owner-approved merge and completion. The implementation is now integrated
+on `main`.
