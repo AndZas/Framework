@@ -5,7 +5,7 @@ from pyui_framework import App, Button, Label, Row, Theme, ThemeError, Window
 CUSTOM = Theme("Lagoon", background="#eaf5f2", foreground="#173b3a", panel="#eaf5f2",
                accent="#126e67", accent_text="#ffffff", radius=20, opacity=1,
                gradient=("#126e67", "#65b8a3"))
-MIDNIGHT = Theme("Midnight", background="#171827", foreground="#eeedf8", panel="#24263a",
+MIDNIGHT = Theme("Midnight", background="#171827", foreground="#eeedf8", panel="#171827",
                  accent="#bba6f5", accent_text="#211a34", radius=20, opacity=1,
                  gradient=("#55377e", "#285b78"))
 

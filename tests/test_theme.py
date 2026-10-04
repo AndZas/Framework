@@ -8,6 +8,19 @@ from pyui_framework.theme import LIGHT, _resolve
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def test_midnight_demo_surface_and_custom_panel():
+    import runpy
+    python_theme = runpy.run_path(str(ROOT / "examples/themes.py"))["MIDNIGHT"]
+    theme_text = (ROOT / "examples/midnight.theme").read_text(encoding="utf-8")
+    file_theme = Theme.load(ROOT / "examples/midnight.theme")
+    assert file_theme.tokens == python_theme.tokens
+    assert file_theme.tokens["panel"] == file_theme.tokens["background"] == "#171827"
+    custom_file = Theme.parse(theme_text.replace("panel: #171827;", "panel: #24263a;"))
+    custom_python = Theme("Custom contrast", **(python_theme.tokens | {"panel": "#24263a"}))
+    assert _resolve(custom_file) == _resolve(custom_python)
+    assert _resolve(custom_file)["panel"] != _resolve(custom_file)["background"]
+
+
 def test_python_file_canonical_equivalence():
     import runpy
     python_theme = runpy.run_path(str(ROOT / "examples/themes.py"))["CUSTOM"]

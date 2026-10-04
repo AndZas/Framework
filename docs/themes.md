@@ -151,6 +151,10 @@ its longest flat run to 9. This evidence points to finite color precision and
 Qt mesh quantization, rather than missing stops or a framework mapping regression.
 It does not establish the exact physical monitor's perceived banding. No dithering
 or alternate renderer is added; HDR, other GPUs/DPI/backends remain unverified.
+The owner reports visible bands on one VA monitor and not on an IPS monitor.
+That is a display-specific perceptual observation, not a reproduced renderer
+defect or proof that all VA/IPS displays behave alike. The existing Windows
+pixel-profile evidence is preserved.
 
 ## Owner launch and limits
 
@@ -166,9 +170,13 @@ From the repository in PowerShell, with Python 3.13 installed:
 
 The theme studio has built-in choices, file reload, an equivalent Python Lagoon
 theme, Python Midnight, window-opacity comparison and local replace/clear actions.
-Load the original Midnight file with
-`./run-themes.cmd prototypes/theme_api_spike/midnight.theme`, then compare with
-Python Midnight. The production package does not import prototype modules.
+Load the production demo file with
+`./run-themes.cmd examples/midnight.theme`, then compare with Python Midnight.
+Both demo authoring forms set `panel` equal to `background` (`#171827`) so Labels
+blend into the window. Authors can still choose a distinct `panel` in custom
+files or Python Themes. The earlier prototype palette retains its historical
+contrasting panel; use the production example asset for this corrected demo.
+The production package does not import prototype modules.
 Edit `examples/lagoon.theme`, save and
 reload to test valid/invalid input. File errors appear in the studio status.
 Scripts use the ignored `.venv-framework`, work from another current directory

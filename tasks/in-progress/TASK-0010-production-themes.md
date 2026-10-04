@@ -445,6 +445,75 @@ perceptual observation unless new evidence reproduces a renderer defect; do not
 add gradient noise/dithering or change the renderer as a monitor-specific
 workaround. Preserve the measured evidence and state the limitation accurately.
 
+### Midnight surface follow-up result (2026-10-04)
+
+Continued only on `task/TASK-0010-production-themes` from `c52862e` with a clean
+working tree. Fetched origin and fast-forwarded the named branch; it was already
+up to date. The task remains in `tasks/in-progress/` for owner review.
+
+**Changes.** Python `MIDNIGHT` now sets `panel` and `background` to `#171827`.
+Added its matching production example asset `examples/midnight.theme` with all
+tokens equivalent to the Python object. The previous file was under the archived
+prototype; it retains its historical palette. Documentation and production
+verification now use the new example asset. No runtime, QML, gradient stops or
+gradient rendering implementation changed. Custom authors can still specify
+`panel: #24263a` against `background: #171827`, through either authoring form;
+local panel overrides and theme transparency remain supported.
+
+**Verification actually run.** Windows 11 build 26200, Python 3.13.9 AMD64,
+PySide6/Qt 6.11.2, Direct3D11, Window DPR 1.0, screen depth 32, existing
+`.venv-framework`. Commands from the repository:
+
+```powershell
+git fetch origin
+git merge --ff-only origin/task/TASK-0010-production-themes
+.\.venv-framework\Scripts\python.exe tests/theme_review_probe.py evidence/TASK-0010/midnight-surface
+.\.venv-framework\Scripts\python.exe -m pytest tests/test_theme.py -q
+.\.venv-framework\Scripts\python.exe -m pytest -q
+.\tests\theme_launch_probe.ps1 -Output evidence/TASK-0010/midnight-surface/launch
+git diff --check
+```
+
+Focused suite: **38 passed in 17.64 s**. Full suite: **49 passed in 44.47 s**.
+New regression checks both demo palettes and separately authored contrasting
+panels. Visible Qt Quick studio probe: **76 checks**, no failures or Qt/QML
+messages, including normal teardown. It clicked Load / reload file and Python
+Midnight and sampled the Label surface and window as `#171827` in both cases.
+Separately rendered custom file/Python themes retained `#24263a` Label panels
+against `#171827`; their frames were pixel-identical. The local panel override
+remained visible. Existing file/Python opacity 0.94/1.0 compositing checks passed.
+Normal launchers opened the ordinary example, studio and an alternate-path
+studio on Windows; all had visible native windows and exited 0 after normal
+close, with empty stderr. Evidence is saved under
+`evidence/TASK-0010/midnight-surface/`; earlier evidence was preserved.
+
+Codex directly viewed `midnight-file-surface.png`,
+`midnight-python-surface.png`, `explicit-panel.png` and
+`explicit-panel-file.png`. The two Midnight choices have no distinct Label card;
+the separate custom contrast theme has visible Label cards in both forms.
+Input during the render probe was synthetic QtTest, not physical mouse input.
+The fresh Midnight gradient profiles match the prior measurements above:
+762 px rounded Button, 702 samples, 80 distinct RGB values, longest equal-color
+run 17 px, largest adjacent channel step 1/255, maximum ideal-RGB error
+1.691/255. This does not reproduce an application-side discontinuity.
+
+**Owner observation and limits.** The owner sees bands on one VA monitor and
+not on an IPS monitor. This is attributed to owner review, not an independent
+Codex comparison of those physical displays. It does not establish a general
+VA/IPS distinction or a renderer defect. No noise/dithering workaround was added.
+Other GPUs, DPI/backends, HDR/high-bit-depth surfaces and non-Windows targets
+remain unverified. No implementation blocker remains for the tested setup.
+
+Owner launch: `./run-themes.cmd examples/midnight.theme`; compare Load / reload
+file with Python Midnight. The owner should confirm the surface appearance and
+perceived gradient on their physical monitors. Codex confirmed tokens, actual
+Qt-rendered surfaces, custom contrasting panels, transparency and Windows launch.
+
+Changed files: `examples/themes.py`, new `examples/midnight.theme`,
+`docs/themes.md`, `tests/test_theme.py`, `tests/theme_review_probe.py`, this
+report and the new `midnight-surface` evidence. Commit IDs are recorded after
+committing and pushing this scoped follow-up. No merge or move to Done.
+
 ### Git and review
 
 Task branch: `task/TASK-0010-production-themes`. Implementation commit:
