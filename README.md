@@ -52,6 +52,15 @@ window.add(Row(Button("Save", on_click=lambda: print("save")),
 raise SystemExit(App(window).run())
 ```
 
+## API Playground
+
+After the same one-time `setup.cmd`, run `run-playground.cmd` (or double-click
+it) to edit and run a small Python example without opening an IDE. Run saves
+the current buffer and opens the authored app in a separate process/window;
+Stop ends that run. Open, Save, and Save As use UTF-8. Scratch work lives in
+the ignored `.playground/` folder. See [the tool notes](tools/api_playground/README.md)
+for shortcuts, file behavior, output, and current Windows limitations.
+
 ## Experimental API
 
 The complete reference for the implemented importable API—including public

@@ -22,6 +22,7 @@ htmlcov/
 !.env.example
 *.log
 crash.*
+.playground/
 
 # Windows and editor noise
 Thumbs.db

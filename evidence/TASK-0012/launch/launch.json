@@ -1,0 +1,12 @@
+{
+  "command": "call \"F:\\Files\\PythonProjects\\Framework\\run-playground.cmd\"",
+  "working_directory": "C:\\Users\\zasim\\AppData\\Local\\Temp",
+  "window_title": "API Playground — Unsaved — .playground/scratch.py on Run or Save",
+  "native_handle": 117246990,
+  "process_id": 16860,
+  "physical_input": false,
+  "exit_code": 0,
+  "stderr": "",
+  "missing_environment_exit_code": 1,
+  "missing_environment_output": "Run setup.cmd first."
+}
