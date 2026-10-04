@@ -36,7 +36,6 @@ class _Styled:
         values = _style(tokens, type(self).__name__)
         if self._runtime:
             self._runtime.check_thread()
-            self._runtime.cancel_animation("style_changed")
         self._style = values
         if self._runtime:
             self._runtime.styleChanged.emit()

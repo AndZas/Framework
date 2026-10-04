@@ -230,8 +230,6 @@ class Runtime:
         self.apply_theme(choice, values)
 
     def apply_theme(self, choice, values):
-        for node in self.nodes:
-            node.cancel_animation("theme_changed")
         self.public._theme, self.public._resolved = choice, values
         for node in self.nodes:
             node.styleChanged.emit()

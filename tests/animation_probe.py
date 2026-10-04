@@ -16,6 +16,7 @@ from PySide6.QtCore import QObject, QPoint, QPointF, Qt, QTimer, qInstallMessage
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtTest import QTest
 from pyui_framework import AnimationError, Button, Keyframe, Label, Theme, ThemeError, Timeline
+from pyui_framework.theme import _resolve
 
 
 def main(output):
@@ -124,14 +125,16 @@ def main(output):
             intro.set_style(opacity=.85)
             run = intro.play(timeline)
             check("implicit zero snapshots local style", item(intro).opacity() == .85)
+            intro.set_style(opacity=.65)
+            check("base change does not rebase implicit starting point", run.running and item(intro).opacity() == .85)
             restarted = run.restart()
             check("restart replaces and creates new run", run.state == "replaced" and restarted.running and
-                  item(intro).opacity() == .85)
+                  item(intro).opacity() == .65)
             run.stop()
             check("stale handle cannot stop replacement", restarted.running)
             restarted.stop()
             restarted.stop()
-            check("stop idempotent", restarted.state == "stopped" and item(intro).opacity() == .85)
+            check("stop idempotent", restarted.state == "stopped" and item(intro).opacity() == .65)
             intro.set_style()
 
             for bad in (None, Timeline(Keyframe(0, background="#000000"), Keyframe(10, background="#ffffff"))):
@@ -177,12 +180,19 @@ def main(output):
             check("base gradient present", not background.property("gradient").isNull())
             run = morph.play(example["MORPH"])
             check("accent temporarily disables gradient", background.property("gradient").isNull())
+            morph.set_style(gradient=("#223344", "#778899"))
+            check("gradient base can change beneath active accent", run.running and background.property("gradient").isNull())
             run.stop()
             check("stop restores gradient binding", not background.property("gradient").isNull())
+            gradient = background.property("gradient").toQObject()
+            stops = sorted((stop.property("position"), stop.property("color").name())
+                           for stop in gradient.children() if stop.metaObject().indexOfProperty("position") >= 0)
+            check("stop restores latest actual gradient stops", stops == [(0., "#223344"), (1., "#778899")])
             run = morph.play(Timeline(Keyframe(0, radius=0), Keyframe(250, radius=20)))
             check("radius keeps gradient", not background.property("gradient").isNull())
             wait("radius completes with gradient restored", lambda: run.state == "completed")
             check("completion keeps gradient", not background.property("gradient").isNull())
+            morph.set_style()
             app.set_theme("light")
 
             for operation in (lambda: intro.set_style(opacity=2), lambda: app.set_theme("bad")):
@@ -195,50 +205,118 @@ def main(output):
                 check("invalid style/theme preserves run", run.running)
                 run.stop()
 
-            run = morph.play(example["MORPH"])
+            # Each update changes owned numeric/color properties AND unowned
+            # text color. Check current position synchronously, then progress,
+            # latest-base restoration on BOTH finish and explicit stop.
+            changing = Timeline(Keyframe(0, opacity=.25, radius=0, accent="#111111"),
+                                Keyframe(1100, opacity=.8, radius=24, accent="#777777"))
+            for update in ("theme", "replace", "clear"):
+                for ending in ("finish", "stop"):
+                    name = update + "/" + ending
+                    app.set_theme("dark")
+                    morph.set_style(**({} if update == "theme" else
+                        dict(accent="#134466", accent_text="#eeeeee", radius=8, opacity=.95)))
+                    independent = intro.play(example["INTRO"])
+                    run = morph.play(changing)
+                    wait(name + " reaches intermediate position", lambda: .35 < item(morph).opacity() < .6)
+                    def position():
+                        return (item(morph).opacity(), background.property("radius"), background.property("color").name())
+                    before = position()
+                    serial = node(morph)._active_serial
+                    if update == "theme":
+                        app.set_theme(Theme(accent="#874bb5", accent_text="#ffffff", radius=5, opacity=.9))
+                    elif update == "replace":
+                        morph.set_style(accent="#874bb5", accent_text="#ffffff", radius=4, opacity=.65)
+                    else:
+                        morph.set_style()
+                    base = node(morph).appearance
+                    check(name + " keeps run and current track position", run.running and
+                          node(morph)._active is run and node(morph)._active_serial == serial and position() == before)
+                    check(name + " updates unanimated text immediately",
+                          item(morph).property("contentItem").property("color").name() == base["accent_text"])
+                    check(name + " unrelated target still running", independent.running)
+                    wait(name + " continues progressing", lambda: item(morph).opacity() > before[0] + .04)
+                    if ending == "stop":
+                        run.stop()
+                        check(name + " explicit stop state", run.state == "stopped")
+                    else:
+                        wait(name + " normal completion", lambda: run.state == "completed")
+                    check(name + " restores latest overlapping base", item(morph).opacity() == base["opacity"] and
+                          background.property("radius") == base["radius"] and
+                          background.property("color").name() == base["accent"])
+                    check(name + " unrelated playback unaffected", independent.running)
+                    independent.stop()
+
+            app.set_theme("light")
+            morph.set_style()
+            run = morph.play(Timeline(Keyframe(0, opacity=.3), Keyframe(600, opacity=.8)))
+            before = item(morph).opacity()
             morph.set_style(accent="#874bb5", radius=4)
-            check("local update stops and applies", run.state == "style_changed" and
-                  background.property("color").name() == "#874bb5" and background.property("radius") == 4)
-            run = morph.play(example["MORPH"])
+            check("non-overlapping local tokens apply during opacity track", run.running and
+                  item(morph).opacity() == before and background.property("color").name() == "#874bb5" and
+                  background.property("radius") == 4)
             app.set_theme("dark")
-            check("theme update stops and keeps local", run.state == "theme_changed" and
-                  background.property("color").name() == "#874bb5" and morph.style["radius"] == 4)
-            run = morph.play(example["MORPH"])
+            check("non-overlapping theme text applies with local precedence", run.running and
+                  item(morph).property("contentItem").property("color").name() == app.resolved_theme["accent_text"] and
+                  background.property("color").name() == "#874bb5")
             morph.set_style()
-            check("clear style stops and restores latest theme", run.state == "style_changed" and
+            check("non-overlapping clear updates fill immediately", run.running and
                   background.property("color").name() == app.resolved_theme["accent"])
-            independent = intro.play(example["INTRO"])
-            morph.set_style(radius=3)
-            check("other widget style leaves run active", independent.running)
-            independent.stop()
-            morph.set_style()
+            wait("non-overlapping updates permit completion", lambda: run.state == "completed")
 
             app.set_theme("system")
-            run = intro.play(example["INTRO"])
+            run = morph.play(Timeline(Keyframe(0, accent="#000000"), Keyframe(1100, accent="#ffffff")))
+            before = background.property("color").name()
             scheme = rt.hints.colorScheme()
             changed = Qt.ColorScheme.Light if scheme == Qt.ColorScheme.Dark else Qt.ColorScheme.Dark
             rt.hints.setColorScheme(changed)
-            wait("System notification cancels active run", lambda: run.state == "theme_changed")
-            run = intro.play(example["INTRO"])
+            check("System scheme actually resolves new palette", app.resolved_theme ==
+                  _resolve("light" if changed == Qt.ColorScheme.Light else "dark"))
+            check("System notification preserves active color track", run.running and
+                  background.property("color").name() == before)
+            check("System updates unanimated text", item(morph).property("contentItem").property("color").name() ==
+                  app.resolved_theme["accent_text"])
             with warnings.catch_warnings(record=True) as reported:
                 warnings.simplefilter("always", RuntimeWarning)
                 rt.system_changed(Qt.ColorScheme.Unknown)
             check("Unknown System retains palette and run", run.running and len(reported) == 1)
             run.stop()
+            check("System stop restores newest palette color", background.property("color").name() == app.resolved_theme["accent"])
             app.set_theme("light")
             rt.hints.unsetColorScheme()
             # Appended controls and all advertised widget kinds use their own host.
-            dynamic = app._window.add(Label("Dynamic animated Label", style=dict(panel="#000000")))
+            dynamic = app._window.add(Label("Dynamic animated Label"))
             QTest.qWait(50)
             run = dynamic.play(Timeline(Keyframe(0, foreground="#000000", panel="#ffffff", scale=.9, radius=0),
                                         Keyframe(400, foreground="#ffffff", panel="#000000", scale=1, radius=20)))
             check("dynamic host identity", item(dynamic).objectName() == node(dynamic).nodeId)
             wait("Label completion", lambda: run.state == "completed")
             check("Label restores style", item(dynamic).property("color").name() == app.resolved_theme["foreground"])
+            run = dynamic.play(Timeline(Keyframe(0, foreground="#000000"), Keyframe(600, foreground="#ffffff")))
+            dynamic.set_style(foreground="#123456", opacity=.7, panel="#eaf5f2")
+            check("Label overlapping color track and unowned opacity", run.running and
+                  item(dynamic).property("color").name() == "#000000" and item(dynamic).opacity() == .7)
+            dynamic.set_style()
+            app.set_theme("dark")
+            check("Label clear/theme keeps color and updates opacity", run.running and
+                  item(dynamic).opacity() == app.resolved_theme["opacity"])
+            wait("Label completes into latest theme", lambda: run.state == "completed")
+            check("Label latest foreground", item(dynamic).property("color").name() == app.resolved_theme["foreground"])
             window_run = app._window.play(Timeline(Keyframe(0, background="#000000", opacity=.9),
                                                   Keyframe(350, background="#ffffff", opacity=1)))
             wait("Window completion", lambda: window_run.state == "completed")
             check("Window restoration", rt.window.color().name() == app.resolved_theme["background"])
+            window_run = app._window.play(Timeline(Keyframe(0, background="#000000"), Keyframe(600, background="#ffffff")))
+            app.set_theme(Theme(background="#eaf5f2", opacity=.95))
+            check("Window theme keeps background track and updates opacity", window_run.running and
+                  rt.window.color().name() == "#000000" and rt.window.opacity() == .95)
+            app._window.set_style(background="#123456", opacity=.9)
+            check("Window local overlap/non-overlap", window_run.running and
+                  rt.window.color().name() == "#000000" and rt.window.opacity() == .9)
+            app._window.set_style()
+            window_run.stop()
+            check("Window clear then stop restores latest theme", rt.window.color().name() == "#eaf5f2" and
+                  rt.window.opacity() == .95)
             app.set_theme("light")
 
             errors = []
@@ -255,15 +333,33 @@ def main(output):
             check("worker controls rejected without mutation", len(errors) == 3 and run.running)
             run.stop()
 
-            # Exercise real Python example callbacks via actual Qt mouse events.
-            for text, target in (("Replay fade / scale", intro), ("Replay color / corners", morph)):
+            # Every shipped preset must actually animate, replay and survive
+            # theme/local replace/clear through its visible Python callbacks.
+            check("six different named presets", len(example["PRESETS"]) >= 6)
+            for name, caption, timeline, kind in example["PRESETS"]:
+                target = next(n.value for n in rt.nodes if type(n.value) is kind and
+                              getattr(n.value, "text", None) == caption)
+                text = "Replay " + name
                 for _ in range(8):
                     click(text)
                     check("repeated replay click " + text, node(target)._active is not None and node(target)._active.running)
+                run = node(target)._active
+                host = node(target)._animation_host
+                initial = {track["name"]: host.value(track["name"], 0)
+                           for track in timeline._plan(kind.__name__, node(target).appearance)["tracks"]}
+                wait("preset progresses " + name, lambda: run.running and any(
+                    host.value(prop, 0) != value for prop, value in initial.items()))
+                click("Dark")
+                check("demo theme keeps preset " + name, run.running and node(target)._active is run)
+                click("Local purple")
+                check("demo local replace keeps preset " + name, run.running and node(target)._active is run)
+                click("Clear local")
+                check("demo local clear keeps preset " + name, run.running and node(target)._active is run)
                 click("Restart last")
                 check("example Restart", node(target)._active is not None)
                 click("Stop all")
                 check("example Stop", node(target)._active is None)
+                click("Light")
             for text in (intro.text, morph.text):
                 click(text)
                 check("sample itself replays " + text, node(button(text))._active is not None)
@@ -273,25 +369,38 @@ def main(output):
             wait("all replaced/stopped objects destroyed", lambda: all(
                 not n._animation_host.findChildren(QObject, "animation-run")
                 for n in rt.nodes if n._animation_host is not None))
-            click("Replay color / corners")
+            click("Replay Color / corners")
             run = node(morph)._active
+            other = intro.play(example["INTRO"])
             click("Dark")
-            check("theme callback during animation", run.state == "theme_changed" and app.theme == "dark")
-            click("Replay color / corners")
-            run = node(morph)._active
+            check("theme callback during two animations", run.running and other.running and app.theme == "dark")
             click("Local purple")
-            check("style callback during animation", run.state == "style_changed")
+            check("style callback during two animations", run.running and other.running)
+            capture("dark-local-active")
             click("Clear local")
+            check("clear callback during two animations", run.running and other.running)
             click("Light")
+            check("theme switch back keeps both animations", run.running and other.running)
+            click("Stop all")
+            other.stop()
+            wait("Stop releases all sample runs", lambda: node(morph)._active is None)
             capture("restored")
             rt.window.setWidth(320)
             rt.window.setHeight(300)
             QTest.qWait(80)
-            click("Replay fade / scale")
+            viewport = rt.window.findChild(QObject, "viewport")
+            QTest.wheelEvent(rt.window, QPoint(30, 40), QPoint(0, -480))
+            QTest.qWait(100)
+            check("animation studio wheel scroll", viewport.property("contentY") > 0)
+            click("Replay Fade / scale")
             check("resized replay remains responsive", node(intro)._active is not None)
             capture("narrow-active")
-            rt.window.setWidth(760)
-            rt.window.setHeight(720)
+            click("Dark")
+            click("Local purple")
+            click("Clear local")
+            check("resized theme/local controls preserve run", node(intro)._active is not None)
+            rt.window.setWidth(800)
+            rt.window.setHeight(820)
             QTest.qWait(50)
             final_runs = [intro.play(example["INTRO"]), morph.play(example["MORPH"]),
                           dynamic.play(Timeline(Keyframe(0, opacity=.2), Keyframe(900, opacity=1)))]

@@ -91,10 +91,11 @@ of theme tokens. Hover/pressed overlays and the focus outline are internal
 feedback, with no public interaction-state tokens in this version.
 
 The experimental [keyframe API](animations.md) adds a temporary appearance
-overlay. A valid theme switch stops every active animation before applying its
-palette; a valid local style replacement/clear stops that widget's animation.
-Invalid updates retain active playback. Completion/stop restores normal theme
-and local-style bindings. Animation never changes authored theme/style tokens.
+overlay. Theme switches (including System), local replacement and clear keep
+all active tracks running at their current position. Unanimated properties update
+immediately; animated properties resolve to the latest theme/local base only
+at completion or explicit stop. Invalid updates retain both base and playback.
+Animation never changes authored theme/style tokens.
 
 Theme/style validation finishes before mutation or notification. A failed load
 or update raises an error and preserves the previous appearance and local styles.

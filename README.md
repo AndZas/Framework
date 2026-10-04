@@ -78,9 +78,10 @@ local Button override. The ordinary `run.cmd` remains the core example.
 The [experimental animation API](docs/animations.md) supports fade/scale,
 corners and selected colors on existing controls, with Window opacity/background.
 Run `./run-animations.cmd` or
-`./.venv-framework/Scripts/python.exe examples/animations.py` to replay two
+`./.venv-framework/Scripts/python.exe examples/animations.py` to replay six
 keyframe samples, stop/restart, and switch themes/local styles during playback.
-Completion/stop restores the base; valid theme/style updates stop affected runs.
+Theme/style updates keep tracks running and update other properties immediately.
+Completion or explicit stop restores the latest theme/local base.
 There is no Python callback per rendered frame.
 
 Children have one owner. Invalid types, duplicate ownership and cycles raise

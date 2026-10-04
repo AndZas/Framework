@@ -29,4 +29,4 @@ In progress:
 
 - [TASK-0011: Implement a first Python keyframe animation API](in-progress/TASK-0011-keyframe-animations.md)
 
-TASK-0011's implementation is complete with automated Windows evidence; it stays in progress for owner review, including physical replay and perceived motion checks. TASK-0010's production themes are owner-reviewed and merged. Exact public names remain experimental in version 0.x. The selected foundation, layout and theme contracts remain ADR-0001, ADR-0002 and ADR-0003.
+TASK-0011's owner review follow-up adds continuing animations through theme/local updates and six replayable presets. It stays in progress for owner review, including physical replay and perceived motion checks. TASK-0010's production themes are owner-reviewed and merged. Exact public names remain experimental in version 0.x. The selected foundation, layout and theme contracts remain ADR-0001, ADR-0002 and ADR-0003.

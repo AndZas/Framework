@@ -83,7 +83,7 @@ def test_prelaunch_rejection():
             widget.play(None)
 
 
-def test_qt_playback_and_example(tmp_path):
+def test_qt_playback_layered_updates_and_six_presets(tmp_path):
     result = subprocess.run([sys.executable, str(Path(__file__).with_name("animation_probe.py")), str(tmp_path)],
                             capture_output=True, text=True, timeout=75)
     assert result.returncode == 0, result.stdout + result.stderr

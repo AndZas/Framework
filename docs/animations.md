@@ -51,7 +51,10 @@ If its first point is later than zero, an implicit zero point snapshots the
 resolved theme plus local style at playback start; scale's base is always 1.
 An explicit point at zero applies immediately and deterministically. Each track
 holds its last value until the whole timeline's last timestamp. Then all animated
-properties restore their base appearance. In the snippet, opacity reaches 1 at
+properties resolve to the **latest** theme plus local style, including changes
+made during playback. The initial snapshot defines the track's starting point
+only; theme/style changes do not rebase or restart an existing track. In the
+snippet, opacity reaches 1 at
 180 ms and holds until 420 ms; radius interpolates from its styled base at zero
 to 18 at 420 ms.
 
@@ -92,8 +95,8 @@ stopped or replaced run while the target remains live. After close/destruction
 it raises AnimationError. A detached handle's stop is a safe no-op. Handles
 retain a descriptor and weak target reference, with no Qt objects.
 
-`state` is `running` during playback, then `completed`, `stopped`, `replaced`,
-`theme_changed`, `style_changed` or `closed`. `running` equals
+`state` is `running` during playback, then `completed`, `stopped`, `replaced`
+or `closed`. Theme/style updates leave it `running`. `running` equals
 `state == "running"`. No pause/resume, seek, loops, completion callbacks,
 persistent final-value mode or public Qt objects are offered. Qt sends one
 completion notification per run. Completion/stop/replacement stops and schedules
@@ -110,17 +113,24 @@ controls raise RuntimeError before mutation, like other live APIs.
 ## Themes and local styles
 
 Animation is a **temporary overlay**, without changing `widget.style` or theme
-values. Completion and stop restore theme plus local style bindings. A valid
-`widget.set_style(...)`, including clear or a repeated value, stops that widget's
-entire run with `style_changed` before applying the replacement. Other widgets
-keep running. A valid `app.set_theme(...)`, including reselecting the same theme,
-stops all active runs with `theme_changed`, then applies the theme while retaining
-local overrides. A known System scheme notification follows this rule. Invalid
-style/theme changes preserve active runs; an Unknown System notification retains
-the previous palette and playback.
+values. `app.set_theme(...)`, known System scheme notifications and
+`widget.set_style(...)` (including replacement, clear or repeated values) update
+the base while **all active runs continue at their current play position**.
+Local overrides retain precedence over the selected theme.
+
+Properties without a track update immediately. Properties owned by a track
+keep displaying their animation, even when the update changes the same color,
+radius or opacity token. Completion or explicit `stop()` releases the overlay
+and resolves to the **latest** theme/local values, never the old base snapshot.
+Clearing local style during playback makes the latest theme the restoration
+base. An update to one widget never affects another widget's playback.
+Invalid updates preserve both base and playback; an Unknown System notification
+retains the previous palette and run. Explicit play/restart still replaces the
+previous run on the same target.
 
 A Button `accent` track temporarily displays a solid fill even with a base
-gradient. Stop/completion restores the gradient. Other property tracks do not
+gradient. Stop/completion restores the latest gradient, including one changed
+during playback. Other property tracks do not
 disable it. Hover/pressed feedback and focus outlines remain Qt Quick control
 feedback; no new interaction-state styling policy is introduced.
 
@@ -140,16 +150,36 @@ If the venv is absent, run `./setup.cmd` first. The launcher locates the reposit
 from its own directory and works with another current directory. It needs no
 global package installation or application-authored QML.
 
-The example demonstrates fade/scale and color/corner keyframes. Click either
-sample or its Replay repeatedly. Stop all restores the base, and Restart last
-replays retained descriptions. Change Light/Dark/System during playback; try
-Local purple and Clear local. Resize and scroll, then repeat the actions.
+The studio presents six named presets with independent Replay buttons:
+
+| Preset | Effect | Duration |
+| --- | --- | --- |
+| Fade / scale | Multistage entrance, dim/shrink and return | 3500 ms |
+| Color / corners | Blue → purple → teal → amber with corner morphing | 4200 ms |
+| Fade only | Whole Button fades out and back | 3000 ms |
+| Scale pulse | Two shrink/return pulses without relayout | 3600 ms |
+| Corner sweep | Square → rounded → square corners | 4000 ms |
+| Text / panel | Label text and surface colors change together | 4000 ms |
+
+Samples appear on the left and their Replay buttons on the right. Button samples
+also replay when clicked. The Label uses its Replay button. Run several together.
+Controls above the samples switch Light/Dark/System and apply Local purple or
+Clear local to **all six samples**. Purple overrides Button
+accent/accent_text/radius/gradient or Label foreground/panel/radius; control
+buttons keep the app theme.
+
+For Fade only, purple fill/radius appears immediately while opacity continues.
+For Color / corners, the animated fill/radius continue through the purple update;
+Stop or completion reveals the latest local purple or theme values. Text / panel
+behaves the same for animated Label colors. Clear local resumes inheritance as
+the base while the tracks continue. Stop all restores the latest base, and Restart
+last explicitly replays retained descriptions from zero. Resize/scroll and repeat.
 
 ```powershell
 .\.venv-framework\Scripts\python.exe -m pytest tests/test_animation.py -q
-.\.venv-framework\Scripts\python.exe tests\animation_probe.py evidence\TASK-0011
+.\.venv-framework\Scripts\python.exe tests\animation_probe.py evidence\TASK-0011\owner-follow-up
 .\.venv-framework\Scripts\python.exe -m pytest -q
-.\tests\animation_launch_probe.ps1
+.\tests\animation_launch_probe.ps1 -Output evidence/TASK-0011/owner-follow-up/launch
 ```
 
 The probe launches the actual example with synthetic QtTest input. It relates

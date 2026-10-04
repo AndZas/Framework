@@ -139,6 +139,10 @@ do not implement a Python per-frame timer or move drawing out of Qt Quick.
 
 ## Implementation report (2026-10-04)
 
+This initial report records the first implementation. Its theme/style cancellation
+rule and two-sample studio are superseded by the owner follow-up and results below.
+The earlier verification evidence is retained as historical evidence.
+
 Continued the existing `task/TASK-0011-keyframe-animations` branch from
 specification commit `d720e52`. Startup working tree was clean. `git fetch origin`
 and `git merge --ff-only origin/task/TASK-0011-keyframe-animations` confirmed it
@@ -358,3 +362,112 @@ the implementation ID without rewriting history. Final handoff verifies the
 report commit's push and clean working tree. Ignored probe stdout/stderr logs
 remain local; final standalone probe stderr was empty. No uncommitted scoped
 source, test, doc or evidence work remains after the handoff.
+
+### Owner review follow-up results (2026-10-04)
+
+Continued the existing `task/TASK-0011-keyframe-animations` at owner-follow-up
+specification commit `3d23707`, with a clean working tree. Fetched origin and
+fast-forwarded the named branch; it was already up to date. Read the follow-up
+before changing code. The task stays in progress for owner review.
+
+**Layered theme/style behavior.** Removed the implicit cancellations from
+`_Styled.set_style` and `Runtime.apply_theme`. The existing QML overlay already
+keeps animated values separate from resolved appearance bindings. Theme changes,
+known System notifications, and local-style replacement/clear now update only
+the base. Unowned properties change immediately; owned tracks continue at the
+same play position. Completion and explicit stop release the overlay and expose
+the latest theme plus latest local overrides, including clears. An implicit
+zero-point snapshot remains the track's starting value; it is not reapplied on
+updates. An explicit restart captures the new base and returns a new handle.
+Replacement, stop and close retain their existing semantics. Theme/style changes
+no longer produce terminal `theme_changed` or `style_changed` states.
+
+Qt Quick continues to own interpolation/timing; no Python frame timer, new
+renderer, dependency or QML animation algorithm was added. Validation failures
+still preserve both base and playback. Accent ownership continues to mask a
+base gradient; release now restores even gradient stops replaced during playback.
+
+**Six presets.** The studio now has named sample/Replay pairs for Fade / scale
+(3500 ms, multistage opacity and scale), Color / corners (4200 ms, three color
+transitions plus radius), Fade only (3000 ms, opacity), Scale pulse (3600 ms,
+two shrink/return pulses), Corner sweep (4000 ms, square/rounded/square), and
+Text / panel (4000 ms, paired Label text/surface colors). Their different tracks
+and shapes make them visibly different effects rather than timing variations.
+All five Button samples also replay themselves; the Label uses its Replay button.
+Themes, Local purple/Clear local, Stop all and Restart last are above the samples
+in the existing flow view. All six samples receive the purple override/clear;
+the control buttons retain the app theme. Purple explicitly uses white sample
+text for readability in Dark. Longer durations allow theme/local interaction.
+
+**Regression coverage.** The visible probe checks six combinations of
+theme/local replace/local clear with normal completion or explicit stop. Each
+checks animated opacity/radius/accent at an intermediate position, synchronous
+position and active-handle/serial preservation through the update, subsequent
+progress, immediate unanimated text-color change, latest-base restoration, and
+unaffected playback on another target. Additional checks cover non-overlapping
+local fill/radius changes during an opacity-only track, theme text inheritance,
+clear, implicit-zero preservation and restart's latest snapshot, latest actual
+QML GradientStop colors, System palette changes, Unknown notifications, and
+Label/Window overlapping color plus unanimated opacity behavior.
+
+The example probe clicks each of the six Replay controls eight times, observes
+actual Qt values change for every preset, and uses Dark, Local purple, Clear local,
+Restart last and Stop all while it runs. It tests two concurrent targets during
+theme/local updates, resizes to 320x300, sends wheel input, replays and uses the
+theme/local controls while narrow, then closes with animations active and verifies
+host destruction, target detachment and safe stale handles. Assertions compare
+synchronous positions and wait for progress/state with generous timeouts; no
+tight frame deadlines are assumed.
+
+**Windows launch and verification.** Existing `.venv-framework`, Windows 11
+build 26200, Python 3.13.9 AMD64, PySide6/Qt 6.11.2, Direct3D11, Window DPR 1.0.
+No global install. Exact owner launch remains:
+
+```powershell
+.\run-animations.cmd
+# Equivalent:
+.\.venv-framework\Scripts\python.exe examples\animations.py
+```
+
+Commands run from the repository:
+
+```powershell
+git fetch origin
+git merge --ff-only origin/task/TASK-0011-keyframe-animations
+.\.venv-framework\Scripts\python.exe -m pytest tests/test_animation.py -q
+.\.venv-framework\Scripts\python.exe -m pytest -q
+.\.venv-framework\Scripts\python.exe tests/animation_probe.py evidence/TASK-0011/owner-follow-up
+.\tests\animation_launch_probe.ps1 -Output evidence/TASK-0011/owner-follow-up/launch
+git diff --check
+```
+
+Final focused suite: **39 passed in 18.10 s**. Final full suite:
+**88 passed in 62.62 s**, including all existing theme, model, callback, keyboard,
+dynamic identity and scrollbar/rapid-click regressions. Expanded visible probe:
+**223 checks**, no failures, Qt messages or QML errors; standalone probe stderr
+was empty. `git diff --check` passed. Directly inspected fresh base, active samples,
+Dark/local-active and narrow-active captures: all six sample/Replay pairs are
+visible at 800x820, control/status text remains readable, animated properties
+continue over the updated base, and the narrow view wraps and scrolls.
+Follow-up implementation commit ID is recorded below after its push.
+New scene/launch evidence is under `evidence/TASK-0011/owner-follow-up/`; earlier
+task evidence was preserved. `run.cmd` remains unchanged. Both ordinary and new
+studio launchers were separately opened from Temp with visible native windows,
+then closed normally with exit 0 and empty stderr.
+
+**Coverage limits.** These new interactions are synthetic QtTest, not physical
+mouse use. The task's follow-up records the owner's prior basic playback
+confirmation; Codex does not claim owner approval or physical testing of the new
+presets. System changes use Qt's application-only override and reset it afterward;
+no real OS appearance transition was repeated. Owner should replay all six with
+physical clicks, update themes/local styles during motion, test Stop/finish
+restoration and judge perceived motion/readability on their display. Alternate
+DPI/GPU/backends, long runs, accessibility, installed-wheel/executable deployment
+and non-Windows targets remain unverified here. Existing API/property limitations
+remain; no new blocker was observed for the tested Windows configuration.
+
+Changed scoped files: `src/pyui_framework/_model.py`, `_runtime.py`,
+`examples/animations.py`, `tests/animation_probe.py`, `tests/test_animation.py`,
+`docs/animations.md`, `docs/themes.md`, `README.md`, `tasks/README.md`, this report
+and new follow-up evidence. Branch remains `task/TASK-0011-keyframe-animations`.
+No main change, merge, move to Done, PR creation or release.
