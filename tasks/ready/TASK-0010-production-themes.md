@@ -1,9 +1,9 @@
 # TASK-0010: Implement production theme support
 
-**Status:** Ready  
-**Type:** Implementation  
-**Depends on:** TASK-0007, TASK-0008, TASK-0009; ADR-0003  
-**Likely files:** `src/pyui_framework/`, `tests/`, `examples/`, `README.md`, package resource configuration  
+**Status:** Ready
+**Type:** Implementation
+**Depends on:** TASK-0007, TASK-0008, TASK-0009; ADR-0003
+**Likely files:** `src/pyui_framework/`, `tests/`, `examples/`, `README.md`, package resource configuration
 **Branch:** `task/TASK-0010-production-themes`
 
 ## Goal

@@ -1,7 +1,7 @@
 # ADR-0003: Use one semantic theme model with CSS-like and Python authoring
 
-**Status:** Accepted  
-**Date:** 2026-10-04  
+**Status:** Accepted
+**Date:** 2026-10-04
 **Decision owners:** Project owner
 
 ## Context
