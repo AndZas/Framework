@@ -5,6 +5,7 @@ from PySide6.QtCore import QObject, Property, Signal, Slot
 from PySide6.QtWidgets import QFileDialog, QMessageBox
 
 from .runner import ChildRunner
+from .docs import DocsController
 
 
 STARTER = '''from pyui_framework import App, Button, Label, Window
@@ -38,6 +39,7 @@ class EditorController(QObject):
         self._closing = False
         self._can_close = False
         self.runner = ChildRunner(self)
+        self.docs = DocsController(repository, self)
         self.runner.output.connect(self._append_output)
         self.runner.statusChanged.connect(self._status_output)
         self.runner.idle.connect(self._idle)

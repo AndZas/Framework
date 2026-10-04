@@ -18,6 +18,11 @@ for what the framework currently supports.
 | Open / Ctrl+O | Open a Python file as UTF-8 (also accepts a UTF-8 BOM). |
 | Save / Ctrl+S | Save as UTF-8 to the active file, or `.playground/scratch.py` for the initial buffer. |
 | Save As / Ctrl+Shift+S | Select a file and make it the active source. |
+| Python source / API Docs tabs | Switch between the source buffer and formatted API reference in the same window. Output and Run/Stop remain available. |
+| Reload (API Docs) | Reread this checkout's `docs/api.md`, including changes made since startup. |
+| Find field / Ctrl+F (API Docs) | Case-insensitive literal search in the rendered document, including code and table cells. The current match is selected and scrolled into view. |
+| Next / Enter / F3; Previous / Shift+F3 | Navigate matches, wrapping at either end. |
+| Clear / Esc (API Docs) | Clear the query and its selection. |
 
 An asterisk marks unsaved edits. Open and closing the editor offer Save,
 Discard, or Cancel for unsaved text. A new starter asks before overwriting an
@@ -25,6 +30,23 @@ existing scratch file. To resume an earlier experiment, use Open. Personal
 scratch files under the root `.playground/` directory are ignored by Git.
 Save As can use a folder outside the repository; paths containing spaces work.
 Tab inserts four spaces; the editor provides ordinary multi-line text editing.
+
+API Docs reads the canonical `docs/api.md` at startup, resolving it from the
+repository containing the Playground rather than the process working directory
+or the active Python file. There is no generated or separately maintained copy.
+Qt Quick renders Markdown headings, lists, tables, inline code, fenced code,
+and links. The pane has its own vertical and horizontal scrolling: prose wraps
+as the window resizes, while code indentation and long code lines are preserved.
+Drag the divider above Output to give either panel more space.
+
+The viewer is read-only. Search and Reload leave the Python buffer, unsaved
+state, and child application alone. Reload keeps the query and selects its first
+match in the newly loaded document. A missing, unreadable, or invalid UTF-8 file
+produces an in-pane error showing the source path; restore the file/access and
+press Reload to retry. Run/Open/Save remain usable during a documentation error.
+Internal heading links navigate within the pane. Other links show their target
+in the pane for reference; the viewer does not open files or browse external
+sites. Reload is explicit; the pane does not watch the document for changes.
 
 The child uses the same Python executable as the editor and runs from the
 active source file's parent folder, so relative assets and imports resolve
@@ -43,7 +65,7 @@ is responsible for their lifetime; forced termination cannot guarantee its
 cleanup handlers run.
 
 This repository tool currently targets Windows. It has no syntax highlighting,
-completion, debugger, project navigation, API help pane, theme editor, or live
+completion, debugger, project navigation, theme editor, or live
 reload. Runs do not preserve application state. Execute your own trusted code:
 the child process isolates ordinary crashes and hangs but provides unrestricted
 Python file/system access. The public framework still owns one Window per App;

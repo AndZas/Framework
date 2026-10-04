@@ -1,6 +1,6 @@
 # TASK-0012: Build the API Playground editor and separate-process runner
 
-**Status:** Implementation complete; owner approved; merge pending
+**Status:** Done — owner approved and merged to `main`
 **Type:** Implementation — repository developer tool; no framework API change
 **Depends on:** TASK-0007, TASK-0010, TASK-0011; ADR-0001
 **Likely files:** `tools/api_playground/`, `run-playground.cmd`, `.gitignore`, `README.md`, focused files under `tests/`
@@ -250,8 +250,9 @@ Windows coverage; it does not extend platform or hardware support claims.
   on the same branch; its commit ID is included in the chat completion report.
 - The scoped branch is pushed to `origin`. No uncommitted task work remains
   after the handoff update; local scratch verification artifacts are ignored.
-- The owner approved the result after manual use. The architecture review found
-  no blocking issue. GitHub integration denied both review submission and merge
-  with `403 Resource not accessible by integration`; PR #10 remains open and
-  this task stays in `tasks/in-progress/` until the owner merges it. No release
-  or repository-setting change was made.
+- The owner approved the result after manual use, then merged PR #10 to `main`
+  from the authenticated GitHub browser session. The merged baseline is
+  `8b582b4` (`TASK-0012: add API Playground editor and separate-process runner`).
+  The GitHub integration returned `403 Resource not accessible by integration`
+  for PR creation/review/merge operations; the owner completed the merge in the
+  browser. No release or repository-setting change was made.

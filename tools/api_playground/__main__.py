@@ -19,6 +19,7 @@ def create_editor(app, repository=None):
     context = engine.rootContext()
     context.setContextProperty("editor", controller)
     context.setContextProperty("runner", controller.runner)
+    context.setContextProperty("apiDocs", controller.docs)
     context.setContextProperty("codeFont", QFontDatabase.systemFont(QFontDatabase.SystemFont.FixedFont))
     engine.load(str(Path(__file__).with_name("Main.qml")))
     if not engine.rootObjects():

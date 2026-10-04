@@ -56,34 +56,48 @@ ApplicationWindow {
             Layout.fillHeight: true
             orientation: Qt.Vertical
 
-            ScrollView {
+            ColumnLayout {
                 SplitView.fillHeight: true
-                SplitView.minimumHeight: 120
-                clip: true
-                TextArea {
-                    id: source
-                    objectName: "sourceEditor"
-                    text: editor.source
-                    onTextChanged: editor.source = text
-                    font.family: codeFont.family
-                    font.pointSize: 11
-                    textFormat: TextEdit.PlainText
-                    wrapMode: TextEdit.NoWrap
-                    selectByMouse: true
-                    persistentSelection: true
-                    color: "#23324d"
-                    background: Rectangle { color: "white"; border.color: "#c7d1e1" }
-                    Keys.onPressed: function(event) {
-                        if (event.key === Qt.Key_Tab && event.modifiers === Qt.NoModifier) {
-                            source.insert(source.cursorPosition, "    ")
-                            event.accepted = true
+                SplitView.minimumHeight: views.currentIndex === 1 ? 228 : 120
+                TabBar {
+                    id: views
+                    Layout.fillWidth: true
+                    TabButton { objectName: "sourceTab"; text: "Python source" }
+                    TabButton { objectName: "docsTab"; text: "API Docs" }
+                }
+                StackLayout {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    currentIndex: views.currentIndex
+                    ScrollView {
+                        clip: true
+                        TextArea {
+                            id: source
+                            objectName: "sourceEditor"
+                            text: editor.source
+                            onTextChanged: editor.source = text
+                            font.family: codeFont.family
+                            font.pointSize: 11
+                            textFormat: TextEdit.PlainText
+                            wrapMode: TextEdit.NoWrap
+                            selectByMouse: true
+                            persistentSelection: true
+                            color: "#23324d"
+                            background: Rectangle { color: "white"; border.color: "#c7d1e1" }
+                            Keys.onPressed: function(event) {
+                                if (event.key === Qt.Key_Tab && event.modifiers === Qt.NoModifier) {
+                                    source.insert(source.cursorPosition, "    ")
+                                    event.accepted = true
+                                }
+                            }
                         }
                     }
+                    ApiDocs {}
                 }
             }
 
             ColumnLayout {
-                SplitView.preferredHeight: 200
+                SplitView.preferredHeight: Math.min(200, window.height / 4)
                 SplitView.minimumHeight: 90
                 Label { text: "Output · " + runner.status; color: "#23324d" }
                 ScrollView {
