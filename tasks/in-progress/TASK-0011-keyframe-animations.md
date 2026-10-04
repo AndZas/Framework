@@ -277,6 +277,65 @@ Qt's existing color precision and theme contrast limitations remain. API choices
 are experimental pending owner review; no remaining implementation blocker was
 observed in the tested configuration.
 
+### Owner review follow-up (2026-10-04)
+
+The owner launched the example and confirmed basic playback, but found too few
+presets to evaluate the API. The owner also expects theme and local-style changes
+to update appearance without cancelling an unrelated animation. The current
+implementation intentionally cancels all runs on theme changes and cancels a
+widget's run on any local-style replace/clear; revise this behavior and example
+before final owner review.
+
+#### Playback during theme/style updates
+
+- A theme change, including a System scheme change, must not stop active runs.
+  Non-animated appearance properties update immediately to the new theme.
+- Replacing or clearing a widget-local style must not stop that widget's active
+  run. Updated base style values apply immediately to properties not currently
+  animated.
+- For a property owned by an active animation track, the track remains visible
+  and continues from its current play position. When it completes or the owner
+  explicitly stops it, the property resolves to the latest base value (after
+  the newest theme and local style changes), not a snapshot from before the run.
+  This layered rule applies equally when the animation track itself animates a
+  color/radius/opacity token changed by the new theme or local style.
+- Preserve the existing explicit `stop()` behavior and public handle lifecycle.
+  Theme/style changes are not an implicit stop. Starting another run on the
+  same target may continue to replace that target's prior run as documented.
+- Add deterministic tests and visible probes for theme and local-style replace
+  and clear during an active run, including an overlapping animated property and
+  a non-animated property. Verify latest-base restoration on both normal finish
+  and explicit stop, and verify an unrelated target's playback is unaffected.
+
+#### More owner-testable animation examples
+
+- Expand the studio to at least six named, visibly distinct, independently
+  replayable presets using the supported property types and easing. Cover
+  single-property and combined/multi-stage motion, numeric properties, and color
+  transitions where supported; avoid presenting six near-identical timings as
+  distinct examples.
+- Keep controls and status readable in the existing window flow/scroll view.
+  Each preset must be triggerable repeatedly by physical click, and it must be
+  clear which widget/property is being demonstrated.
+- Include theme and local purple/clear controls while one or more samples are
+  animating so the owner can verify continuity directly in the runnable app.
+- Update the example's introductory/status copy and `docs/animations.md` to
+  describe the layered update rule and list the available presets.
+
+#### Follow-up acceptance
+
+- Theme changes, System changes, local-style replacement and clear never cancel
+  active playback. Theme/style updates remain visible on unanimated properties;
+  animated properties continue and then restore the latest base value.
+- `stop()` restores the latest base values, including updates made after playback
+  began. Tests cover both overlapping and non-overlapping properties.
+- The runnable Windows studio contains at least six different replayable
+  animation presets and survives repeated clicks, resize, theme switching and
+  local style replace/clear while animations run.
+- Focused and full tests, Windows visible launch and the manual scenarios above
+  are recorded in a new report section. Keep this task in `tasks/in-progress/`
+  until owner review.
+
 ### Changed files and Git handoff
 
 - `src/pyui_framework/animation.py`, `__init__.py`, `_model.py`, `_runtime.py`;
