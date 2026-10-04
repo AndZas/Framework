@@ -1,6 +1,6 @@
 # TASK-0013: Add an API documentation pane to the Playground
 
-**Status:** Implementation complete; owner review pending
+**Status:** Done — owner approved after manual Windows review
 **Type:** Implementation — repository developer tool; no framework API change
 **Depends on:** TASK-0012 (merged to `main`); ADR-0001
 **Likely files:** `tools/api_playground/`, focused files under `tests/`, `tasks/`
@@ -151,7 +151,7 @@ claimed.
 
 ### Limitations and review handoff
 
-- Owner physical usability review, other Windows hardware/DPI, and Linux,
+- Other Windows hardware/DPI, and Linux,
   macOS, and Android remain unverified. Tests do not establish platform support.
 - Rendering the whole docs text item avoids the observed culling issue; very
   large future API documents have not been profiled. Current canonical content
@@ -161,8 +161,10 @@ claimed.
   remain outside scope.
 - Public API changes: none. `docs/api.md` needs no update for this task.
 - No acceptance blocker remains in the performed checks. Owner review is pending;
-  this task stays in progress and its PR must not be merged by the implementation
-  chat.
+  the owner reviewed the running editor and reported that the API Docs tab,
+  rendered reference, and search work correctly. The owner accepts the current
+  tab arrangement and prefers not to add a right-side panel to this small
+  developer tool at this stage.
 
 Git handoff: continued `task/TASK-0013-playground-api-docs-pane` at `15c9a60`,
 the existing published specification branch, without creating a duplicate.
@@ -172,12 +174,10 @@ origin branch. A report-only follow-up records this Git/PR handoff; its commit
 ID is available in the branch log and the implementation chat's completion
 message. No task changes remain uncommitted after that handoff push.
 
-PR URL: unavailable; no PR was created. GitHub search returned no existing PR
-for this head branch. Creation through the installed GitHub connector failed
-with HTTP 403, `Resource not accessible by integration` (`FORBIDDEN`). The
-`gh` CLI is not available on PATH, so CLI creation was unavailable as well.
-The branch remains pushed and reviewable at the
-[GitHub compare/create-PR page](https://github.com/AndZas/Framework/compare/main...task/TASK-0013-playground-api-docs-pane?expand=1).
-No PR could be attached because none exists. This is a PR-creation permission
-limitation, not a failed implementation check. No merge, branch-protection
-change, force-push, release, or move to Done was performed.
+PR: [#11](https://github.com/AndZas/Framework/pull/11), targeting `main`.
+GitHub currently reports the PR open and mergeable, with no combined CI status
+checks configured. The connector can read the PR but returned HTTP 403,
+`Resource not accessible by integration`, when submitting an approval review.
+The owner approved the result in the architecture chat after manual use. No
+framework/API change was made. Merge completion is recorded after the PR is
+merged.

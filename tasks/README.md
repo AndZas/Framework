@@ -26,6 +26,7 @@ Implementation branches, commits, pull requests, iterative review, and owner app
 - [TASK-0010: Implement production theme support](done/TASK-0010-production-themes.md)
 - [TASK-0011: Implement a first Python keyframe animation API](done/TASK-0011-keyframe-animations.md)
 - [TASK-0012: Build the API Playground editor and separate-process runner](done/TASK-0012-api-playground-foundation.md)
+- [TASK-0013: Add an API documentation pane to the Playground](done/TASK-0013-playground-api-docs-pane.md)
 
 ## Ready
 
@@ -33,6 +34,4 @@ No tasks are currently ready.
 
 ## In progress
 
-- [TASK-0013: Add an API documentation pane to the Playground](in-progress/TASK-0013-playground-api-docs-pane.md)
-
-The owner approved and merged TASK-0012 (PR #10) to `main`. The owner approved TASK-0009 after checking both application variants, merged TASK-0010 after reviewing production themes and the theme studio, and merged TASK-0011 after trying the animation examples. TASK-0008's hybrid theme prototype informed the accepted initial contract in [ADR-0003](../docs/architecture/decisions/ADR-0003-theme-model.md); production themes and the first keyframe animation API are implemented and recorded in [TASK-0010](done/TASK-0010-production-themes.md) and [TASK-0011](done/TASK-0011-keyframe-animations.md). Exact public names remain experimental while the package is version 0.x. The selected foundation, layout and theme contracts remain ADR-0001, ADR-0002 and ADR-0003.
+The owner approved and merged TASK-0012 (PR #10) to `main`, and reviewed TASK-0013 (PR #11) by running the editor and checking the API Docs tab and search. The owner approved the current tab-based layout. The owner approved TASK-0009 after checking both application variants, merged TASK-0010 after reviewing production themes and the theme studio, and merged TASK-0011 after trying the animation examples. TASK-0008's hybrid theme prototype informed the accepted initial contract in [ADR-0003](../docs/architecture/decisions/ADR-0003-theme-model.md); production themes and the first keyframe animation API are implemented and recorded in [TASK-0010](done/TASK-0010-production-themes.md) and [TASK-0011](done/TASK-0011-keyframe-animations.md). Exact public names remain experimental while the package is version 0.x. The selected foundation, layout and theme contracts remain ADR-0001, ADR-0002 and ADR-0003.
