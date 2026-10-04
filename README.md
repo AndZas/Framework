@@ -54,21 +54,9 @@ raise SystemExit(App(window).run())
 
 ## Experimental API
 
-| API | Behavior |
-| --- | --- |
-| `Window(title, *children, width=640, height=520)` | One window, vertical direct-child flow; minimum 280×260 |
-| `Label(text, heading=False)` | Wrapped text; `heading` is keyword-only |
-| `label.set_text(text)` | Update text, including from a callback |
-| `Button(text, on_click=callable)` | Keyword-only zero-argument Python callback |
-| `Row(*children)` | Horizontal group with equal available widths |
-| `Column(*children)` | Vertical group in insertion order |
-| `container.add(child)` | Append and return the child, before or after startup |
-| `App(window).run()` | Show, block until closed, return exit status; one run per App |
-| `App(window, theme="light")` / `app.set_theme(theme)` | Light, Dark, System or custom `Theme`; live appearance updates |
-| `Theme(name="Custom", **tokens)` / `Theme.load(path)` | Equivalent Python and CSS-inspired file authoring |
-| `Window/Label/Button(..., style={...})` / `widget.set_style(**tokens)` | Local override; replace or clear with an empty call |
-| `Timeline(Keyframe(ms, **values), ...)` / `widget.play(timeline)` | Validated temporary keyframes; Qt Quick performs playback |
-| `playback.stop()` / `playback.restart()` | Restore base or start a new run from zero |
+The complete reference for the implemented importable API—including public
+constructors, methods, properties, theme tokens, animation behavior, and current
+boundaries—is in [docs/api.md](docs/api.md).
 
 Production theme API, grammar, ranges, precedence, System behavior and limits
 are documented in [docs/themes.md](docs/themes.md). Run `./run-themes.cmd` after

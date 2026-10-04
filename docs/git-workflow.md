@@ -34,3 +34,9 @@ The Qt Quick showcase's prebuilt `QtQuickShowcase.dist/` folder is deliberately 
 ## Owner review
 
 The owner reviews the PR in the architecture chat, tests the runnable app when relevant, and gives explicit approval before merge. Review feedback stays on the same PR through any number of fix-and-review rounds. `main` should contain only reviewed, integrated work. Tags/releases are for deliberate versions, not ordinary task completion.
+
+## Public API documentation
+
+- `docs/api.md` is the canonical reference for the implemented, importable Python API. Keep it focused on public framework behavior; test procedures, prototype APIs, and private implementation details belong elsewhere.
+- Implementation reports identify whether a task adds, changes, or removes public API, and point out any documentation impact.
+- During owner review, the architecture chat updates `docs/api.md` on the same PR branch after the behavior is understood and before merge. Include that documentation change in the reviewed PR; do not merge a public API change with a stale reference.
