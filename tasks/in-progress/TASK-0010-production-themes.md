@@ -511,8 +511,12 @@ Qt-rendered surfaces, custom contrasting panels, transparency and Windows launch
 
 Changed files: `examples/themes.py`, new `examples/midnight.theme`,
 `docs/themes.md`, `tests/test_theme.py`, `tests/theme_review_probe.py`, this
-report and the new `midnight-surface` evidence. Commit IDs are recorded after
-committing and pushing this scoped follow-up. No merge or move to Done.
+report and the new `midnight-surface` evidence. Implementation commit:
+`91a7e105616159064b84f2b70cd759bb9f29d8a9`
+(`TASK-0010: blend Midnight demo labels with window surface`), pushed to origin
+on `task/TASK-0010-production-themes`. This report-only follow-up records the
+implementation ID; final handoff verifies the report push and clean working tree.
+No merge or move to Done.
 
 ### Git and review
 
