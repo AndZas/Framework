@@ -1,6 +1,6 @@
 # TASK-0013: Add an API documentation pane to the Playground
 
-**Status:** Done — owner approved after manual Windows review
+**Status:** Implementation complete; owner approved; merge pending
 **Type:** Implementation — repository developer tool; no framework API change
 **Depends on:** TASK-0012 (merged to `main`); ADR-0001
 **Likely files:** `tools/api_playground/`, focused files under `tests/`, `tasks/`
@@ -160,11 +160,11 @@ claimed.
   document editing, automatic file watching, generated docs, and theme editing
   remain outside scope.
 - Public API changes: none. `docs/api.md` needs no update for this task.
-- No acceptance blocker remains in the performed checks. Owner review is pending;
-  the owner reviewed the running editor and reported that the API Docs tab,
+- No acceptance blocker remains in the performed checks. The owner reviewed the
+  running editor and reported that the API Docs tab,
   rendered reference, and search work correctly. The owner accepts the current
   tab arrangement and prefers not to add a right-side panel to this small
-  developer tool at this stage.
+  developer tool at this stage. PR #11 is still open pending owner merge.
 
 Git handoff: continued `task/TASK-0013-playground-api-docs-pane` at `15c9a60`,
 the existing published specification branch, without creating a duplicate.
@@ -178,6 +178,7 @@ PR: [#11](https://github.com/AndZas/Framework/pull/11), targeting `main`.
 GitHub currently reports the PR open and mergeable, with no combined CI status
 checks configured. The connector can read the PR but returned HTTP 403,
 `Resource not accessible by integration`, when submitting an approval review.
-The owner approved the result in the architecture chat after manual use. No
-framework/API change was made. Merge completion is recorded after the PR is
-merged.
+The owner approved the result in the architecture chat after manual use. The
+connector also returned HTTP 403 when asked to merge; no direct push to `main`
+was attempted. Merge completion and moving this record to `done/` remain pending
+until the owner merges PR #11. No framework/API change was made.
