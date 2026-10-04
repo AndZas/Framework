@@ -238,8 +238,11 @@ unresolved blocker for the task's tested Windows theme contract.
 
 ### Git and review
 
-Task branch: `task/TASK-0010-production-themes`. Implementation commit ID is
-recorded in the report follow-up after creating the implementation commit.
-Scoped source, tests, docs, task move and evidence will be committed and pushed
-to that branch. The task stays in `tasks/in-progress/` with owner review pending;
-the architecture chat handles the explicitly approved PR/merge and completion.
+Task branch: `task/TASK-0010-production-themes`. Implementation commit:
+`1bd9797c74b1a2435fc504811e77af7d68732a36`
+(`TASK-0010: implement production themes and live local styles`), pushed to
+origin. This report-only follow-up records that ID; final handoff verifies its
+push and a clean working tree. Scoped source, tests, docs, task move and evidence
+are committed; ignored environments/logs remain local. The task stays in
+`tasks/in-progress/` with owner review pending; the architecture chat handles
+the explicitly approved PR/merge and completion. No task code was pushed to main.
