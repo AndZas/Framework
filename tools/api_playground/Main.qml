@@ -10,8 +10,21 @@ ApplicationWindow {
     height: 760
     minimumWidth: 560
     minimumHeight: 440
-    title: "API Playground — " + editor.fileLabel
+    title: "API Playground — " + (views.currentIndex === 2 ? themeEditor.fileLabel : editor.fileLabel)
     color: "#f1f4f9"
+
+    function openActiveFile() {
+        if (views.currentIndex === 2) themeEditor.openFile()
+        else editor.openFile()
+    }
+    function saveActiveFile() {
+        if (views.currentIndex === 2) themeEditor.save()
+        else editor.save()
+    }
+    function saveActiveFileAs() {
+        if (views.currentIndex === 2) themeEditor.saveAs()
+        else editor.saveAs()
+    }
 
     onClosing: function(close) {
         close.accepted = editor.canClose
@@ -26,9 +39,9 @@ ApplicationWindow {
 
     Shortcut { sequence: "F5"; enabled: !editor.closing; onActivated: editor.run() }
     Shortcut { sequence: "Shift+F5"; onActivated: runner.stop() }
-    Shortcut { sequences: [StandardKey.Open]; enabled: !editor.closing; onActivated: editor.openFile() }
-    Shortcut { sequences: [StandardKey.Save]; enabled: !editor.closing; onActivated: editor.save() }
-    Shortcut { sequence: "Ctrl+Shift+S"; enabled: !editor.closing; onActivated: editor.saveAs() }
+    Shortcut { sequences: [StandardKey.Open]; enabled: !editor.closing; onActivated: window.openActiveFile() }
+    Shortcut { sequences: [StandardKey.Save]; enabled: !editor.closing; onActivated: window.saveActiveFile() }
+    Shortcut { sequence: "Ctrl+Shift+S"; enabled: !editor.closing; onActivated: window.saveActiveFileAs() }
 
     ColumnLayout {
         anchors.fill: parent
@@ -39,14 +52,14 @@ ApplicationWindow {
         RowLayout {
             Button { objectName: "runButton"; text: "Run (F5)"; onClicked: editor.run() }
             Button { objectName: "stopButton"; text: "Stop"; enabled: runner.active; onClicked: runner.stop() }
-            Button { objectName: "openButton"; text: "Open"; onClicked: editor.openFile() }
-            Button { objectName: "saveButton"; text: "Save"; onClicked: editor.save() }
-            Button { objectName: "saveAsButton"; text: "Save As"; onClicked: editor.saveAs() }
+            Button { objectName: "openButton"; text: views.currentIndex === 2 ? "Open Theme" : "Open"; onClicked: window.openActiveFile() }
+            Button { objectName: "saveButton"; text: "Save"; onClicked: window.saveActiveFile() }
+            Button { objectName: "saveAsButton"; text: "Save As"; onClicked: window.saveActiveFileAs() }
             Item { Layout.fillWidth: true }
         }
         Label {
             Layout.fillWidth: true
-            text: editor.fileLabel
+            text: views.currentIndex === 2 ? themeEditor.fileLabel : editor.fileLabel
             elide: Text.ElideMiddle
             color: "#23324d"
         }
@@ -58,12 +71,13 @@ ApplicationWindow {
 
             ColumnLayout {
                 SplitView.fillHeight: true
-                SplitView.minimumHeight: views.currentIndex === 1 ? 228 : 120
+                SplitView.minimumHeight: views.currentIndex === 0 ? 120 : 228
                 TabBar {
                     id: views
                     Layout.fillWidth: true
-                    TabButton { objectName: "sourceTab"; text: "Python source" }
+                    TabButton { objectName: "sourceTab"; text: "Python source" + (editor.fileLabel.endsWith(" *") ? " *" : "") }
                     TabButton { objectName: "docsTab"; text: "API Docs" }
+                    TabButton { objectName: "themeTab"; text: "Theme" + (themeEditor.fileLabel.endsWith(" *") ? " *" : "") }
                 }
                 StackLayout {
                     Layout.fillWidth: true
@@ -93,6 +107,7 @@ ApplicationWindow {
                         }
                     }
                     ApiDocs {}
+                    ThemePane {}
                 }
             }
 

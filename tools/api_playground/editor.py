@@ -6,6 +6,7 @@ from PySide6.QtWidgets import QFileDialog, QMessageBox
 
 from .runner import ChildRunner
 from .docs import DocsController
+from .theme_editor import ThemeEditor
 
 
 STARTER = '''from pyui_framework import App, Button, Label, Window
@@ -35,11 +36,13 @@ class EditorController(QObject):
         self._source = STARTER
         # The untouched starter is recoverable on next launch; edits need a prompt.
         self._saved_source = STARTER
-        self._output = "Run saves the current buffer, then opens the app in a separate window.\n"
+        self._output = "Run saves the Python source, then opens the app in a separate window.\n"
         self._closing = False
         self._can_close = False
         self.runner = ChildRunner(self)
         self.docs = DocsController(repository, self)
+        self.theme = ThemeEditor(repository, self)
+        self.theme.output.connect(self._append_output)
         self.runner.output.connect(self._append_output)
         self.runner.statusChanged.connect(self._status_output)
         self.runner.idle.connect(self._idle)
@@ -176,8 +179,18 @@ class EditorController(QObject):
             self.runner.run(self.path)
 
     @Slot()
+    def previewTheme(self):
+        if self._closing or not self.theme.prepare_preview():
+            return
+        self._append_output("Preview Theme replaces the current child. Run (F5) relaunches Python source.\n")
+        self.runner.run(Path(__file__).with_name("theme_preview.py"),
+                        arguments=[str(self.theme.path)],
+                        working_directory=self.theme.path.parent,
+                        label=f"Preview Theme: {self.theme.path}")
+
+    @Slot()
     def requestClose(self):
-        if self._closing or not self._may_discard():
+        if self._closing or not self._may_discard() or not self.theme.may_discard():
             return
         self._closing = True
         self.closingChanged.emit()

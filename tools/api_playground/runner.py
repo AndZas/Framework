@@ -53,10 +53,13 @@ class ChildRunner(QObject):
         self._out_decoder = codecs.getincrementaldecoder("utf-8")("replace")
         self._err_decoder = codecs.getincrementaldecoder("utf-8")("replace")
 
-    def run(self, source):
+    def run(self, source, *, arguments=(), working_directory=None, label=None):
         if self._closing:
             return
-        self._pending = Path(source).resolve()
+        source = Path(source).resolve()
+        self._pending = (source, list(arguments),
+                         Path(working_directory).resolve() if working_directory else source.parent,
+                         label or f"Run: {source}")
         if self._active:
             self._begin_stop()
         else:
@@ -65,16 +68,16 @@ class ChildRunner(QObject):
     def _launch_pending(self):
         if self._active or self._pending is None or self._closing:
             return
-        source, self._pending = self._pending, None
+        (source, arguments, working_directory, label), self._pending = self._pending, None
         self._reset_decoders()
         self._stopping = False
         self._active = True
         self.activeChanged.emit()
-        self.process.setWorkingDirectory(str(source.parent))
+        self.process.setWorkingDirectory(str(working_directory))
         # QProcess receives program and arguments separately; no shell or quoting.
         self.process.setProgram(self._executable)
-        self.process.setArguments(["-u", str(source)])
-        self.output.emit(f"\n>>> Run: {source}\n")
+        self.process.setArguments(["-u", str(source), *arguments])
+        self.output.emit(f"\n>>> {label}\n")
         self._set_status("Starting…")
         self.process.start()
 

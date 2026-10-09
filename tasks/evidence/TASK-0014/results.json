@@ -1,0 +1,65 @@
+{
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.13.9 (tags/v3.13.9:8183fa5, Oct 14 2025, 14:09:13) [MSC v.1944 64 bit (AMD64)]",
+  "executable": "F:\\Files\\PythonProjects\\Framework\\.venv-framework\\Scripts\\python.exe",
+  "pyside": "6.11.2",
+  "qt": "6.11.2",
+  "editor_pid": 28560,
+  "input": "synthetic QtTest/QInputMethodEvent; file dialogs and questions stubbed; native windows enumerated via Win32",
+  "checks": [
+    "Theme tab, BOM Open and Validate Lagoon preserve dirty Python and active authored child",
+    "invalid Preview leaves running authored process and saved theme untouched",
+    "Save As default extension, Preview Save/Cancel, native separate window, asynchronous authored-to-preview replacement",
+    "tab switching retains both buffers and docs; Theme controls fit 560x440",
+    "reopen, modified Ctrl+S and Preview restart from the selected theme path",
+    "real sample captures reflect changed tokens and native opacity; synthetic clicks activate both gradient/solid buttons",
+    "Run from Theme replaces preview and saves/relaunches authored source",
+    "close Cancel at either dirty buffer retains both and child; Save both then responsive shutdown"
+  ],
+  "native_preview": {
+    "pid": 10936,
+    "title": "Theme preview — новая тема.theme",
+    "parent_none": true
+  },
+  "sample_lagoon": {
+    "pid": 28296,
+    "title": "Theme preview — lagoon.theme",
+    "visible": true,
+    "parent_none": true,
+    "tokens": {
+      "accent": "#126e67",
+      "accent_text": "#ffffff",
+      "background": "#eaf5f2",
+      "foreground": "#173b3a",
+      "gradient": [
+        "#126e67",
+        "#65b8a3"
+      ],
+      "opacity": 1.0,
+      "panel": "#d6ebe4",
+      "radius": 20.0
+    },
+    "clicks": 2
+  },
+  "sample_modified": {
+    "pid": 24268,
+    "title": "Theme preview — modified.theme",
+    "visible": true,
+    "parent_none": true,
+    "tokens": {
+      "accent": "#55377e",
+      "accent_text": "#ffffff",
+      "background": "#171827",
+      "foreground": "#eeedf8",
+      "gradient": [
+        "#55377e",
+        "#285b78"
+      ],
+      "opacity": 0.8,
+      "panel": "#303047",
+      "radius": 6.0
+    },
+    "clicks": 2
+  },
+  "event_loop_pulses": 476
+}
